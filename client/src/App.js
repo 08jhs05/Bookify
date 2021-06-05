@@ -1,11 +1,13 @@
-import logo from './logo.svg';
 import { useEffect, useState } from "react";
 import './App.css';
 import axios from "axios";
 
+import Expense from "../src/component/Expense"
 function App() {
 
   const  [fakedata, setData] = useState();
+  const [expenseData, setExpenseData] = useState("");
+  
 
   useEffect( () => {
     axios.get('/api').then( (res) => {
@@ -17,22 +19,24 @@ function App() {
     });
   }, []);
 
+  const handleSubmit = (data) => {
+    console.log("WHAT DATA DO I GET?", data);
+    setExpenseData(JSON.stringify(data))
+    axios.put('/api/expenses/', data)
+    .then((res) => {
+      setExpenseData(res.data)
+    })
+    .catch(err => console.log("error triggered", err));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {fakedata}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {fakedata}
+      <Expense onSubmit={handleSubmit}/>
+      <div>
+        {expenseData}
+      </div>
+      
     </div>
   );
 }
