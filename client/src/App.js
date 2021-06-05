@@ -5,9 +5,11 @@ import axios from "axios";
 
 function App() {
 
+  const  [fakedata, setData] = useState();
+
   useEffect( () => {
     axios.get('/api').then( (res) => {
-      console.log(res)
+      setData(res.data.deposits.day1);
     }).catch( (err) => {
       console.log(err)
     });
@@ -18,7 +20,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {fakedata}
         </p>
         <a
           className="App-link"
