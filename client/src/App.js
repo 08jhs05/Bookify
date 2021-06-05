@@ -9,7 +9,9 @@ function App() {
 
   useEffect( () => {
     axios.get('/api').then( (res) => {
-      setData(res.data.deposits.day1);
+      console.log(res.data[0]);
+      
+      setData(res.data[0].deposits.day1);
     }).catch( (err) => {
       console.log(err)
     });

@@ -1,4 +1,4 @@
-let userAccount = {
+let userAccount = [{
   deposits: {
     day1: 300,
     day3: 100
@@ -7,7 +7,7 @@ let userAccount = {
   withdrawals: {
     day2: 120
   }
-}
+}]
 
 var express = require('express');
 var router = express.Router();
