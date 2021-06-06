@@ -1,28 +1,41 @@
-import { useEffect, useState } from "react";
 import './App.css';
+
+// import React components, methods
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import Sidebar from './components/Sidebar/Sidebar';
+
+// import components
+import Sidebar from "./components/Sidebar/Sidebar";
+import Expense from './components/Expense';
+import Income from './components/Income';
 import Dashboard from './components/Dashboard';
+import New from './components/New';
 
 function App() {
 
-  const  [fakedata, setData] = useState();
-
-  useEffect( () => {
-    axios.get('/api').then( (res) => {
-      console.log(res.data[0]);
-      
-      setData(res.data[0].deposits.day1);
-    }).catch( (err) => {
-      console.log(err)
-    });
-  }, []);
+  useEffect( () => { }, []);
 
   return (
-    <div className="App">
-      <Sidebar />
-      <Dashboard />
-    </div>
+    <main className="App">
+      <Router>
+        <Sidebar />
+        <Switch>
+          <Route exact path="/">
+            <Dashboard />
+          </Route>
+          <Route path="/expenses">
+            <Expense />
+          </Route>
+          <Route path="/incomes">
+            <Income />
+          </Route>
+          <Route path="/new">
+            <New />
+          </Route>
+        </Switch>
+      </Router>
+    </main>
   );
 }
 

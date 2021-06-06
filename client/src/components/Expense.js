@@ -1,5 +1,7 @@
 export default function Expense() {
   return (
-    <div></div>
+    <section className="expense">
+      <div>Expenses Page.</div>
+    </section>
   );
 }
