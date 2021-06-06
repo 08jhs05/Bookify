@@ -14,8 +14,6 @@ import New from './components/New';
 
 function App() {
 
-  useEffect( () => { }, []);
-
   return (
     <main className="App">
       <Router>
