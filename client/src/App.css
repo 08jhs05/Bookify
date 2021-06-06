@@ -12,3 +12,12 @@
   width: 100px;
   height: 100px;
 }
+
+.sidebar__menu {
+  margin-top: 10rem;
+  background-color:white;
+}
+
+.nav_item {
+  margin-top: 1rem;
+}

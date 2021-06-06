@@ -8,18 +8,20 @@ export default function Sidebar() {
         src="/icons/logo.png"
         alt="logo icon"
       />
-      <nav className="sidebar__menu">
-        <Link className="Nav__link" to="/">Home</Link>
-      </nav>
-      <nav className="sidebar__menu">
-        <Link className="Nav__link" to="expenses">Expenses</Link>
-      </nav>
-      <nav className="sidebar__menu">
-        <Link className="Nav__link" to="incomes">Incomes</Link>
-      </nav>
-      <nav className="sidebar__menu">
-        <Link className="Nav__link" to="new">Create New Item</Link>
-      </nav>
+      <div className="sidebar__menu">
+        <nav className="nav_item">
+          <Link className="nav__link" to="/">Home</Link>
+        </nav>
+        <nav className="nav_item">
+          <Link className="nav__link" to="expenses">Expenses</Link>
+        </nav>
+        <nav className="nav_item">
+          <Link className="nav__link" to="incomes">Incomes</Link>
+        </nav>
+        <nav className="nav_item">
+          <Link className="nav__link" to="new">Create New Item</Link>
+        </nav>
+      </div>
     </section>
   );
 }
