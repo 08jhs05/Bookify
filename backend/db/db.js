@@ -130,7 +130,7 @@ Expense.insertMany(testExpense,
 /////////////////////////////////////////////////////////////////
 
 // READ
-// You will probably use the most for making charts so I will give a lot of examples for this
+// You will probably use the most for making charts so I will work on more examples for this
 // Lets return the deposit elements which have "subsidy" in category, even if it has multiple categories
 
 // Deposit.find(function(err, deposits){
