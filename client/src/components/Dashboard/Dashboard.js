@@ -1,6 +1,6 @@
-import Categories_dashboard from "./Categories_dashboard"
-import Graph_dashboard from "./Graph_dashboard"
-import Navbar_dashboard from "./Navbar_dashboard"
+import DashboardCategories from "./DashboardCategories"
+import DashboardGraph from "./DashboardGraph"
+import DashboardNavbar from "./DashboardNavbar"
 import ScanNewBtn from "./ScanNewBtn"
 import Summary from "./Summary"
 
@@ -10,7 +10,7 @@ export default function Dashboard(props) {
 
   return (
     <section className="dashboard">
-      <Navbar_dashboard />
+      <DashboardNavbar />
       <div className="dashboard_body">
         <div className="dashboard_body_left">
           <div className="dashboard_summary_section">
@@ -19,8 +19,8 @@ export default function Dashboard(props) {
             <Summary />
           </div>
           <div className="dashboard_data_section">
-            <Categories_dashboard />
-            <Graph_dashboard />
+            <DashboardCategories />
+            <DashboardGraph />
           </div>
         </div>
         <ScanNewBtn />

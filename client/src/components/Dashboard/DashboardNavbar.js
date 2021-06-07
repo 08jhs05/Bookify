@@ -1,4 +1,4 @@
-export default function Navbar_dashboard(props) {
+export default function DashboardNavbar(props) {
   return (
     <section className="navbar_dashboard">
       <div>I am Navbar component.</div>
