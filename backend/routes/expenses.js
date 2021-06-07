@@ -7,6 +7,7 @@ router.get("/", function(req, res, next) {
 
 router.put("/", function(req, res) {
   console.log(req.body);
+  res.json(req.body);
 })
 
 module.exports = router;

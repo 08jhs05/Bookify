@@ -11,7 +11,7 @@ export default function IncomeForm() {
   const [formValue, setFormValue] = useState({
     date: currentDate,
     amount: 1500,
-    note: "",
+    notes: "",
     category: "walk-in"
   })
 
