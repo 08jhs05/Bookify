@@ -1,35 +1,39 @@
-import logo from './logo.svg';
-import { useEffect, useState } from "react";
 import './App.css';
+
+// import React components, methods
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
+
+// import components
+import Sidebar from "./components/Sidebar/Sidebar";
+import Expense from './components/Expense';
+import Income from './components/Income';
+import Dashboard from './components/Dashboard';
+import New from './components/New';
 
 function App() {
 
-  useEffect( () => {
-    axios.get('/api').then( (res) => {
-      console.log(res)
-    }).catch( (err) => {
-      console.log(err)
-    });
-  }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="App">
+      <Router>
+        <Sidebar />
+        <Switch>
+          <Route exact path="/">
+            <Dashboard />
+          </Route>
+          <Route path="/expenses">
+            <Expense />
+          </Route>
+          <Route path="/incomes">
+            <Income />
+          </Route>
+          <Route path="/new">
+            <New />
+          </Route>
+        </Switch>
+      </Router>
+    </main>
   );
 }
 
