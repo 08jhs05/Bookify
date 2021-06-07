@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function(req, res, next) {
-    res.json(req.body);
-});
+const { getDeposits } = require("../db/dbHelpers");
+
+router.get("/", getDeposits);
 
 router.put("/", function(req, res) {
     console.log("Data received from income form! \n", req.body)

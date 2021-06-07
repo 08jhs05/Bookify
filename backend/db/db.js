@@ -104,8 +104,7 @@ Expense.insertMany(testExpense,
       }}
 )
 
-
-
+module.exports = { Deposit, Expense, User };
 
 // const test_expense = new Expense ({
 //   user_id: testUser,
