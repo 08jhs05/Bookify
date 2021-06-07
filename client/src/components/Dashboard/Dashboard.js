@@ -20,7 +20,7 @@ export default function Dashboard(props) {
           </div>
           <div className="dashboard_data_section">
             <DashboardCategories />
-            <DashboardGraph />
+            <DashboardGraph data={props.data}/>
           </div>
         </div>
         <ScanNewBtn />
