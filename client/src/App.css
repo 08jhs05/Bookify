@@ -21,3 +21,58 @@
 .nav_item {
   margin-top: 1rem;
 }
+
+/* dashboard elements */
+
+.dashboard {
+  width: 100%;
+}
+
+.navbar_dashboard {
+  padding-left: 1rem;
+  height: 10%;
+  background-color: brown;
+}
+
+.dashboard_body {
+  display: flex;
+  height: 90%;
+}
+
+.dashboard_body_left {
+  flex: 3 1 0;
+}
+
+.dashboard_summary_section {
+  padding-left: 1rem;
+  justify-content: space-around;
+  height: 10%;
+  display: flex;
+  background-color: cornflowerblue;
+}
+
+.dashboard_data_section {
+  display: flex;
+  justify-content: space-around;
+  height: 90%;
+}
+
+.scanNewBtn {
+  flex: 1 1 0;
+  padding-left: 1rem;
+  background-color:cadetblue;
+  width: 12rem;
+}
+
+.graph_dashboard {
+  padding-left: 1rem;
+  background-color:darkgoldenrod;
+  height: 100%;
+  width: 100%;
+}
+
+.categories_dashboard {
+  padding-left: 1rem;
+  background-color: darksalmon;
+  width: 100%;
+}
