@@ -9,10 +9,18 @@ import axios from "axios";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Expense from './components/Expense';
 import Income from './components/Income';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 import New from './components/New';
 
 function App() {
+
+  const [income, setIncome] = useState();
+
+  useEffect( () => {
+    axios.get('/api/incomes').then( (res) => {
+      setIncome(res.data.data)
+    });
+  }, []);
 
   return (
     <main className="App">
@@ -20,7 +28,7 @@ function App() {
         <Sidebar />
         <Switch>
           <Route exact path="/">
-            <Dashboard />
+            <Dashboard data={income}/>
           </Route>
           <Route path="/expenses">
             <Expense />
