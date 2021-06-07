@@ -1,12 +1,13 @@
-// import testDeposit from './deposit_seeds'
-// import testExpense from './deposit_seeds'
+// In order to reseed the database, simply run node db.js on this directory which will empty all collections and reseed after
+
 const testDeposit = require('./deposit_seeds')
 const testExpense = require('./expense_seeds')
 
 const mongoose = require('mongoose');
-
 mongoose.connect('mongodb://localhost:27017/accountDB', {useNewUrlParser: true, useUnifiedTopology: true, userFindAndModify: false});
 
+
+// Database schemas - Will need to add more specifcs (required, make arrays only strings, etc)
 const userSchema = new mongoose.Schema({
   username: {
     type: String
@@ -56,12 +57,12 @@ const expenseSchema = new mongoose.Schema({
 });
 
 
-/////////////////////
+// Creating the collections
 const Deposit = mongoose.model("Deposit", depositSchema)
 const Expense = mongoose.model("Expense", expenseSchema)
 const User = mongoose.model("User", userSchema)
 
-// This deletes entire collection
+// This deletes entire collection. Runs everytime node db.js is run
 Deposit.deleteMany({}, function(err){
   if (err) {
     console.log(err);
@@ -78,14 +79,14 @@ Expense.deleteMany({}, function(err){
   }
 });
 
-
+// Creating the test user Saitama
 const testUser = new User({
   username: "Saitama",
   password: "asdf"
 })
 
 
-
+// Seeding the deposits and expenes collections
 Deposit.insertMany(testDeposit,
   function(err) {
       if (err) {
@@ -106,6 +107,15 @@ Expense.insertMany(testExpense,
 
 module.exports = { Deposit, Expense, User };
 
+///////////////////////
+//// CRUD TUTORIAL ////
+///////////////////////
+
+////////////////////////////////////////
+
+// CREATE
+
+
 // const test_expense = new Expense ({
 //   user_id: testUser,
 //   depositDate: "2021-01-05",
@@ -114,74 +124,82 @@ module.exports = { Deposit, Expense, User };
 //   notes: "Buying masks for employees"
 // })
 
-
-
-
-/////////////////////////////
-
 // test_expense.save();
 
-//testUser.save();
+// SEE how database was weeded for insertMany if you have more than one to add
 
-// const test_deposit = new Deposit ({
-//   user_id: testUser,
-//   depositDate: "2021-01-02",
-//   amount: 203,
-//   category: ["subsidy"],
-//   notes: "Subsidy from Federal Government"
+/////////////////////////////////////////////////////////////////
+
+// READ
+// You will probably use the most for making charts so I will work on more examples for this
+// Lets return the deposit elements which have "subsidy" in category, even if it has multiple categories
+
+// Gets categories
+
+// Deposit.find(function(err, deposits){
+//   if (err) { console.log(err) }
+//   else {
+//     deposits.forEach(eachDeposit => {
+//       if (eachDeposit.category.includes("subsidy")) {
+//         console.log(eachDeposit)
+//       }
+//     })
+//   }
+// })
+
+
+// Checks for deposits after April
+
+// Deposit.find(function(err, deposits){
+//   if (err) { console.log(err) }
+//   else {
+//     deposits.forEach(eachDeposit => {
+//       if (eachDeposit.depositDate > "2021-04-01") {
+//         console.log(eachDeposit.depositDate)
+//       }
+//     })
+//   }
 // })
 
 
 
-// test_deposit.save();
+// Sum of all deposits for month of march
+
+// testDeposit.forEach(eachDeposit => {
+//   if ((eachDeposit.depositDate > "2021-02-28") && (eachDeposit.depositDate < "2021-04-01")) {
+//          marchDeposit += eachDeposit.amount/100
+//    }})
 
 
+//////////////////////////////////////////////////////////////////
 
+//UPDATE
+// Each expense/deposit item is given a unique long random object ID when seeded so this number will vary
+// You need to make reference to this unique ID and change it accordingly
+// In this example, I'm updating the category
 
-// Deposit.insertMany([
-//   {
-//     user_id: testUser,
-//     depositDate: "2021-01-02",
-//     amount: 203,
-//     category: ["subsidy"],
-//     notes: "Subsidy from Federal Government"
-//   },
-//   {
-//     user_id: testUser,
-//     depositDate: "2021-01-03",
-//     amount: 400,
-//     category: ["uber"],
-//     notes: "Uber eats weekly"
-//   }
-//   ],
-//   function(err) {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         console.log("Successfully saved all the deposits");
-//       }}
-// )
-
-
-
-
-// User.updateOne({password: "asdf"}, {username: "Saitama"}, function(err){
+// Expense.updateOne({_id: "60be7329ad6416269437e092"}, {category: ["derp"], poop: "lol"}, function(err) {
 //   if (err) {
 //     console.log(err);
 //   } else {
-//     console.log("The document John was Successfully Updated");
-//   }
-// });
+//     console.log("Successfully updated to derp");
+//   }} )
 
+///////////////////////////////////////////////////////////////////
 
-// Deposit.deleteOne({category: ["subsidy"]}, function(err){
+//DELETE
+
+//This is pretty standard just like update
+
+// Expense.deleteOne({_id: "60bd9461a9d72f4cdcd2baf7"}, function(err) {
 //   if (err) {
 //     console.log(err);
 //   } else {
-//     console.log("Document has been Successfully Deleted!");
-//   }
-// });
+//     console.log("Successfully updated to derp");
+//   }} )
 
+
+/////////////////////////////
 
 
 
