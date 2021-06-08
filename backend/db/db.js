@@ -23,7 +23,7 @@ const depositSchema = new mongoose.Schema({
   user_id: userSchema,
   
   depositDate: {
-    type: String
+    type: Date
   },
 
   amount: {
@@ -42,7 +42,7 @@ const expenseSchema = new mongoose.Schema({
   user_id: userSchema,
   
   depositDate: {
-    type: String
+    type: Date
   },
 
   amount: {

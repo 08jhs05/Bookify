@@ -19,7 +19,7 @@ export default function Sidebar() {
           <Link className="nav__link" to="incomes">Incomes</Link>
         </nav>
         <nav className="nav_item">
-          <Link className="nav__link" to="new">Create New Item</Link>
+          <Link className="nav__link" to="scan">Scan</Link>
         </nav>
       </div>
     </section>
