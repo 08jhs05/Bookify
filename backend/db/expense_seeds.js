@@ -187,7 +187,14 @@ const testExpense = [
     { user_id: testUser, depositDate: "2021-05-27", amount: 30000, category: ["supplies"], notes: "Weekly supplies" },
     { user_id: testUser, depositDate: "2021-05-27", amount: 80000, category: ["bills", "electric"], notes: "monthly electric bill" },
     { user_id: testUser, depositDate: "2021-05-27", amount: 15000, category: ["bills", "gas"], notes: "monthly gas bill" },
-    { user_id: testUser, depositDate: "2021-05-27", amount: 15000, category: ["bills", "phone"], notes: "monthly phone bill" }
+    { user_id: testUser, depositDate: "2021-05-27", amount: 15000, category: ["bills", "phone"], notes: "monthly phone bill" },
+
+    { user_id: testUser, depositDate: "2021-05-28", amount: 30000, category: ["supplies"], notes: "Weekly supplies" },
+    { user_id: testUser, depositDate: "2021-05-29", amount: 150000, category: ["ingredients"], notes: "Weekly ingredients" },
+    { user_id: testUser, depositDate: "2021-05-30", amount: 30000, category: ["supplies"], notes: "Weekly supplies" },
+    { user_id: testUser, depositDate: "2021-06-01", amount: 80000, category: ["bills", "electric"], notes: "monthly electric bill" },
+    { user_id: testUser, depositDate: "2021-06-02", amount: 15000, category: ["bills", "gas"], notes: "monthly gas bill" },
+    { user_id: testUser, depositDate: "2021-06-04", amount: 15000, category: ["bills", "phone"], notes: "monthly phone bill" }
 
 
 ];
