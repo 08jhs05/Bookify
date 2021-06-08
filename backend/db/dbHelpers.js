@@ -1,4 +1,5 @@
 const { Deposit, Expense, User } = require('./db');
+const db = require('./db');
 
 getDepositsAfterDate = async (req, res) => {
     await Deposit.find({ depositDate: { $gt : new Date(req.query.queryDate) } }, (err, deposits) => {
@@ -28,4 +29,12 @@ getExpensesAfterDate = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-module.exports = { getDepositsAfterDate, getExpensesAfterDate };
+const submitData = async (tableName, depositDate, amount, category, notes) => {
+     await db[tableName].create({depositDate, amount, category, notes}, (err) => {
+        if (err) {
+            return res.status(400).json({success: false, error: err});
+        }
+        return res.status(200).json({ success: true, data: deposits});
+    }).catch(err => console.log(err))
+}
+module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitData };

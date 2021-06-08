@@ -1,90 +1,128 @@
+import React, { useState } from 'react';
+import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import AddIcon from '@material-ui/icons/Add';
+import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
-import { useState } from 'react';
-import CategoryTags from './CategoryTags';
 
-export default function Expense(props) {
-  const date = new Date();
+export default function ExpenseForm() {
+  const date = new Date ();
   date.setDate(date.getDate() + 3);
-  
   const currentDate = date.toISOString().substr(0,10);
 
+  const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
-
   const [formValue, setFormValue] = useState({
-    depositDate: currentDate,
-    amount: 100,
-    notes: "bought on the fly because onions ran out",
+    depositDate: "",
+    amount: "",
+    notes: "",
     category: ""
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  const handleChange = (event) => {
+    const formValues = event.target.id;
+    setFormValue(prev => ({
+      ...prev,
+      [formValues] : event.target.value
+    }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const completeFormValues = {
       ...formValue,
       category
     }
-    console.log("line 25 triggerd");
-    return axios.put('/api/expenses', completeFormValues)
+
+    return await axios.put('/api/expenses', completeFormValues)
     .then(() => {
-      console.log("submitted");
-      setFormValue({ ...completeFormValues})
+      setFormValue({
+        depositDate: "",
+        amount: "",
+        notes: "",
+        category: ""
+      })
       setCategory([])
+      handleClose()
     })
     .catch(err => console.log("Error Triggered! \n", err));
 
   }
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setFormValue(prev => ({
-      ...prev,
-      [name] : event.target.value
-    }))
-  }
-
   return (
-    <div className="expense-form">
-      <form>
-        <label>
-          Date: 
-          <input 
+    <div>
+      <Button variant="outlined" color="primary" margin="dense" onClick={handleClickOpen}>
+        New<AddIcon /> 
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Expenses Form</DialogTitle>
+        <DialogContent >
+          <TextField
+            margin="dense"
+            id="depositDate"
             type="date"
-            name="date"
-            value={formValue.date}
             onChange={handleChange}
+            fullWidth
+            inputProps={{ max: `${currentDate}` }}
           />
-        </label>
-
-        <label>
-          Amount: 
-          <input
+          <TextField
+            margin="dense"
+            id="amount"
+            label="Enter Amount"
             type="number"
-            name="amount"
-            value={formValue.amount}
             onChange={handleChange}
-          />
-        </label>
+            fullWidth
+          />    
 
-        <label>
-          Category:
-          <CategoryTags 
-            category={category} 
-            setCategory={setCategory}
+          <Autocomplete
+            multiple
+            id="category"
+            options={[]}
+            freeSolo
+            renderTags={(value, getTagProps) =>
+              value.map((option, index) => (
+                <Chip
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Enter category"
+              />
+            )}
+            onChange={event => setCategory([...category, event.target.value])}
           />
-        </label>
 
-        <label>
-          Note:
-          <input
+          <TextField
+            margin="dense"
+            id="notes"
+            label="Enter Notes"
             type="text"
-            name="note"
-            value={formValue.note}
             onChange={handleChange}
-          />
-        </label>
-      </form>
-      <button type="submit" onClick={handleSubmit}> Submit </button>
-
+            fullWidth
+          />    
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

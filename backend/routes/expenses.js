@@ -7,7 +7,16 @@ router.get("/", getExpensesAfterDate);
 
 router.put("/", function(req, res) {
   console.log(req.body);
-  res.json(req.body);
+  const tableName = "Expense";
+  const {
+      depositDate,
+      amount,
+      notes,
+      category
+  } = req.body;
+
+  submitData(tableName, depositDate, amount, category, notes);
+  
 })
 
 module.exports = router;
