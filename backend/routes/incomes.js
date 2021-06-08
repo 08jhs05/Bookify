@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
-const { getDeposits } = require("../db/dbHelpers");
+const { getDepositsAfterDate } = require("../db/dbHelpers");
 
-router.get("/", getDeposits);
+router.get("/", getDepositsAfterDate);
 
 router.put("/", function(req, res) {
     console.log("Data received from income form! \n", req.body)
