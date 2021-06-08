@@ -40,7 +40,7 @@ export default function Dashboard(props) {
           </div>
           <div className="dashboard_data_section">
             <DashboardCategories />
-            <DashboardGraph data={props.data}/>
+            <DashboardGraph data={state.data.incomes}/>
           </div>
         </div>
         <ScanNewBtn />

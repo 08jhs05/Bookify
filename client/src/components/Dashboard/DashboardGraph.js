@@ -3,26 +3,26 @@ import React from 'react'
 
 export default function DashboardGraph(props) {
   
-//   const testDeposit = props.data;
+  const testDeposit = props.data;
 
-// let marchDeposit = 0;
-// let aprilDeposit = 0;
-// let mayDeposit = 0;
+let marchDeposit = 0;
+let aprilDeposit = 0;
+let mayDeposit = 0;
 
-// testDeposit.forEach(eachDeposit => {
-//   if ((eachDeposit.depositDate > "2021-02-28") && (eachDeposit.depositDate < "2021-04-01")) {
-//          marchDeposit += eachDeposit.amount/1000
-//    }})
+testDeposit.forEach(eachDeposit => {
+  if ((eachDeposit.depositDate > "2021-02-28") && (eachDeposit.depositDate < "2021-04-01")) {
+         marchDeposit += eachDeposit.amount/1000
+   }})
 
-// testDeposit.forEach(eachDeposit => {
-//   if ((eachDeposit.depositDate > "2021-03-31") && (eachDeposit.depositDate < "2021-05-01")) {
-//     aprilDeposit += eachDeposit.amount/1000
-//   }})
+testDeposit.forEach(eachDeposit => {
+  if ((eachDeposit.depositDate > "2021-03-31") && (eachDeposit.depositDate < "2021-05-01")) {
+    aprilDeposit += eachDeposit.amount/1000
+  }})
 
-// testDeposit.forEach(eachDeposit => {
-//   if ((eachDeposit.depositDate > "2021-03-31") && (eachDeposit.depositDate < "2021-05-01")) {
-//     mayDeposit += eachDeposit.amount/1000
-//   }})
+testDeposit.forEach(eachDeposit => {
+  if ((eachDeposit.depositDate > "2021-03-31") && (eachDeposit.depositDate < "2021-05-01")) {
+    mayDeposit += eachDeposit.amount/1000
+  }})
 
 
   
@@ -31,7 +31,7 @@ export default function DashboardGraph(props) {
       <div>
         I am graph component
         {/* {props.data[0].amount} */}
-        {/* <Bar
+        <Bar
       data={{
         labels: ['March', 'April', 'May'],
         datasets: [{
@@ -46,9 +46,11 @@ export default function DashboardGraph(props) {
 
         ]
       }}
-      width={100}
-      height={400}
-      options={{ maintainAspectRatio: false, 
+      width={300}
+      height={600}
+      options={{ 
+        responsive: false,
+        maintainAspectRatio: true, 
         scales: {
           yAxes: [
             {
@@ -65,7 +67,7 @@ export default function DashboardGraph(props) {
           }
         }
       }}
-    /> */}
+    />
       </div>
     </section>
   );
