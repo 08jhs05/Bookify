@@ -1,80 +1,128 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import AddIcon from '@material-ui/icons/Add';
+import { Autocomplete } from "@material-ui/lab";
+import axios from 'axios';
 
-import axios from "axios";
-
-export default function IncomeForm() {
+export default function ExpenseForm() {
   const date = new Date ();
   date.setDate(date.getDate() + 3);
-
   const currentDate = date.toISOString().substr(0,10);
 
+  const [open, setOpen] = useState(false);
+  const [category, setCategory] = useState([]);
   const [formValue, setFormValue] = useState({
-    date: currentDate,
-    amount: 1500,
+    depositDate: "",
+    amount: "",
     notes: "",
-    category: "walk-in"
-  })
+    category: ""
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.put('/api/incomes/', formValue)
-    .then(res => {
-      setFormValue(res.formValue)
-    })
-    .catch(err => console.log("Error triggerd! ", err));
-  }
-
-  const handleChange = (event) => {
-    const formName = event.target.name;
-
-    setFormValue(prev => ({
-      ...prev,
-      [formName]: event.target.value
-    }));
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  const handleChange = (event) => {
+    const formValues = event.target.id;
+    setFormValue(prev => ({
+      ...prev,
+      [formValues] : event.target.value
+    }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const completeFormValues = {
+      ...formValue,
+      category
+    }
+
+    return await axios.put('http://localhost:3001/api/incomes', completeFormValues)
+    .then(() => {
+      setFormValue({
+        depositDate: "",
+        amount: "",
+        notes: "",
+        category: ""
+      })
+      setCategory([])
+      handleClose()
+    })
+    .catch(err => console.log("Error Triggered! \n", err));
+
+  }
+
   return (
-    <div className="income-form">
-      <form>
-        <label>
-          Date: 
-            <input
-              type="date"
-              name="date"
-              value={formValue.date}
-              onChange={handleChange}
-            />
-        </label>
-        <label>
-          Amount: 
-          <input
+    <div>
+      <Button variant="outlined" color="primary" margin="dense" onClick={handleClickOpen}>
+        New<AddIcon /> 
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Income Form</DialogTitle>
+        <DialogContent >
+          <TextField
+            margin="dense"
+            id="depositDate"
+            type="date"
+            onChange={handleChange}
+            fullWidth
+            inputProps={{ max: `${currentDate}` }}
+          />
+          <TextField
+            margin="dense"
+            id="amount"
+            label="Enter Amount"
             type="number"
-            name="amount"
-            value={formValue.amount}
             onChange={handleChange}
+            fullWidth
+          />    
+
+          <Autocomplete
+            multiple
+            id="category"
+            options={[]}
+            freeSolo
+            renderTags={(value, getTagProps) =>
+              value.map((option, index) => (
+                <Chip
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Enter category"
+              />
+            )}
+            onChange={event => setCategory([...category, event.target.value])}
           />
-        </label>
-        <label>
-          Category:
-          <select value={formValue.category} name="category" onChange={handleChange}>
-            <option value="uber-eats">Uber-Eats</option>
-            <option value="ritual">Ritual</option>
-            <option value="walk-in">Walk in</option>
-            <option value="skipthedishes"> SkipTheDishes</option>
-            <option value="doordash">DoorDash</option>
-          </select>
-        </label>
-        <label>
-          Note: 
-          <input
+
+          <TextField
+            margin="dense"
+            id="notes"
+            label="Enter Notes"
             type="text"
-            name="note"
-            value={formValue.note}
             onChange={handleChange}
-          />
-        </label>
-        <button type="submit" onClick={handleSubmit}>Submit</button>
-      </form>
+            fullWidth
+          />    
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
