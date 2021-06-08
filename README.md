@@ -1,4 +1,4 @@
-# DonDonDon (Temp name)
+# SmartScan
 
 A budget managing app for geared towards restaurants and businesses
 
