@@ -23,4 +23,8 @@ function createPastDate(type, amount, format){
   return date;
 }
 
-module.exports = { createPastDate }
+function daysDifference(d1, d2) {
+  return Math.round((d2 - d1) / (24 * 60 * 60 * 1000));
+}
+
+module.exports = { createPastDate, daysDifference }
