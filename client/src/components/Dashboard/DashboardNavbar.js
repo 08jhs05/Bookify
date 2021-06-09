@@ -3,9 +3,10 @@ import Select from "react-dropdown-select";
 export default function DashboardNavbar(props) {
 
   const options = [
-    {key: 1, label: "Last 10 days", value: {type: "last", amount: 10, format: "D"}},
-    {key: 2, label: "This Month", value: {type: "this", format: "M"}},
-    {key: 3, label: "Last 3 Months", value: {type: "last", amount: 3, format: "M"}},
+    {key: 0, label: "Last 10 days", value: {type: "last", amount: 10, format: "D"}},
+    {key: 1, label: "Last 30 days", value: {type: "last", amount: 30, format: "D"}},
+    {key: 2, label: "This Month", value: {type: "this", format: "M"}}, // amount did not exist
+    {key: 3, label: "Last 3 Months", value: {type: "last", amount: 3, format: "M"}}, // amount was 3 before
     {key: 4, label: "This Year", value: {type: "this", format: "Y"}},
     {key: 5, label: "Everything", value: {type: "last", amount: 10, format: "Y"}}
   ];
