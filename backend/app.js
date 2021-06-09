@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var expensesRouter = require('./routes/expenses');
 var incomesRouter = require('./routes/incomes');
 var newRouter = require('./routes/new');
-
+const cors = require('cors')
 var app = express();
 
 // view engine setup
@@ -19,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors());
 
 app.use('/api', indexRouter);
 app.use('/api/expenses', expensesRouter);
