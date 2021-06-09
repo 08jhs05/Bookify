@@ -1,4 +1,5 @@
 import Select from "react-dropdown-select";
+import { createPastDate } from "../../helpers";
 
 export default function DashboardNavbar(props) {
 
@@ -25,35 +26,10 @@ export default function DashboardNavbar(props) {
         dropdownGap={5}
         labelField={"label"}
         valueField={"key"}
-        values={[options.find(opt => opt.label === "This Month")]}
+        values={[options.find(opt => opt.label === "Last 10 days")]}
         multi={false}
         style={{width: "500px"}}
       />
     </section>
   );
-}
-
-function createPastDate(type, amount, format){
-  let date = new Date();
-  if(type === "last") {
-    if(format === "D"){
-      date.setDate(date.getDate() - amount);
-    } else if(format === "M"){
-      date.setMonth(date.getMonth() - amount);
-      date.setDate(1);
-    } else {
-      date.setFullYear(date.getFullYear() - amount);
-    }
-  } else {
-      if(format === "D"){
-        //date = date.getDate()
-      } else if(format === "M"){
-        date.setDate(1);
-      } else {
-        date.setDate(1);
-        date.setMonth(0);
-      }
-  }
-
-  return date;
 }

@@ -18,8 +18,6 @@ export default function Dashboard(props) {
   });
 
   useEffect( () => {
-    console.log("state changed")
-
     const promises = [axios.get('/api/incomes', { params: { queryDate: state.queryDate } }), axios.get('/api/expenses', { params: { queryDate: state.queryDate } })];
     Promise.all(promises).then( (res) => {
       setState({ ...state, data: { incomes: res[0].data, expenses: res[1].data }});

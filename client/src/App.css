@@ -75,3 +75,11 @@
   background-color: darksalmon;
   width: 100%
 }
+
+/* incomes, expenses page */
+
+.incomeExpenseGraph {
+  width: 100%;
+  padding: 5rem;
+  background-color: darksalmon;
+}
