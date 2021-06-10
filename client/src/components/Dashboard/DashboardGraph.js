@@ -109,9 +109,8 @@ export default function DashboardGraph(props) {
 
   return (
     <section className="graph_dashboard">
+      <h2>Trend</h2>
       <div>
-        I am graph component
-        {/* {props.data[0].amount} */}
         <Line
           data={{
             labels: chartDepositData[0],

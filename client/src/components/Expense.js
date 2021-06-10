@@ -23,19 +23,33 @@ export default function Expense(props) {
   
   const [state, setState] = useState( {
     queryDate: newDate,
-    data: {}
+    data: { incomes: [], expenses: [] }
   });
 
+  const [reload, setReload] = useState(false);
+
   useEffect( () => {
+    let isMounted = true; 
     axios.get('/api/expenses', { params: { queryDate: state.queryDate } }).then( (res) => {
       setState({ ...state, data: res.data });
     });
-  }, [state.queryDate]);
+    return () => { isMounted = false };
+  }, [state.queryDate, reload]);
 
   const onChange = function(value) {
     const queryDate = createPastDate(value[0].value.type, value[0].value.amount, value[0].value.format)
     setState({
       ...state, queryDate: queryDate
+    });
+  }
+
+  const editBtnOnClick = function() {
+    console.log("edit clicked")
+  }
+
+  const deleteBtnOnClick = function(id) {
+    axios.delete('/api/expenses', { params: { id: id } }).then( (res) => {
+      setReload(!reload)
     });
   }
 
@@ -51,8 +65,13 @@ export default function Expense(props) {
         style={{width: "500px"}}
       />
       <IncomeExpenseGraph />
-      <ExpenseForm />
-      <Datalist data={state.data}/>
+      <ExpenseForm reloadPage={() => setReload(!reload)}/>
+      <Datalist data={state.data}
+        editBtnOnClick={editBtnOnClick}
+        deleteBtnOnClick={deleteBtnOnClick}
+        reloadPage={() => setReload(!reload)}
+        type={"expense"}
+      />
     </div>
   );
 }

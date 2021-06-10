@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
 
-export default function ExpenseForm(props) {
+export default function IncomeEditForm(props) {
   const date = new Date ();
   date.setDate(date.getDate() + 3);
   const currentDate = date.toISOString().substr(0,10);
@@ -12,10 +11,10 @@ export default function ExpenseForm(props) {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
   const [formValue, setFormValue] = useState({
-    depositDate: "",
-    amount: "",
-    notes: "",
-    category: ""
+    depositDate: props.data.depositDate.substr(0, 10),
+    amount: props.data.amount,
+    notes: props.data.notes,
+    category: props.data.category
   });
 
   const handleClickOpen = () => {
@@ -43,7 +42,7 @@ export default function ExpenseForm(props) {
       category
     }
 
-    return await axios.put('/api/expenses', completeFormValues)
+    return await Promise.all([axios.put('/api/incomes', completeFormValues), axios.delete('/api/incomes', { params: { id: props.data._id } })])
     .then(() => {
       setFormValue({
         depositDate: "",
@@ -51,26 +50,27 @@ export default function ExpenseForm(props) {
         notes: "",
         category: ""
       })
-      // props.expenseSetState({...props.expenseState, reRender: !props.expenseState.reRender});
       setCategory([])
       handleClose()
-      props.reloadPage();
+      props.reloadPage()
     })
     .catch(err => console.log("Error Triggered! \n", err));
+
   }
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" margin="dense" onClick={handleClickOpen}>
-        New<AddIcon /> 
+    <Fragment>
+      <Button variant="outlined" margin="dense" onClick={handleClickOpen}>
+        Edit
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Expenses Form</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Data</DialogTitle>
         <DialogContent >
           <TextField
             margin="dense"
             id="depositDate"
             type="date"
+            value={formValue.depositDate}
             onChange={handleChange}
             fullWidth
             inputProps={{ max: `${currentDate}` }}
@@ -80,6 +80,7 @@ export default function ExpenseForm(props) {
             id="amount"
             label="Enter Amount"
             type="number"
+            value={formValue.amount}
             onChange={handleChange}
             fullWidth
           />    
@@ -88,6 +89,7 @@ export default function ExpenseForm(props) {
             multiple
             id="category"
             options={[]}
+            value={formValue.category}
             freeSolo
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -111,6 +113,7 @@ export default function ExpenseForm(props) {
             id="notes"
             label="Enter Notes"
             type="text"
+            value={formValue.notes}
             onChange={handleChange}
             fullWidth
           />    
@@ -124,6 +127,6 @@ export default function ExpenseForm(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Fragment>
   );
 }
