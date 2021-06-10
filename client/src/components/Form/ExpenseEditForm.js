@@ -105,7 +105,7 @@ export default function ExpenseEditForm(props) {
                 label="Enter category"
               />
             )}
-            onChange={event => setCategory([...category, event.target.value])}
+            onChange={(event, newValue) => {setCategory(newValue)}}
           />
           <TextField
             margin="dense"
