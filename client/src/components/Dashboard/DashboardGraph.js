@@ -3,10 +3,16 @@ import React from 'react'
 
 export default function DashboardGraph(props) {
 
-  const testDeposit = props.data.expenses;
-  console.log(props.data)
-  let chartDepositData = [];
+  const testDeposit = props.data.incomes;
+  const testExpense = props.data.expenses;
+
+  let incomesData = []
+  let expensesData = []
   
+  let chartDepositData = []
+  let chartExpenseData = []
+  let totalLabel = [];
+
   if (props.data) {
 
   // helper function to get the weeks label (x-axis when needing)
@@ -22,6 +28,22 @@ export default function DashboardGraph(props) {
       }
 
       return weekArr
+    }
+
+
+    const monthsLabel = (d1, d2) => {
+   		
+      let numOfMonths = Math.round((d2 - d1) / (30 * 24 * 60 * 60 * 1000));
+      let monthArr = [];
+
+      let newMonth = d1;
+
+      for (let i = 0; i < numOfMonths; i++) {
+        newMonth.setDate(newMonth.getDate() + (30))
+        monthArr.push(newMonth.toISOString().slice(0, 10));
+      }
+
+      return monthArr
     }
 
     //dayBefore will indicate how many days/months before we're checking
@@ -90,10 +112,59 @@ export default function DashboardGraph(props) {
         }
       }
 
+      // Monthly check
+      if (dwmValue === "monthly") {
+        labelList = monthsLabel(startDate, endDate);
+
+        startDate = startDate.toISOString().slice(0, 10);
+        endDate = endDate.toISOString().slice(0, 10);
+
+        // this is used in the second if statement below. It is for determining the end period of each month
+        // to help filter the dates into the proper months correctly
+        let endMonthDate = "";
+
+        // each i represents each index of the labelList (monthLabel).
+        // In other words, each i represents a month
+        for (let i = 0; i < labelList.length; i++) {
+          if (i === labelList.length - 1) {
+            endMonthDate = endDate;
+          } else {
+            endMonthDate = labelList[i + 1]
+          }
+
+          //accumulator for amount sum each month
+          let sum = 0
+          depositType.forEach(eachDeposit => {
+            if ((eachDeposit.depositDate >= labelList[i]) && (eachDeposit.depositDate <= endMonthDate)) {
+              sum += eachDeposit.amount / 100;
+            }
+          })
+          amountList.push(sum)
+
+        }
+      }
+      
+
       // returns an array. 0-index is for x-axis, 1-index is for y-axis, and total just represents the array of 1-index (for summary)
       total = amountList.reduce((a, b) => a + b, 0);
       return [labelList, amountList, total];
     }
+
+
+    // Converts to [{x: "2020-01-02", y: "45"}, {...},  ...] format
+    const convertDateArrToObj = (xCor, yCor) => {
+      let result = [];
+      xCor.forEach(function(v,i){
+        let obj = {};
+        obj.x = v;
+        obj.y = yCor[i];
+        result.push(obj);
+      });
+      return result;
+    }
+
+
+
 /////////////////////////////////
 
     //Just determining if we should take weekly or daily based on value received. May have to change a little
@@ -101,12 +172,24 @@ export default function DashboardGraph(props) {
 
     if (props.daysAgo <= 30) {
       dwmProps = "daily"
-    } else {
+    } else if (props.daysAgo < 100){
       dwmProps = "weekly"
+    } else {
+      dwmProps = "monthly"
     }
 
     // This is an example of creating data for the charts
     chartDepositData = getChartFromNow(props.daysAgo, dwmProps, testDeposit);
+    chartExpenseData = getChartFromNow(props.daysAgo, dwmProps, testExpense);
+
+    
+    totalLabel = chartDepositData[0].concat(chartExpenseData[0])
+    totalLabel.sort((a,b) =>a.localeCompare(b))
+    totalLabel = [...new Set(totalLabel)]
+
+    incomesData = convertDateArrToObj(chartDepositData[0], chartDepositData[1])
+    expensesData = convertDateArrToObj(chartExpenseData[0], chartExpenseData[1])
+
 
   }
 
@@ -116,17 +199,16 @@ export default function DashboardGraph(props) {
         I am graph component
         <Line
           data={{
-            labels: chartDepositData[0],
+            labels: totalLabel,
             datasets: [{
-              label: 'Total Deposits',
-              data: chartDepositData[1],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-              ]
-            },
+              label: 'Total Incomes',
+              data: incomesData,
 
+            },
+            {
+              label: 'Total Expenses',
+              data: expensesData,
+            }
             ]
           }}
           width={500}
