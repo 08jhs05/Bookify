@@ -58,9 +58,11 @@
 }
 
 .scanNewBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1 1 0;
-  padding-left: 1rem;
-  background-color:cadetblue;
+  margin: 1rem;
   width: 12rem;
 }
 
@@ -72,8 +74,9 @@
 
 .categories_dashboard {
   padding-left: 1rem;
-  background-color: darksalmon;
-  width: 100%
+  width: 100%;
+  border: black;
+  border-width: 4px;
 }
 
 /* incomes, expenses page */

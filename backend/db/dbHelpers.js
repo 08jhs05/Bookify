@@ -94,4 +94,36 @@ const submitNewDeposit = async (req, res) => {
         })
 }
 
-module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit };
+const deleteExpense = async (req, res) => {
+    await Expense.findOneAndDelete({ _id: req.query.id }, (err, expense) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        if (!expense) {
+            return res
+                .status(404)
+                .json({ success: false, error: `data not found` })
+        }
+
+        return res.status(200).json(expense);
+    }).catch(err => console.log(err))
+}
+
+const deleteDeposit = async (req, res) => {
+    await Deposit.findOneAndDelete({ _id: req.query.id }, (err, deposit) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        if (!deposit) {
+            return res
+                .status(404)
+                .json({ success: false, error: `data not found` })
+        }
+
+        return res.status(200).json(deposit);
+    }).catch(err => console.log(err))
+}
+
+module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, deleteExpense, deleteDeposit };

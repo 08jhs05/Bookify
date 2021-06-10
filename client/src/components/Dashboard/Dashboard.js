@@ -17,16 +17,13 @@ export default function Dashboard(props) {
 
   const [state, setState] = useState( {
     queryDate: newDate,
-    data: {incomes: [], expenses: []}
+    data: { incomes: [], expenses: [] }
   });
 
   useEffect( () => {
     console.log("state changed")
 
     const today = new Date();
-
-    console.log(today);
-    console.log(state.queryDate);
 
     daysAgo = daysDifference(state.queryDate, today);
 
@@ -49,7 +46,7 @@ export default function Dashboard(props) {
             <Summary />
           </div>
           <div className="dashboard_data_section">
-            <DashboardCategories />
+            <DashboardCategories data={state.data}/>
             <DashboardGraph data={state.data} daysAgo={daysAgo}/>
           </div>
         </div>

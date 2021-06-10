@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
 
-export default function ExpenseForm() {
+export default function ExpenseForm(props) {
   const date = new Date ();
   date.setDate(date.getDate() + 3);
   const currentDate = date.toISOString().substr(0,10);
@@ -53,6 +53,7 @@ export default function ExpenseForm() {
       })
       setCategory([])
       handleClose()
+      props.reloadPage()
     })
     .catch(err => console.log("Error Triggered! \n", err));
 

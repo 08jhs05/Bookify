@@ -27,4 +27,24 @@ function daysDifference(d1, d2) {
   return Math.round((d2 - d1) / (24 * 60 * 60 * 1000));
 }
 
-module.exports = { createPastDate, daysDifference }
+class RGBPicker {
+  constructor() {
+    this.currentcolorIndex = 0;
+    this.colors = [
+    '#A1887F',
+    '#F06292',
+    '#7986CB',
+    '#FFD54F',
+    '#9575CD',
+    '#4FC3F7',
+    '#81C784',
+    '#FFB74D'];
+  }
+  getnextColor() {
+    this.currentcolorIndex++;
+    if(this.currentcolorIndex > this.colors.length - 1) this.currentcolorIndex -= this.colors.length;
+    return this.colors[this.currentcolorIndex];
+  }
+}
+
+module.exports = { createPastDate, daysDifference, RGBPicker }
