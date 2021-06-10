@@ -3,12 +3,13 @@ import React from 'react'
 
 export default function DashboardGraph(props) {
 
-  const testDeposit = props.data;
-
+  const testDeposit = props.data.expenses;
+  console.log(props.data)
   let chartDepositData = [];
+  
   if (props.data) {
 
-  // helper function to get the weeks label (x-axis when needing weekly values)
+  // helper function to get the weeks label (x-axis when needing)
     const weeksLabel = (d1, d2) => {
       let numOfWeeks = Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
       let weekArr = [];
