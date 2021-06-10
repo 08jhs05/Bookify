@@ -3,7 +3,6 @@ import { useState, useRef, useCallback } from "react";
 import "../App.css";
 import axios from "axios";
 import Webcam from "react-webcam";
-import ScanExtractData from "./ScanExtractData";
 
 export default function Scan() {
   const [responseData, setResponseData] = useState(null);
@@ -31,7 +30,6 @@ export default function Scan() {
       <button onClick={capture}>Capture photo</button>
 
       {imgSrc && <img src={imgSrc} alt="captured-img" />}
-      <ScanExtractData responseData={responseData} />
     </section>
   );
 }

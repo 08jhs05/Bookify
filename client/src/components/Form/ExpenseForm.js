@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
-import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
+import React, { useState } from "react";
+import {
+  Chip,
+  TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import { Autocomplete } from "@material-ui/lab";
-import axios from 'axios';
+import axios from "axios";
+
+import Scan from "../Scan";
 
 export default function ExpenseForm(props) {
-  const date = new Date ();
+  const date = new Date();
   date.setDate(date.getDate() + 3);
-  const currentDate = date.toISOString().substr(0,10);
+  const currentDate = date.toISOString().substr(0, 10);
 
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
@@ -15,7 +25,7 @@ export default function ExpenseForm(props) {
     depositDate: "",
     amount: "",
     notes: "",
-    category: ""
+    category: "",
   });
 
   const handleClickOpen = () => {
@@ -26,47 +36,57 @@ export default function ExpenseForm(props) {
     setOpen(false);
   };
 
-
   const handleChange = (event) => {
     const formValues = event.target.id;
-    setFormValue(prev => ({
+    setFormValue((prev) => ({
       ...prev,
-      [formValues] : event.target.value
-    }))
-  }
+      [formValues]: event.target.value,
+    }));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const completeFormValues = {
       ...formValue,
-      category
-    }
+      category,
+    };
 
-    return await axios.put('/api/expenses', completeFormValues)
-    .then(() => {
-      setFormValue({
-        depositDate: "",
-        amount: "",
-        notes: "",
-        category: ""
+    return await axios
+      .put("/api/expenses", completeFormValues)
+      .then(() => {
+        setFormValue({
+          depositDate: "",
+          amount: "",
+          notes: "",
+          category: "",
+        });
+        setCategory([]);
+        handleClose();
+        props.reloadPage();
       })
-      // props.expenseSetState({...props.expenseState, reRender: !props.expenseState.reRender});
-      setCategory([])
-      handleClose()
-      props.reloadPage();
-    })
-    .catch(err => console.log("Error Triggered! \n", err));
-  }
+      .catch((err) => console.log("Error Triggered! \n", err));
+  };
 
   return (
     <div>
-      <Button variant="outlined" color="primary" margin="dense" onClick={handleClickOpen}>
-        New<AddIcon /> 
+      <Button
+        variant="outlined"
+        color="primary"
+        margin="dense"
+        onClick={handleClickOpen}
+      >
+        New
+        <AddIcon />
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Expenses Form</DialogTitle>
-        <DialogContent >
+        <DialogContent>
+          <Scan />
           <TextField
             margin="dense"
             id="depositDate"
@@ -82,7 +102,7 @@ export default function ExpenseForm(props) {
             type="number"
             onChange={handleChange}
             fullWidth
-          />    
+          />
 
           <Autocomplete
             multiple
@@ -91,19 +111,13 @@ export default function ExpenseForm(props) {
             freeSolo
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
-                <Chip
-                  label={option}
-                  {...getTagProps({ index })}
-                />
+                <Chip label={option} {...getTagProps({ index })} />
               ))
             }
             renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Enter category"
-              />
+              <TextField {...params} label="Enter category" />
             )}
-            onChange={event => setCategory([...category, event.target.value])}
+            onChange={(event) => setCategory([...category, event.target.value])}
           />
 
           <TextField
@@ -113,7 +127,7 @@ export default function ExpenseForm(props) {
             type="text"
             onChange={handleChange}
             fullWidth
-          />    
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
