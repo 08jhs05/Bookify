@@ -46,9 +46,9 @@ export default function Dashboard(props) {
       <div className="dashboard_body">
         <div className="dashboard_body_left">
           <div className="dashboard_summary_section">
-            <Summary />
-            <Summary />
-            <Summary />
+            <Summary data={state.data} daysAgo={daysAgo} type={"INCOME"}/>
+            <Summary data={state.data} daysAgo={daysAgo} type={"EXPENSE"}/>
+            <Summary data={state.data} daysAgo={daysAgo} type={"BALANCE"}/>
           </div>
           <div className="dashboard_data_section">
             <DashboardCategories data={state.data} />

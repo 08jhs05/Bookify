@@ -4,15 +4,17 @@ import { getChartFromNow, convertDateArrToObj } from '../../helpers';
 
 export default function DashboardGraph(props) {
 
-  const testDeposit = props.data.incomes;
-  const testExpense = props.data.expenses;
 
-  let incomesData = []
-  let expensesData = []
+  let incomesChartData = []
+  let expensesChartData = []
   
-  let chartDepositData = []
-  let chartExpenseData = []
+  let formatIncomesData = []
+  let formatExpensesData = []
   let totalLabel = [];
+
+  console.log('-----------')
+  console.log(props.data.incomes)
+
 
   if (props.data) {
 
@@ -28,15 +30,16 @@ export default function DashboardGraph(props) {
     }
 
     // This is an example of creating data for the charts
-    chartDepositData = getChartFromNow(props.daysAgo, dwmProps, testDeposit);
-    chartExpenseData = getChartFromNow(props.daysAgo, dwmProps, testExpense);
+    formatIncomesData = getChartFromNow(props.daysAgo, dwmProps, props.data.incomes);
+    formatExpensesData = getChartFromNow(props.daysAgo, dwmProps, props.data.expenses);
     
-    totalLabel = chartDepositData[0].concat(chartExpenseData[0])
+    totalLabel = formatIncomesData[0].concat(formatExpensesData[0])
     totalLabel.sort((a,b) =>a.localeCompare(b))
     totalLabel = [...new Set(totalLabel)]
 
-    incomesData = convertDateArrToObj(chartDepositData[0], chartDepositData[1])
-    expensesData = convertDateArrToObj(chartExpenseData[0], chartExpenseData[1])
+    incomesChartData = convertDateArrToObj(formatIncomesData[0], formatIncomesData[1])
+    expensesChartData = convertDateArrToObj(formatExpensesData[0], formatExpensesData[1])
+    console.log('Total is: $' + formatIncomesData[2])
   }
 
   return (
@@ -48,12 +51,12 @@ export default function DashboardGraph(props) {
             labels: totalLabel,
             datasets: [{
               label: 'Total Incomes',
-              data: incomesData,
+              data: incomesChartData,
 
             },
             {
               label: 'Total Expenses',
-              data: expensesData,
+              data: expensesChartData,
             }
             ]
           }}

@@ -4,6 +4,7 @@ import axios from "axios";
 
 import ExpenseForm from "./Form/ExpenseForm";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
+import ExpenseGraph from "./ExpenseGraph";
 import Datalist from "./Datalist";
 import { createPastDate } from "../helpers";
 
@@ -89,7 +90,7 @@ export default function Expense(props) {
         multi={false}
         style={{ width: "500px" }}
       />
-      <IncomeExpenseGraph data={state.data} />
+      <ExpenseGraph data={state.data} />
       <ExpenseForm reloadPage={() => setReload(!reload)} />
       <Datalist
         data={state.data}
