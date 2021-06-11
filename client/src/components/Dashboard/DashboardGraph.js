@@ -52,11 +52,14 @@ export default function DashboardGraph(props) {
             datasets: [{
               label: 'Total Incomes',
               data: incomesChartData,
-
+              borderColor: 'rgba(54, 162, 235, 0.9)',
+              tension: 0.1
             },
             {
               label: 'Total Expenses',
               data: expensesChartData,
+              borderColor: 'rgba(255, 99, 132, 0.9)',
+              tension: 0.1
             }
             ]
           }}

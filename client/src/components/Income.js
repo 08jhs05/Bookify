@@ -42,7 +42,7 @@ export default function Income(props) {
 
   const [state, setState] = useState({
     queryDate: newDate,
-    data: { incomes: [], expenses: [] },
+    data: []
   });
 
   const [reload, setReload] = useState(false);

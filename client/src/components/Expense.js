@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Select from "react-dropdown-select";
 import axios from "axios";
 
+import { daysDifference } from "../helpers";
+
 import ExpenseForm from "./Form/ExpenseForm";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
 import ExpenseGraph from "./ExpenseGraph";
@@ -33,19 +35,25 @@ const options = [
   },
 ];
 
+let daysAgo = 0;
+
 export default function Expense(props) {
   const newDate = new Date();
   newDate.setDate(newDate.getDate() - 10); // default date to query when user just loads this page
 
   const [state, setState] = useState({
     queryDate: newDate,
-    data: { incomes: [], expenses: [] },
+    data: []
   });
 
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
+    /////////////
+    const today = new Date();
+    daysAgo = daysDifference(state.queryDate, today);
+
     axios
       .get("/api/expenses", { params: { queryDate: state.queryDate } })
       .then((res) => {
@@ -90,7 +98,7 @@ export default function Expense(props) {
         multi={false}
         style={{ width: "500px" }}
       />
-      <ExpenseGraph data={state.data} />
+      <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
       <ExpenseForm reloadPage={() => setReload(!reload)} />
       <Datalist
         data={state.data}
