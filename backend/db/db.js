@@ -63,21 +63,42 @@ const Expense = mongoose.model("Expense", expenseSchema)
 const User = mongoose.model("User", userSchema)
 
 // This deletes entire collection. Runs everytime node db.js is run
-Deposit.deleteMany({}, function(err){
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Document has been Successfully Deleted!");
-  }
-});
 
-Expense.deleteMany({}, function(err){
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Document has been Successfully Deleted!");
-  }
-});
+const dbReset = () => {
+  Deposit.deleteMany({}, function(err){
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Deposits has been Successfully Deleted!");
+      // Seeding the deposits and expenes collections
+      Deposit.insertMany(testDeposit,
+        function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Successfully saved all the deposits");
+            }}
+      )
+    }
+  });
+  
+  Expense.deleteMany({}, function(err){
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Expenses has been Successfully Deleted!");
+  
+      Expense.insertMany(testExpense,
+        function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Successfully saved all the expenses");
+            }}
+      )
+    }
+  });
+}
 
 // Creating the test user Saitama
 const testUser = new User({
@@ -86,26 +107,7 @@ const testUser = new User({
 })
 
 
-// Seeding the deposits and expenes collections
-Deposit.insertMany(testDeposit,
-  function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Successfully saved all the deposits");
-      }}
-)
-
-Expense.insertMany(testExpense,
-  function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Successfully saved all the expenses");
-      }}
-)
-
-module.exports = { Deposit, Expense, User };
+module.exports = { Deposit, Expense, User, dbReset };
 
 ///////////////////////
 //// CRUD TUTORIAL ////

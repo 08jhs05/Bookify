@@ -1,24 +1,34 @@
 // Importting hooks and Libraries
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useContext } from "react";
 import "../App.css";
-import axios from "axios";
 import Webcam from "react-webcam";
-import ScanExtractData from "./ScanExtractData";
 
-export default function Scan() {
-  const [responseData, setResponseData] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
+import { ScannedDataContext } from '../ScannedDataContext'
+
+export default function Scan(props) {
+  const isDemo = props.isDemo || false;
+  // const [responseData, setResponseData] = useState(null);
+  // const [imgSrc, setImgSrc] = useState(null);
   const webcamRef = useRef(null);
 
-  const capture = useCallback(() => {
+  const { responseData, setImgSrc, imgSrc } = useContext(ScannedDataContext);
+
+  const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
 
-    axios
-      .post("/api/processData/", { url: imageSrc })
-      .then((res) => setResponseData(JSON.parse(res.data)))
-      .catch((err) => console.error(err));
-  }, [webcamRef, setImgSrc]);
+  };
+
+  // useEffect(() => {
+  //   sendRequest(imgSrc);
+  // },[imgSrc])
+  
+  // const sendRequest = useCallback((imageSrc) => {
+  //   axios
+  //     .post("/api/processData/", { url: imageSrc })
+  //     .then((res) => handleData(JSON.parse(res.data)))
+  //     .catch((err) => console.error(err));
+  // },[imgSrc]);
 
   return (
     <section className="scan">
@@ -29,9 +39,15 @@ export default function Scan() {
         screenshotFormat="image/jpeg"
       />
       <button onClick={capture}>Capture photo</button>
+      {isDemo && 
+        <div>
+          Total Amount: {responseData?.amount}
+          <br />
+          Date: {responseData?.depositDate}
 
-      {imgSrc && <img src={imgSrc} alt="captured-img" />}
-      <ScanExtractData responseData={responseData} />
+          {imgSrc && <img src={imgSrc} alt="captured-image"/>}
+        </div>
+      }
     </section>
   );
 }
