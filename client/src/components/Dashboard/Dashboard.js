@@ -16,7 +16,7 @@ export default function Dashboard(props) {
 
   const [state, setState] = useState({
     queryDate: newDate,
-    data: { incomes: [], expenses: [] },
+    data: { incomes: [], expenses: [] }
   });
 
   useEffect(() => {
@@ -51,8 +51,8 @@ export default function Dashboard(props) {
             <Summary data={state.data} daysAgo={daysAgo} type={"BALANCE"}/>
           </div>
           <div className="dashboard_data_section">
-            <DashboardCategories data={state.data} />
-            <DashboardGraph data={state.data} daysAgo={daysAgo} />
+            <DashboardCategories data={state.data}/>
+            <DashboardGraph data={state.data} daysAgo={daysAgo}/>
           </div>
         </div>
         <ScanNewBtn />

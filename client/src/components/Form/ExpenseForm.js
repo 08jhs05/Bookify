@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ScannedDataContext } from "../../ScannedDataContext"
+
 import {
   Chip,
   TextField,
@@ -22,11 +24,11 @@ export default function ExpenseForm(props) {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
   const [formValue, setFormValue] = useState({
-    depositDate: "",
-    amount: "",
     notes: "",
     category: "",
   });
+
+  const { responseData, handleDataChange } = useContext(ScannedDataContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,24 +45,25 @@ export default function ExpenseForm(props) {
       [formValues]: event.target.value,
     }));
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const completeFormValues = {
       ...formValue,
       category,
+      amount: responseData.amount,
+      depositDate: responseData.depositDate
     };
 
     return await axios
       .put("/api/expenses", completeFormValues)
       .then(() => {
         setFormValue({
-          depositDate: "",
-          amount: "",
           notes: "",
           category: "",
         });
+        handleDataChange({depositDate: "", amount: null});
         setCategory([]);
         handleClose();
         props.reloadPage();
@@ -86,12 +89,13 @@ export default function ExpenseForm(props) {
       >
         <DialogTitle id="form-dialog-title">Expenses Form</DialogTitle>
         <DialogContent>
-          <Scan />
+          <Scan isDemo={false}/>
           <TextField
             margin="dense"
             id="depositDate"
             type="date"
-            onChange={handleChange}
+            value={responseData.depositDate.substr(0, 10)}
+            onChange={(event) => handleDataChange({...responseData, depositDate: event.target.value})}
             fullWidth
             inputProps={{ max: `${currentDate}` }}
           />
@@ -99,8 +103,9 @@ export default function ExpenseForm(props) {
             margin="dense"
             id="amount"
             label="Enter Amount"
+            value={responseData.amount ?responseData.amount.toString() : ""}
             type="number"
-            onChange={handleChange}
+            onChange={(event) => handleDataChange({...responseData, amount: Number(event.target.value)})}
             fullWidth
           />
 
