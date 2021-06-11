@@ -11,7 +11,7 @@ export default function DashboardNavbar(props) {
     {key: 2, label: "Current Month", value: {type: "this", format: "M"}},
     {key: 3, label: "Last 3 Months", value: {type: "last", amount: 3, format: "M"}},
     {key: 4, label: "Current Year", value: {type: "this", format: "Y"}},
-    {key: 5, label: "Everything", value: {type: "last", amount: 10, format: "Y"}}
+    {key: 5, label: "Everything", value: {type: "last", amount: 10, format: "M"}}
   ];
 
   const onChange = function(value) {
