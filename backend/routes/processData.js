@@ -2,14 +2,16 @@ const express = require("express");
 const router = express.Router();
 const https = require("https");
 
-router.get("/", function (req, res) {
-  res.json([]);
-});
+const { submitNewReceipt, getAllReceipts } = require("../db/dbHelpers");
 
-router.post("/", (req, res) => {
-  const base64result = req.body.url.split(",")[1];
-  return uploadToAPI(res, base64result);
-});
+router.get("/", getAllReceipts);
+
+// router.post("/", (req, res) => {
+//   const base64result = req.body.url.split(",")[1];
+//   return uploadToAPI(res, base64result);
+// });
+
+router.post("/", submitNewReceipt);
 
 const uploadToAPI = (res, filePath) => {
   const postBody = {

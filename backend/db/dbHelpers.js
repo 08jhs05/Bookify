@@ -1,4 +1,4 @@
-const { Deposit, Expense, User } = require('./db');
+const { Deposit, Expense, User, Receipt } = require('./db');
 const db = require('./db');
 
 const getDepositsAfterDate = async (req, res) => {
@@ -26,6 +26,20 @@ const getExpensesAfterDate = async (req, res) => {
                 .json({ success: false, error: `Expense not found` })
         }
         return res.status(200).json(expenses)
+    }).catch(err => console.log(err))
+}
+
+const getAllReceipts = async (req, res) => {
+    await Receipt.find({}, (err, receipt) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!receipt.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Receipt not found` })
+        }
+        return res.status(200).json(receipt)
     }).catch(err => console.log(err))
 }
 
@@ -94,6 +108,38 @@ const submitNewDeposit = async (req, res) => {
         })
 }
 
+const submitNewReceipt = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'Data cannot be empty',
+        })
+    }
+
+    const newReceipt = new Receipt(body)
+
+    if (!newReceipt) {
+        return res.status(400).json({ success: false, error: err })
+    }
+
+    newReceipt
+        .save()
+        .then(() => {
+            return res.status(201).json({
+                success: true,
+                message: 'Receipt created',
+            })
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Receipt not created',
+            })
+        })
+}
+
 const deleteExpense = async (req, res) => {
     await Expense.findOneAndDelete({ _id: req.query.id }, (err, expense) => {
         if (err) {
@@ -126,4 +172,4 @@ const deleteDeposit = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, deleteExpense, deleteDeposit };
+module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, submitNewReceipt, deleteExpense, deleteDeposit, getAllReceipts };

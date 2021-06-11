@@ -42,7 +42,7 @@ export default function Dashboard(props) {
 
   return (
     <section className="dashboard">
-      <DashboardNavbar state={state} setState={setState} />
+      <DashboardNavbar state={state} setState={setState} logoutCallback={props.logoutCallback}/>
       <div className="dashboard_body">
         <div className="dashboard_body_left">
           <div className="dashboard_summary_section">
