@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 export default function ScanNewBtn(props) {
 
@@ -24,7 +25,8 @@ export default function ScanNewBtn(props) {
       onMouseEnter={onMouseEnterFunc}
       onMouseLeave={onMouseLeaveFunc}
       onClick={onClickFunc}>
-      <div>Scan Your Receipt</div>
+        <div><PhotoCameraIcon style={{width:'100px', height:'100px'}}/></div>
+        <div>Scan Your Receipt</div>
     </section>
   );
 }

@@ -22,6 +22,9 @@ export default function Sidebar() {
         <nav className="nav_item">
           <Link className="nav__link" to="scan">Scan</Link>
         </nav>
+        <nav className="nav_item">
+          <Link className="nav__link" to="receipts">Receipts</Link>
+        </nav>
       </div>
     </section>
   );

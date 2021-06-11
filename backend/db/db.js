@@ -56,18 +56,33 @@ const expenseSchema = new mongoose.Schema({
   notes: String
 });
 
+const receiptSchema = new mongoose.Schema({
+  data: {
+    type: String
+  },
+
+  dateCaptured: {
+    type: Date
+  },
+
+
+  notes: {
+    type: String
+  }
+});
 
 // Creating the collections
 const Deposit = mongoose.model("Deposit", depositSchema)
 const Expense = mongoose.model("Expense", expenseSchema)
 const User = mongoose.model("User", userSchema)
+const Receipt = mongoose.model("Receipt", receiptSchema)
 
 // This deletes entire collection. Runs everytime node db.js is run
 Deposit.deleteMany({}, function(err){
   if (err) {
     console.log(err);
   } else {
-    console.log("Document has been Successfully Deleted!");
+    console.log("Past deposits has been Successfully Deleted!");
   }
 });
 
@@ -75,7 +90,15 @@ Expense.deleteMany({}, function(err){
   if (err) {
     console.log(err);
   } else {
-    console.log("Document has been Successfully Deleted!");
+    console.log("Past expenses has been Successfully Deleted!");
+  }
+});
+
+Receipt.deleteMany({}, function(err){
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Past receipts has been Successfully Deleted!");
   }
 });
 
@@ -105,7 +128,7 @@ Expense.insertMany(testExpense,
       }}
 )
 
-module.exports = { Deposit, Expense, User };
+module.exports = { Deposit, Expense, User, Receipt };
 
 ///////////////////////
 //// CRUD TUTORIAL ////

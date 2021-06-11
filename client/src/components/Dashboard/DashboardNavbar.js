@@ -1,5 +1,7 @@
 import Select from "react-dropdown-select";
 import { createPastDate } from "../../helpers";
+import Button from '@material-ui/core/Button';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 export default function DashboardNavbar(props) {
 
@@ -31,6 +33,11 @@ export default function DashboardNavbar(props) {
         multi={false}
         style={{width: "500px"}}
       />
+      <div style={{margin:'10px 30px 10px auto', display:'flex', alignItems:'center'}}>
+        <AccountCircleIcon style={{width:'40px', height:'40px'}}/>
+        &nbsp;&nbsp;&nbsp;Username111&nbsp;&nbsp;&nbsp;
+        <Button variant="contained" style={{width:'100px', height:'40px'}} onClick={props.logoutCallback}>Logout</Button>
+      </div>
     </section>
   );
 }

@@ -2,7 +2,7 @@ import './App.css';
 
 // import React components, methods
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 // import components
@@ -11,8 +11,15 @@ import Expense from './components/Expense';
 import Income from './components/Income';
 import Dashboard from './components/Dashboard/Dashboard';
 import Scan from './components/Scan';
+import SignIn from './components/SignIn';
+import Receipts from './components/Receipts';
 
 function App() {
+
+  const [userLoggedin, setUserLoggedin] = useState(false);
+  const toggleLoggin = function (){
+    setUserLoggedin(!userLoggedin);
+  }
 
   return (
     <main className="App">
@@ -20,7 +27,7 @@ function App() {
         <Sidebar />
         <Switch>
           <Route exact path="/">
-            <Dashboard />
+            {userLoggedin ? <Dashboard logoutCallback={toggleLoggin}/> : <SignIn logInCallback={toggleLoggin}/>}
           </Route>
           <Route path="/expenses">
             <Expense />
@@ -30,6 +37,9 @@ function App() {
           </Route>
           <Route path="/scan">
             <Scan />
+          </Route>
+          <Route path="/receipts">
+            <Receipts />
           </Route>
         </Switch>
       </Router>

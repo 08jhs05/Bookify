@@ -15,8 +15,8 @@ export default function Scan() {
     setImgSrc(imageSrc);
 
     axios
-      .post("/api/processData/", { url: imageSrc })
-      .then((res) => setResponseData(JSON.parse(res.data)))
+      .post("/api/processData/", { dateCaptured: new Date(), data: imageSrc })
+      .then()
       .catch((err) => console.error(err));
   }, [webcamRef, setImgSrc]);
 
@@ -31,7 +31,7 @@ export default function Scan() {
       <button onClick={capture}>Capture photo</button>
 
       {imgSrc && <img src={imgSrc} alt="captured-img" />}
-      <ScanExtractData responseData={responseData} />
+      {/* <ScanExtractData responseData={responseData} /> */}
     </section>
   );
 }
