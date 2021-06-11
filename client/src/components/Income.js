@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Select from "react-dropdown-select";
 import axios from "axios";
 
+import { daysDifference } from "../helpers";
+
 import IncomeForm from "./Form/IncomeForm";
 import Datalist from "./Datalist";
 import { createPastDate } from "../helpers";
@@ -31,6 +33,8 @@ const options = [
     value: { type: "last", amount: 10, format: "Y" },
   },
 ];
+///////////////
+let daysAgo = 0;
 
 export default function Income(props) {
   const newDate = new Date();
@@ -45,6 +49,10 @@ export default function Income(props) {
 
   useEffect(() => {
     let isMounted = true;
+    /////////////
+    const today = new Date();
+    daysAgo = daysDifference(state.queryDate, today);
+
     axios
       .get("/api/incomes", { params: { queryDate: state.queryDate } })
       .then((res) => {
@@ -77,6 +85,8 @@ export default function Income(props) {
     });
   };
 
+  console.log(daysAgo)
+
   return (
     <section className="income">
       <Select
@@ -89,7 +99,7 @@ export default function Income(props) {
         multi={false}
         style={{ width: "500px" }}
       />
-      <IncomeExpenseGraph />
+      <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
       <IncomeForm reloadPage={() => setReload(!reload)} />
       <Datalist
         data={state.data}

@@ -89,7 +89,7 @@ export default function Expense(props) {
         multi={false}
         style={{ width: "500px" }}
       />
-      <IncomeExpenseGraph />
+      <IncomeExpenseGraph data={state.data} />
       <ExpenseForm reloadPage={() => setReload(!reload)} />
       <Datalist
         data={state.data}

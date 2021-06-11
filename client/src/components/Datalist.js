@@ -6,7 +6,6 @@ import IncomeEditForm from "./Form/IncomeEditForm";
 let currentID = "";
 
 export default function Datalist(props) {
-
   const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
 
   return (
