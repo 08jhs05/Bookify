@@ -118,8 +118,6 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     endDate = endDate.toISOString().slice(0, 10);
 
     //Goes through each object in the array to check if it matches the date criteria
-    console.log('this is running')
-    console.log(depositType)
     depositType.forEach(eachDeposit => {
       if ((eachDeposit.depositDate >= startDate) && (eachDeposit.depositDate <= endDate)) {
         labelList.push(eachDeposit.depositDate.slice(0, 10));

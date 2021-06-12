@@ -21,7 +21,7 @@ export default function Receipts() {
   }, []);
 
   return (
-    <section className="receipts">
+    <section className="not_sidebar receipts">
       {state.receipts.map(receipt => (
         <Fragment key={receipt._id}>
           <div>captured at: {receipt.dateCaptured}</div>

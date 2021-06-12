@@ -88,7 +88,7 @@ export default function Income(props) {
   console.log(daysAgo)
 
   return (
-    <section className="income">
+    <section className="not_sidebar income">
       <Select
         options={options}
         onChange={onChange}
