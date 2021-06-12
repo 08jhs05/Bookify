@@ -1,5 +1,7 @@
 const { Deposit, Expense, User, Receipt } = require('./db');
+const https = require("https");
 const db = require('./db');
+
 
 const getDepositsAfterDate = async (req, res) => {
     await Deposit.find({ depositDate: { $gt : new Date(req.query.queryDate) } }, (err, deposits) => {
@@ -172,4 +174,43 @@ const deleteDeposit = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, submitNewReceipt, deleteExpense, deleteDeposit, getAllReceipts };
+const uploadToAPI = (res, filePath) => {
+    const postBody = {
+        image: filePath,
+        filename: "example.jpeg",
+        contentType: "image/jpeg",
+        refresh: false,
+        incognito: false,
+        ipaddress: "32.4.2.223",
+        ignoreMerchantName: "string",
+        language: "en",
+        extractTime: false,
+        subAccountId: "string",
+        referenceId: "string",
+    };
+    const internals = {
+        hostname: "api.taggun.io",
+        path: "/api/receipt/v1/simple/encoded",
+        method: "POST",
+        agent: https.Agent({ keepAlive: true }),
+        port: 443,
+        body: JSON.stringify(postBody),
+        headers: {
+        "Content-Type": "application/json",
+        apikey: process.env.TaggunAPIKey,
+        },
+    };
+    const req = https.request(internals, (result) => {
+        result.on("data", (d) => {
+        process.stdout.write(d);
+        res.json(d.toString());
+        });
+    });
+
+    req.on("error", (error) => {
+        console.log(error);
+    });
+    req.write(JSON.stringify(postBody));
+    req.end();
+};
+module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, submitNewReceipt, deleteExpense, deleteDeposit, getAllReceipts, uploadToAPI };

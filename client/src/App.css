@@ -86,3 +86,24 @@
   padding: 5rem;
   background-color: darksalmon;
 }
+
+/* Scan page */
+.scan {
+  display:flex;
+  margin: 5em 5em 0 5em;
+  width: 100%;
+  justify-content: space-between;
+}
+.scan .photo-icon {
+  display:flex;
+  align-items:flex-end;
+}
+
+.scan .scan-form {
+  display: flex;
+  flex-direction: column;
+  width: 30em;
+  height: 22em;
+  border: 1px solid black;
+}
+

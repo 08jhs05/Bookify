@@ -11,7 +11,7 @@ export default function Receipts() {
   useEffect(() => {
     let isMounted = true;
     axios
-      .get("/api/processData/")
+      .get("/api/receipt/")
       .then((res) => {
         setState({ ...state, receipts: res.data });
       });

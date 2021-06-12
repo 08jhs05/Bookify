@@ -86,7 +86,6 @@ export default function ExpenseForm(props) {
       >
         <DialogTitle id="form-dialog-title">Expenses Form</DialogTitle>
         <DialogContent>
-          <Scan />
           <TextField
             margin="dense"
             id="depositDate"

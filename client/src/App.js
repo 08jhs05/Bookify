@@ -2,8 +2,7 @@ import './App.css';
 
 // import React components, methods
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react"; 
 
 // import components
 import Sidebar from "./components/Sidebar/Sidebar";

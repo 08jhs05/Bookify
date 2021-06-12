@@ -30,6 +30,12 @@ export default function Scan() {
       <button onClick={capture}>Capture photo</button>
 
       {imgSrc && <img src={imgSrc} alt="captured-img" />}
+
+      <section className="extracted-data">
+      Total Amount: {responseData?.totalAmount?.data}
+      <br />
+      Date: {responseData?.date?.data}
+    </section>
     </section>
   );
 }
