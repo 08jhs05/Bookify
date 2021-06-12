@@ -105,3 +105,8 @@
 
   flex-direction: column;
 }
+
+.income-expense-direction {
+  display: flex;
+  flex-direction: row;
+}
