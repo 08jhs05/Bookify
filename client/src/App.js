@@ -12,7 +12,6 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Scan from './components/Scan';
 import SignIn from './components/SignIn';
 import Receipts from './components/Receipts';
-import { ContextComponent } from './ScannedDataContext';
 
 function App() {
 
@@ -29,7 +28,6 @@ function App() {
           <Route exact path="/">
             {userLoggedin ? <Dashboard logoutCallback={toggleLoggin}/> : <SignIn logInCallback={toggleLoggin}/>}
           </Route>
-          <ContextComponent>
             <Route path="/expenses">
               <Expense />
             </Route>
@@ -42,7 +40,6 @@ function App() {
             <Route path="/receipts">
               <Receipts />
             </Route>
-          </ContextComponent>
         </Switch>
       </Router>
     </main>

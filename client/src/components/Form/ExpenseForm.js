@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { ScannedDataContext } from "../../ScannedDataContext"
 
 import {
   Chip,
@@ -13,8 +12,6 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import { Autocomplete } from "@material-ui/lab";
 import axios from "axios";
-
-import Scan from "../Scan";
 
 export default function ExpenseForm(props) {
   const date = new Date();
