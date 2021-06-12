@@ -3,6 +3,8 @@ import { createPastDate } from "../../helpers";
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import Grid from '@material-ui/core/Grid';
+
 export default function DashboardNavbar(props) {
 
   const options = [
@@ -22,21 +24,26 @@ export default function DashboardNavbar(props) {
   }
 
   return (
-    <section className="navbar_dashboard">
-      <div>Get Data Of:&nbsp;&nbsp;&nbsp;</div>
-      <Select options={options}
-        onChange={onChange}
-        dropdownGap={5}
-        labelField={"label"}
-        valueField={"key"}
-        values={[options.find(opt => opt.label === "Last 10 days")]}
-        multi={false}
-        style={{width: "500px"}}
-      />
-      <div style={{margin:'10px 30px 10px auto', display:'flex', alignItems:'center'}}>
-        <AccountCircleIcon style={{width:'40px', height:'40px'}}/>
-        &nbsp;&nbsp;&nbsp;Username111&nbsp;&nbsp;&nbsp;
-        <Button variant="contained" style={{width:'100px', height:'40px'}} onClick={props.logoutCallback}>Logout</Button>
+    <section className="dashboard_navbar">
+      <div style={{display:"flex", alignItems:"center", width:"540px", justifyContent:"space-between"}}>
+      <h1 style={{fontSize:'40px'}}>Dashboard</h1>
+        <Select options={options}
+        className={'regularFont'}
+          color={'#303F9F'}
+          onChange={onChange}
+          dropdownGap={5}
+          labelField={"label"}
+          valueField={"key"}
+          values={[options.find(opt => opt.label === "Last 10 days")]}
+          multi={false}
+          style={{width: "300px", height: '40px', backgroundColor: 'white', borderRadius: '15px', paddingLeft: '20px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.4)'}}
+        />
+      </div>
+      <div style={{display:"flex", alignItems:"center", width:"280px", justifyContent:"space-between"}}>
+          <div className={'regularFont'} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+            <AccountCircleIcon style={{width:'40px', height:'40px'}}/>&nbsp;&nbsp;Username111
+          </div>
+        <Button variant="contained" style={{width:'100px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px'}} onClick={props.logoutCallback}>Logout</Button>
       </div>
     </section>
   );

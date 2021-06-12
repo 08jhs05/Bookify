@@ -1,6 +1,9 @@
 import { Bar, Line, Pie } from 'react-chartjs-2'
 import React from 'react'
 import { getChartFromNow, convertDateArrToObj } from '../../helpers';
+import { Divider } from '@material-ui/core';
+
+import Paper from '@material-ui/core/Paper';
 
 export default function DashboardGraph(props) {
 
@@ -11,10 +14,6 @@ export default function DashboardGraph(props) {
   let formatIncomesData = []
   let formatExpensesData = []
   let totalLabel = [];
-
-  console.log('-----------')
-  console.log(props.data.incomes)
-
 
   if (props.data) {
 
@@ -39,13 +38,13 @@ export default function DashboardGraph(props) {
 
     incomesChartData = convertDateArrToObj(formatIncomesData[0], formatIncomesData[1])
     expensesChartData = convertDateArrToObj(formatExpensesData[0], formatExpensesData[1])
-    console.log('Total is: $' + formatIncomesData[2])
   }
 
   return (
-    <section className="graph_dashboard">
-      <h2>Trend</h2>
-      <div>
+      <Paper className="paper_graph" elevation={2} style={{borderRadius:'20px', border: '1px solid', borderColor: '#303F9F'}}>
+      <h1 style={{marginBottom: '20px', marginTop: 0, fontSize:'28px'}}>Trend</h1>
+      <Divider style={{margin: 0, height: '2px'}}/>
+      <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
         <Line
           data={{
             labels: totalLabel,
@@ -63,12 +62,11 @@ export default function DashboardGraph(props) {
             }
             ]
           }}
-          width={500}
-          height={600}
+          width={400}
+          height={400}
           options={{
-
-            responsive: false,
-            maintainAspectRatio: true,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
               yAxes: [
                 {
@@ -87,6 +85,6 @@ export default function DashboardGraph(props) {
           }}
         />
       </div>
-    </section>
+      </Paper>
   );
 }

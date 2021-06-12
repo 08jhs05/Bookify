@@ -1,82 +1,154 @@
 .App {
+  background-color: #303F9F;
+  font-family: 'SFproRounded';
   display: flex;
   min-height: 100vh;
 }
 
+.not_sidebar {
+  background-color: white;
+  border-radius: 20px 0 0 20px;
+  height: 100vh;
+  width: 100%;
+}
+
+.regularFont {
+  font-family: 'SFproRegular';
+}
+
+/* sidebar elements */
+
 .side_bar {
-  background-color:aquamarine;
-  min-width: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color:#303F9F;
+  min-width: 6rem;
 }
 
 .logo {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 
 .sidebar__menu {
-  margin-top: 10rem;
-  background-color:white;
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .nav_item {
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav_item_selected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 20px 0 0 20px;
+}
+
+.nav__link_selected {
+  padding: 30px;
+  color: #E91E63;
+}
+
+.nav__link {
+  padding: 30px;
+  border-radius: 20px 0 0 20px;
+  color: whitesmoke;
+}
+
+.nav_item :hover{
+  color: #303F9F;
+  background-color: whitesmoke;
 }
 
 /* dashboard elements */
 
-.dashboard {
-  width: 100%;
+.dashboard_navbar_grid {
+  height: 15%;
 }
 
-.navbar_dashboard {
+.dashboard {
+  background-color: whitesmoke;
+}
+
+.dashboard_navbar {
   display: flex;
-  padding-left: 1rem;
-  height: 10%;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .dashboard_body {
-  display: flex;
-  height: 90%;
+  height: 85%;
+  margin-top: 10px;
 }
 
-.dashboard_body_left {
-  flex: 3 1 0;
+.dashboard_body_left{
+  height: 95%;
 }
 
 .dashboard_summary_section {
-  padding-left: 1rem;
-  justify-content: space-around;
+  margin-left: 40px;
+  margin-bottom: 40px;
   height: 10%;
-  display: flex;
-  background-color: cornflowerblue;
 }
 
 .dashboard_data_section {
+  height: 80%;
+}
+
+.summary_grid {
+  height: 100%;
+}
+
+.paper_summary {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin-right: 40px;
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.dashboard_scanBtn_grid {
+  height: 100%;
+}
+
+.paper_scanBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+  height: 96%;
+}
+
+.dashboard_data_grid {
   height: 90%;
 }
 
-.scanNewBtn {
+.paper_graph {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1 1 0;
-  margin: 1rem;
-  width: 12rem;
+  flex-direction: column;
+  padding: 40px;
+  margin-right: 40px;
+  margin-bottom: 40px;
+  height: 100%;
 }
 
-.graph_dashboard {
-  padding-left: 1rem;
-  height: 600px;
-  width: 100%;
-}
-
-.categories_dashboard {
-  padding-left: 1rem;
-  width: 100%;
-  border: black;
-  border-width: 4px;
+.paper_categories {
+  padding: 40px;
+  margin: 0 40px 40px 40px;
+  height: 100%;
 }
 
 /* incomes, expenses page */
@@ -87,7 +159,7 @@
   background-color: #FFF;
 }
 
-.summary-box {
+/* .summary-box {
   background-color: #FFF;
   width: 100%;
   height: 70%;
@@ -104,4 +176,9 @@
 .summary-right {
 
   flex-direction: column;
+} */
+
+.income-expense-direction {
+  display: flex;
+  flex-direction: row;
 }

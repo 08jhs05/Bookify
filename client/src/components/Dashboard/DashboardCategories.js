@@ -1,6 +1,11 @@
 import { Pie } from 'react-chartjs-2'
 import { RGBPicker } from '../../helpers'
 
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { Divider } from '@material-ui/core';
+
 export default function DashboardCategories(props) {
 
   const rgbPicker = new RGBPicker;
@@ -44,24 +49,32 @@ export default function DashboardCategories(props) {
   //=======================
 
   return (
-    <section className="categories_dashboard">
-      <h2>Categories</h2>
-      <div>Incomes:</div>
-      <Pie   
-        data={{labels: incomesLabels
-        ,datasets: incomesDatasets}}        
-        width={300}
-        height={300}
-        options={{responsive: false}}
-        />
-      <div>Expenses:</div>
-      <Pie
-      data={{labels: expensesLabels
-        ,datasets: expensesDatasets}}        
-        width={300}
-        height={300}
-        options={{responsive: false, legend: { display: false }}}
-        />
-    </section>
+      <Paper className="paper_categories" elevation={2} style={{borderRadius:'20px',  border: '1px solid', borderColor: '#303F9F', display:"flex", flexDirection:'column', justifyContent:"space-between"}}>
+      <h1 style={{marginBottom: '20px', marginTop: 0, fontSize:'28px'}}>Categories</h1>
+      <Divider style={{marginBottom: '24px', height: '2px'}}/>
+      <div style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
+        <div className={'regularFont'} style={{display:"flex", flexDirection:'column', alignItems:"center", justifyContent:"space-between"}}><KeyboardArrowUpIcon style={{width:'60px', height:'60px', color:'#303F9F'}}/>
+        INCOMES
+        </div>
+        <Pie   
+          data={{labels: incomesLabels
+          ,datasets: incomesDatasets}}        
+          width={240}
+          height={220}
+          options={{responsive: false,
+            maintainAspectRatio: true}}
+          />
+      </div>
+      <div style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
+        <div className={'regularFont'} style={{display:"flex", flexDirection:'column', alignItems:"center", justifyContent:"space-between"}}>EXPENSES<KeyboardArrowDownIcon style={{width:'60px', height:'60px', color:'#E91E63'}}/></div>
+        <Pie
+        data={{labels: expensesLabels
+          ,datasets: expensesDatasets}}        
+          width={240}
+          height={220}
+          options={{responsive: false, maintainAspectRatio: true }}
+          />
+      </div>
+      </Paper>
   );
 }

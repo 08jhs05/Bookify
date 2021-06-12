@@ -19,7 +19,7 @@ export default function Scan(props) {
   };
 
   return (
-    <section className="scan">
+    <section className="not_sidebar scan">
       <Webcam
         audio={false}
         ref={webcamRef}

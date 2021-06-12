@@ -8,6 +8,7 @@ import IncomeForm from "./Form/IncomeForm";
 import Datalist from "./Datalist";
 import { createPastDate } from "../helpers";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
+import IncomeExpenseSummary from "./IncomeExpenseSummary";
 
 const options = [
   {
@@ -88,7 +89,7 @@ export default function Income(props) {
   console.log(daysAgo)
 
   return (
-    <section className="income">
+    <section className="not_sidebar income">
       <Select
         options={options}
         onChange={onChange}
@@ -99,8 +100,17 @@ export default function Income(props) {
         multi={false}
         style={{ width: "500px" }}
       />
-      <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
+      <div className="income-expense-direction">
+        <div>
+          <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
+        </div>
+        <div>
+          <IncomeExpenseSummary />
+        </div>
+
+      </div>
       <IncomeForm reloadPage={() => setReload(!reload)} />
+
       <Datalist
         data={state.data}
         editBtnOnClick={editBtnOnClick}
@@ -108,6 +118,7 @@ export default function Income(props) {
         reloadPage={() => setReload(!reload)}
         type={"income"}
       />
+
     </section>
   );
 }

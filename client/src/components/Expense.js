@@ -87,7 +87,7 @@ export default function Expense(props) {
   };
 
   return (
-    <div className="expense-form">
+    <div className="not_sidebar expense-form">
       <Select
         options={options}
         onChange={onChange}

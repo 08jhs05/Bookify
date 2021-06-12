@@ -15,8 +15,15 @@ import Container from '@material-ui/core/Container';
 import { useContext, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    backgroundColor: 'white',
+    borderRadius: '20px 0 0 20px',
+    height: '100vh',
+    width: '100%',
+    margin: 0,
+  },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(20),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -26,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '30%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -39,7 +46,7 @@ export default function SignIn(props) {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <section className={classes.container}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -95,6 +102,6 @@ export default function SignIn(props) {
           </Grid>
         </form>
       </div>
-    </Container>
+    </section>
   );
 }

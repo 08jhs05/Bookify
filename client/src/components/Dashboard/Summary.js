@@ -1,12 +1,31 @@
 import React from 'react'
 import { getChartFromNow, convertDateArrToObj } from '../../helpers';
+import Paper from '@material-ui/core/Paper';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { useState } from "react";
+
+import { useHistory } from 'react-router-dom';
 
 export default function Summary(props) {
   let summaryData = "";
-  const incomeIcon = "fas fa-angle-up";
-  const expenseIcon = "fas fa-angle-down"
-  const balanceIcon = "fas fa-exchange-alt"
   let stateIcon = "";
+
+  const [hover, setHover] = useState(false)
+
+  const onMouseEnterFunc = function() {
+    setHover(!hover);
+  }
+
+  const onMouseLeaveFunc = function() {
+    setHover(!hover);
+  }
+
+  const history = useHistory();
+  const onClickFunc = function() {
+    history.push(props.type === "BALANCE" ? '' : `/${props.type.toLowerCase()}s`);
+  }
 
   if (props.data) {
     let dwmProps = "";
@@ -23,27 +42,34 @@ export default function Summary(props) {
 
     if (props.type === "INCOME") {
       summaryData = formatIncomesData[2];
-      stateIcon = incomeIcon;
+      stateIcon = "up";
     } else if (props.type === "EXPENSE") {
       summaryData = formatExpensesData[2];
-      stateIcon = expenseIcon;
+      stateIcon = "down";
     } else if (props.type === "BALANCE") {
       summaryData = formatIncomesData[2] - formatExpensesData[2];
-      stateIcon = balanceIcon;
+      stateIcon = "balance";
     }
 
 
   }
   return (
-    <section className="summary">
-
-      <div className="summary-box">
-        <div><i className={stateIcon}></i></div>
-        <div className="summary-right">
-          <div>{props.type}</div>
-          <div>${summaryData}</div>
-        </div>
+    <Paper 
+      onMouseEnter={onMouseEnterFunc}
+      onMouseLeave={onMouseLeaveFunc}
+      onClick={onClickFunc}
+      className="paper_summary" 
+      elevation={2} 
+      style={hover ? {borderRadius:'20px', border: '1px solid', borderColor: '#303F9F'} : {borderRadius:'20px'}}>
+      <div className="summary_icon" >{
+        stateIcon === 'up' ? <KeyboardArrowUpIcon style={{width:'60px', height:'60px', color:'#303F9F'}}/> :
+        stateIcon === 'down' ? <KeyboardArrowDownIcon style={{width:'60px', height:'60px', color:'#E91E63'}}/> : 
+        <ImportExportIcon style={{width:'60px', height:'60px'}}/> 
+      }</div>
+      <div className="summary-right">
+        <div className="regularFont">{props.type}</div>
+        <div style={{fontSize:'24px'}}>${summaryData}</div>
       </div>
-    </section>
+    </Paper>
   );
 }
