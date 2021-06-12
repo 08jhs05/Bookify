@@ -133,20 +133,20 @@
 }
 
 .dashboard_data_grid {
-  height: 96%;
+  height: 90%;
 }
 
 .paper_graph {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 40px;
   margin-right: 40px;
   margin-bottom: 40px;
   height: 100%;
 }
 
 .paper_categories {
-  padding: 20px;
+  padding: 40px;
   margin: 0 40px 40px 40px;
   height: 100%;
 }

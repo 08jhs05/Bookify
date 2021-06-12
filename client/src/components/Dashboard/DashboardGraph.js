@@ -41,9 +41,9 @@ export default function DashboardGraph(props) {
   }
 
   return (
-      <Paper className="paper_graph" elevation={2} style={{borderRadius:'20px'}}>
-      <h3 style={{marginBottom: '20px', marginTop: 0}}>Trend</h3>
-      <Divider style={{marginBottom: '20px', height: '2px'}}/>
+      <Paper className="paper_graph" elevation={2} style={{borderRadius:'20px', border: '1px solid', borderColor: '#303F9F'}}>
+      <h1 style={{marginBottom: '20px', marginTop: 0, fontSize:'28px'}}>Trend</h1>
+      <Divider style={{margin: 0, height: '2px'}}/>
       <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
         <Line
           data={{

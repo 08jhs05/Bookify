@@ -60,7 +60,7 @@ export default function Summary(props) {
       onClick={onClickFunc}
       className="paper_summary" 
       elevation={2} 
-      style={hover ? {borderRadius:'20px', backgroundColor: '#E8EAF6'} : {borderRadius:'20px'}}>
+      style={hover ? {borderRadius:'20px', border: '1px solid', borderColor: '#303F9F'} : {borderRadius:'20px'}}>
       <div className="summary_icon" >{
         stateIcon === 'up' ? <KeyboardArrowUpIcon style={{width:'60px', height:'60px', color:'#303F9F'}}/> :
         stateIcon === 'down' ? <KeyboardArrowDownIcon style={{width:'60px', height:'60px', color:'#E91E63'}}/> : 

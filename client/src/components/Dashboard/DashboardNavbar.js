@@ -36,7 +36,7 @@ export default function DashboardNavbar(props) {
           valueField={"key"}
           values={[options.find(opt => opt.label === "Last 10 days")]}
           multi={false}
-          style={{width: "300px", height: '40px', backgroundColor: 'white', borderRadius: '15px', paddingLeft: '20px'}}
+          style={{width: "300px", height: '40px', backgroundColor: 'white', borderRadius: '15px', paddingLeft: '20px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.4)'}}
         />
       </div>
       <div style={{display:"flex", alignItems:"center", width:"280px", justifyContent:"space-between"}}>

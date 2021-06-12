@@ -49,9 +49,9 @@ export default function DashboardCategories(props) {
   //=======================
 
   return (
-      <Paper className="paper_categories" elevation={2} style={{borderRadius:'20px', display:"flex", flexDirection:'column', justifyContent:"space-between"}}>
-      <h3 style={{marginBottom: 0, marginTop: 0}}>Categories</h3>
-      <Divider style={{margin: 0, height: '2px'}}/>
+      <Paper className="paper_categories" elevation={2} style={{borderRadius:'20px',  border: '1px solid', borderColor: '#303F9F', display:"flex", flexDirection:'column', justifyContent:"space-between"}}>
+      <h1 style={{marginBottom: '20px', marginTop: 0, fontSize:'28px'}}>Categories</h1>
+      <Divider style={{marginBottom: '24px', height: '2px'}}/>
       <div style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
         <div className={'regularFont'} style={{display:"flex", flexDirection:'column', alignItems:"center", justifyContent:"space-between"}}><KeyboardArrowUpIcon style={{width:'60px', height:'60px', color:'#303F9F'}}/>
         INCOMES

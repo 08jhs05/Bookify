@@ -26,10 +26,10 @@ export default function ScanNewBtn(props) {
       onMouseEnter={onMouseEnterFunc}
       onMouseLeave={onMouseLeaveFunc}
       onClick={onClickFunc}
-      className="paper_scanBtn" elevation={2} style={hover ? {borderRadius:'20px', backgroundColor: '#E8EAF6'} :
+      className="paper_scanBtn" elevation={2} style={hover ? {borderRadius:'20px',  border: '1px solid', borderColor: '#303F9F'} :
       {borderRadius:'20px'}}>
-      <div><PhotoCameraIcon style={{width:'100px', height:'100px', color: '#303F9F'}}/></div>
-      <div className={'regularFont'}>Scan Your Receipt</div>
+      <div><PhotoCameraIcon style={{width:'140px', height:'140px', color: '#303F9F'}}/></div>
+      <div className={'regularFont'} style={{fontSize:'18px'}}>Scan Your Receipt</div>
     </Paper>
   );
 }
