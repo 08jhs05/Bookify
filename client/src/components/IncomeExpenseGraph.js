@@ -60,7 +60,7 @@ export default function IncomeExpenseGraph(props) {
             }
             ]
           }}
-          width={600}
+          width={400}
           height={300}
           options={{
 

@@ -99,10 +99,22 @@ const convertDateArrToObj = (xCor, yCor) => {
 //depositType will be either testDeposit or testExpense
 const getChartFromNow = (daysBefore, dwmValue, depositType) => {
 
+
+  depositType.sort(function(a, b) {
+    var keyA = (a.depositDate),
+      keyB = (b.depositDate);
+    // Compare the 2 dates
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+  });
+
+
   // LabelList is x-axis on graph and amountList is y-axis
   let labelList = [];
   let amountList = [];
   let total = 0;
+  let filteredDeposit = [];
 
   //Creates new date objects with todays date
   let endDate = new Date()
@@ -113,17 +125,40 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
 
   //When you need daily values
   if (dwmValue === "daily") {
+    
     // Converts date objects to ISO format string with extra time deleted 
     startDate = startDate.toISOString().slice(0, 10);
     endDate = endDate.toISOString().slice(0, 10);
 
     //Goes through each object in the array to check if it matches the date criteria
-    depositType.forEach(eachDeposit => {
+    // depositType.forEach(eachDeposit => {
+    //   if ((eachDeposit.depositDate >= startDate) && (eachDeposit.depositDate <= endDate)) {
+    //     labelList.push(eachDeposit.depositDate.slice(0, 10));
+    //     amountList.push(eachDeposit.amount / 100)
+    //   }
+    // })
+
+
+    /////////////////////////
+    depositType.forEach((eachDeposit) => {
       if ((eachDeposit.depositDate >= startDate) && (eachDeposit.depositDate <= endDate)) {
-        labelList.push(eachDeposit.depositDate.slice(0, 10));
-        amountList.push(eachDeposit.amount / 100)
+        
+			filteredDeposit.push(eachDeposit)
       }
     })
+
+    const res = Array.from(filteredDeposit.reduce(
+      (m, {depositDate, amount}) => m.set(depositDate, (m.get(depositDate) || 0) + amount), new Map
+    ), ([depositDate, amount]) => ({depositDate, amount}));
+    console.log(res);
+    
+    res.forEach((eachDeposit)=>{
+             labelList.push(eachDeposit.depositDate.slice(0, 10));
+            amountList.push(eachDeposit.amount / 100)
+    })
+
+
+
   }
 
   // When you want to check for monthly values
