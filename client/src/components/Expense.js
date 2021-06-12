@@ -31,7 +31,7 @@ const options = [
   {
     key: 5,
     label: "Everything",
-    value: { type: "last", amount: 10, format: "Y" },
+    value: { type: "last", amount: 10, format: "M" },
   },
 ];
 

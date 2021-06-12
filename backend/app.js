@@ -5,11 +5,12 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
 
-var indexRouter = require("./routes/index");
-var expensesRouter = require("./routes/expenses");
-var incomesRouter = require("./routes/incomes");
-var newRouter = require("./routes/new");
-var processDataRouter = require("./routes/processData");
+const indexRouter = require("./routes/index");
+const expensesRouter = require("./routes/expenses");
+const incomesRouter = require("./routes/incomes");
+const newRouter = require("./routes/new");
+const receiptRoute = require("./routes/receipt");
+const processDataRoute = require("./routes/processData");
 
 const cors = require("cors");
 var app = express();
@@ -28,7 +29,8 @@ app.use("/api", indexRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);
 app.use("/api/new", newRouter);
-app.use("/api/processData", processDataRouter);
+app.use("/api/receipt", receiptRoute);
+app.use("/api/processData", processDataRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

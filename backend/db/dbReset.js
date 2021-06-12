@@ -1,3 +1,3 @@
-const {dbReset} = require('./db');
+const { dbReset } = require('./db')
 
 dbReset();

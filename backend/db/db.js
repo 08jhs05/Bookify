@@ -84,8 +84,8 @@ const dbReset = () => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Deposits has been Successfully Deleted!");
-      // Seeding the deposits and expenes collections
+      console.log("Past deposits has been Successfully Deleted!");
+      // Seeding the deposits collection
       Deposit.insertMany(testDeposit,
         function(err) {
             if (err) {
@@ -101,8 +101,8 @@ const dbReset = () => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Expenses has been Successfully Deleted!");
-  
+      console.log("Past expenses has been Successfully Deleted!");
+      // Seeding the expenses collection
       Expense.insertMany(testExpense,
         function(err) {
             if (err) {
@@ -113,7 +113,7 @@ const dbReset = () => {
       )
     }
   });
-
+  
   Receipt.deleteMany({}, function(err){
     if (err) {
       console.log(err);
@@ -123,14 +123,14 @@ const dbReset = () => {
   });
 }
 
+
 // Creating the test user Saitama
 const testUser = new User({
   username: "Saitama",
   password: "asdf"
 })
 
-
-module.exports = { Deposit, Expense, User, dbReset };
+module.exports = { Deposit, Expense, User, Receipt, dbReset };
 
 ///////////////////////
 //// CRUD TUTORIAL ////

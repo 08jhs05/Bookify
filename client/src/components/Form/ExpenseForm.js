@@ -89,7 +89,6 @@ export default function ExpenseForm(props) {
       >
         <DialogTitle id="form-dialog-title">Expenses Form</DialogTitle>
         <DialogContent>
-          <Scan isDemo={false}/>
           <TextField
             margin="dense"
             id="depositDate"

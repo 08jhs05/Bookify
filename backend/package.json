@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "server": "nodemon ./bin/www",
-    "dbreset": "node db/dbreset.js"
+    "dbreset": "node db/dbReset.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
