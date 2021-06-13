@@ -1,6 +1,6 @@
 import { Bar, Line, Pie } from 'react-chartjs-2'
 import React from 'react'
-import { getChartFromNow, convertDateArrToObj } from '../../helpers';
+import { getChartFromNow, convertDateArrToObj, convertMonthLabel } from '../../helpers';
 import { Divider } from '@material-ui/core';
 
 import Paper from '@material-ui/core/Paper';
@@ -36,8 +36,14 @@ export default function DashboardGraph(props) {
     totalLabel.sort((a,b) =>a.localeCompare(b))
     totalLabel = [...new Set(totalLabel)]
 
-    incomesChartData = convertDateArrToObj(formatIncomesData[0], formatIncomesData[1])
-    expensesChartData = convertDateArrToObj(formatExpensesData[0], formatExpensesData[1])
+    if (dwmProps==="monthly"){
+      formatIncomesData[0] = convertMonthLabel(formatIncomesData[0])
+      formatExpensesData[0] = convertMonthLabel(formatExpensesData[0])
+      totalLabel=totalLabel.slice(11)
+    }
+
+    incomesChartData = convertDateArrToObj(formatIncomesData[0], formatIncomesData[1].map(x => x/100))
+    expensesChartData = convertDateArrToObj(formatExpensesData[0], formatExpensesData[1].map(x => x/100))
   }
 
   return (

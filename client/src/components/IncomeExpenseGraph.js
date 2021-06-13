@@ -1,27 +1,6 @@
-// import { Bar, Line, Pie } from 'react-chartjs-2'
-// import React from 'react'
-
-
-
-// export default function IncomeExpenseGraph(props) {
-  
-// console.log('======================')
-// console.log(props.data)
-  
-//   return (
-//     <section className="incomeExpenseGraph">
-//       <div>
-//         I am graph component.
-//       </div>
-//     </section>
-//   );
-// }
-
-/////////////////////////////////////////
-
 import { Bar, Line, Pie } from 'react-chartjs-2'
 import React from 'react'
-import { getChartFromNow, convertDateArrToObj } from '../helpers'
+import { getChartFromNow, convertDateArrToObj, convertMonthLabel } from '../helpers'
 
 
 export default function IncomeExpenseGraph(props) {
@@ -43,15 +22,18 @@ export default function IncomeExpenseGraph(props) {
 
     // This is an example of creating data for the charts
     formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data);    
-  
-    //incomesChartData = convertDateArrToObj(formatIncomesData[0], formatIncomesData[1])
+    
+    if (dwmProps==="monthly"){
+      formatDepositData[0] = convertMonthLabel(formatDepositData[0])
+
+    }
   }
 
   const data ={
     labels: formatDepositData[0],
     datasets: [{
       label: props.type === 'incomes' ?  'Total Incomes' : 'Total Expenses',
-      data: formatDepositData[1],
+      data: formatDepositData[1].map(x => x/100),
       borderColor: props.type === 'incomes' ? '#303F9F' : '#E91E63'
     }
     ]

@@ -33,7 +33,7 @@ const getExpensesAfterDate = async (req, res) => {
 }
 
 const getAllReceipts = async (req, res) => {
-    await Receipt.find({}, (err, receipt) => {
+    await Receipt.find({ dateCaptured: {$gte : new Date(req.query.starts), $lte : new Date(req.query.ends)}}, (err, receipt) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -151,7 +151,7 @@ const submitNewReceipt = async (req, res) => {
 }
 
 const deleteExpense = async (req, res) => {
-    await Expense.findOneAndDelete({ _id: req.query.id }, (err, expense) => {
+    await Expense.deleteOne({ _id: req.query.id }, (err, expense) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -167,7 +167,7 @@ const deleteExpense = async (req, res) => {
 }
 
 const deleteDeposit = async (req, res) => {
-    await Deposit.findOneAndDelete({ _id: req.query.id }, (err, deposit) => {
+    await Deposit.deleteOne({ _id: req.query.id }, (err, deposit) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }

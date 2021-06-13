@@ -153,15 +153,6 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     startDate = startDate.toISOString().slice(0, 10);
     endDate = endDate.toISOString().slice(0, 10);
 
-    //Goes through each object in the array to check if it matches the date criteria
-    // depositType.forEach(eachDeposit => {
-    //   if ((eachDeposit.depositDate >= startDate) && (eachDeposit.depositDate <= endDate)) {
-    //     labelList.push(eachDeposit.depositDate.slice(0, 10));
-    //     amountList.push(eachDeposit.amount / 100)
-    //   }
-    // })
-
-
     /////////////////////////
     depositType.forEach((eachDeposit) => {
       if ((eachDeposit.depositDate >= startDate) && (eachDeposit.depositDate <= endDate)) {
@@ -218,9 +209,9 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
 
 
   if (dwmValue === "monthly") {
-    let monthTable = ["X", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     let monthSlice = 0
     let yearSlice = 0
+    let totalString = "";
 
     startDate.setDate(startDate.getDate() - startDate.getDate() + 2)
 
@@ -246,6 +237,11 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
       })
       amountList.push(sum)
       
+      // monthSlice = Number(startMonthDate.slice(5,7))
+      // yearSlice = Number(startMonthDate.slice(0,4))
+      // totalString = monthTable[monthSlice] + " " + yearSlice
+      // labelList.push(totalString)
+
       labelList.push(startMonthDate.slice(0,7))
       
       newMonthDate.setDate(newMonthDate.getDate() + 1)
@@ -282,6 +278,20 @@ const setCurrentDate = () => {
   return currentDate;
 }
 
+const convertMonthLabel = (dateArray) => {
+  const monthTable = ["X", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+	let result=[];
+  let monthSlice = 0
+  let yearSlice = 0
+  
+  for (const eachDate of dateArray){
+  	monthSlice = Number(eachDate.slice(5,7))
+  	yearSlice = Number(eachDate.slice(0,4))
+    result.push(monthTable[monthSlice] + " " + yearSlice)
+  }
+  return result
+}
+
 module.exports = {
   createPastDate,
   daysDifference,
@@ -291,5 +301,6 @@ module.exports = {
   getChartFromNow,
   convertDateArrToObj,
   formatCurrencyForFE,
-  setCurrentDate
+  setCurrentDate,
+  convertMonthLabel
 }

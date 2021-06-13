@@ -17,12 +17,13 @@ export default function IncExNavbar(props) {
       <h1 style={{fontSize:'40px'}}>{props.type}</h1>
         { props.isScanPage ?  <div></div> : <Select options={props.options}
         className={'regularFont'}
+        searchable={false}
           color={'#303F9F'}
           onChange={props.onChange}
           dropdownGap={5}
           labelField={"label"}
           valueField={"key"}
-          values={[props.options?.find(opt => opt.label === "Last 10 days")]}
+          values={[props.options?.find(opt => opt.key === 0)]}
           multi={false}
           style={{width: "300px", height: '40px', backgroundColor: 'white', borderRadius: '15px', paddingLeft: '20px', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.4)'}}
         /> }

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import "../App.css";
 import Webcam from "react-webcam";
 import axios from 'axios';
+import Status from './Status';
 
 //Importing Material UI
 import { Chip, IconButton, TextField, Paper } from "@material-ui/core"
@@ -31,10 +32,14 @@ export default function Scan() {
   const [imgSrc, setImgSrc] = useState(null);
   const webcamRef = useRef(null);
 
+  const [showStatus, setShowStatus] = useState(false);
+  const [controlSubmit, setControlSubmit] = useState(["disabled", "grey"]);
+
   //Captures the screenshot of the webcam and saves the image into base64 encoded data.
   const capture = () => {
     const imageSourceInBase64 = webcamRef.current.getScreenshot();
     setImgSrc(imageSourceInBase64);
+    setShowStatus(true);
   }
 
   useEffect(() => {
@@ -60,7 +65,11 @@ export default function Scan() {
   const apiCall = async () => {
     await axios
     .post("/api/processData/", { data: imgSrc })
-    .then((res) => formatResponseData(JSON.parse(res.data)))
+    .then((res) => {
+      setShowStatus(false)
+      setControlSubmit(["contained", "#303F9F"])
+      return formatResponseData(JSON.parse(res.data)
+      )})
     .catch((err) => console.error(err));
   };
 
@@ -93,6 +102,7 @@ export default function Scan() {
         });
         setCategory([]);
         setNotes("");
+        setControlSubmit(["disabled", "grey"]);
         
       })
       .catch(err => console.error(err));
@@ -115,6 +125,7 @@ export default function Scan() {
       <Button variant="contained" style={{width:'200px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={capture}>
         <PhotoCamera />
       </Button>
+      {showStatus? <Status message="Processing.." /> : false}
       </Paper>
       <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', marginBottom: '40px'}}>
         <h2> Expense Form</h2>
@@ -172,7 +183,7 @@ export default function Scan() {
         </div>
 
         <div className="scan-button">
-          <Button variant="contained" style={{width:'200px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>
+          <Button variant={controlSubmit[0]} style={{width:'200px', height:'40px', backgroundColor:`${controlSubmit[1]}`, color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>
             Submit
           </Button>
         </div>

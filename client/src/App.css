@@ -34,14 +34,14 @@
 }
 
 .logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
   margin-top: 20px;
 }
 
 .sidebar__menu {
-  margin-top: 120px;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -242,3 +242,33 @@
   align-content: center;
   justify-content: center;
 }
+
+/* Status component */
+
+.status-component {
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  height: 40px;
+  background-color: #303F9F;
+  color: white;
+  border-radius: 15px;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 23em;
+}
+
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.status-image {
+  width: 30px;
+  height: 30px;
+  animation: rotate 1s linear infinite;
+}
+

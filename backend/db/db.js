@@ -79,8 +79,8 @@ const Receipt = mongoose.model("Receipt", receiptSchema)
 
 // This deletes entire collection. Runs everytime node db.js is run
 
-const dbReset = () => {
-  Deposit.deleteMany({}, function(err){
+const dbReset = async () => {
+  await Deposit.deleteMany({}, function(err){
     if (err) {
       console.log(err);
     } else {
@@ -97,7 +97,7 @@ const dbReset = () => {
     }
   });
   
-  Expense.deleteMany({}, function(err){
+  await Expense.deleteMany({}, function(err){
     if (err) {
       console.log(err);
     } else {
@@ -114,13 +114,15 @@ const dbReset = () => {
     }
   });
   
-  Receipt.deleteMany({}, function(err){
+  await Receipt.deleteMany({}, function(err){
     if (err) {
       console.log(err);
     } else {
       console.log("Past receipts has been Successfully Deleted!");
     }
   });
+
+  return false;
 }
 
 

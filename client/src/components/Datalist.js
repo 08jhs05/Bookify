@@ -51,14 +51,14 @@ export default function Datalist(props) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {Array.isArray(props.data) && props.data.map(elem =>  (
+        {props.data.length > 0 && Array.isArray(props.data) && props.data.map(elem =>  (
           <TableRow key={elem._id}>
             <TableCell>{elem.depositDate.slice(0, 10)}</TableCell>
             <TableCell>{formatCurrencyForFE(elem.amount)}</TableCell>
-            <TableCell>{elem.category.length > 1 ? `${elem.category[0]}-${elem.category[1]}` : elem.category}</TableCell>
+            <TableCell>{elem.category.length > 1 ? `${elem.category[0]}, ${elem.category[1]}` : elem.category}</TableCell>
             <TableCell>{elem.notes}</TableCell>
             <TableCell>{props.type === "expense" ? <ExpenseEditForm data={elem} reloadPage={props.reloadPage} /> : <IncomeEditForm data={elem} reloadPage={props.reloadPage} />}</TableCell>
-            <TableCell align="right"><Button variant="outlined"
+            <TableCell ><Button variant="outlined"
               color="secondary"
               value={elem._id}
               onClick={() => {

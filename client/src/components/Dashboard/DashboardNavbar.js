@@ -34,6 +34,7 @@ export default function DashboardNavbar(props) {
       <div style={{display:"flex", alignItems:"center", width:"540px", justifyContent:"space-between"}}>
       <h1 style={{fontSize:'40px'}}>Dashboard</h1>
         <Select options={options}
+        searchable={false}
         className={'regularFont'}
           color={'#303F9F'}
           onChange={onChange}
