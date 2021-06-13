@@ -73,29 +73,6 @@ function yearsDiff(d1, d2) {
 
 
 const monthsLabel = (d1, d2) => {
-  // let numOfMonths = Math.round((d2 - d1) / (30 * 24 * 60 * 60 * 1000));
-  
-  // let date1 = new Date(d1);
-  // let date2 = new Date(d2);
-  // let years = yearsDiff(d1, d2);
-  // let numOfMonths =(years * 12) + (date2.getMonth() - date1.getMonth()) ;
-
-  
-  // let monthArr= []
-  // let newMonth = new Date("2021-01-11");
-
-  // let setYear = newMonth.getFullYear()
-  // let setMonth = newMonth.getMonth()
-
-  // newMonth = new Date(setYear, setMonth + 1, 0); // push once before loop
-  // monthArr.push(newMonth.toISOString().slice(0, 10))
-
-  // for (let i = 0; i < numOfMonths; i++) {
-  //   setMonth = newMonth.getMonth() + 1
-  //   newMonth = new Date(setYear, setMonth + 1, 0);
-  //   monthArr.push(newMonth.toISOString().slice(0, 10));
-  // }
-  // return monthArr
 
   let numOfMonths = Math.round((d2 - d1) / (30 * 24 * 60 * 60 * 1000));
   let monthArr = [];
@@ -109,6 +86,21 @@ const monthsLabel = (d1, d2) => {
   return monthArr
 }
 
+
+const startEndMonths = (dateInput) => { 
+  let firstDay = new Date(dateInput.getFullYear(), dateInput.getMonth(), 1);
+  let lastDay = new Date(dateInput.getFullYear(), dateInput.getMonth() + 1, 0);
+  
+  return [firstDay, lastDay]
+}
+
+function monthsDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
 
 
 // Converts to [{x: "2020-01-02", y: "45"}, {...},  ...] format
@@ -226,36 +218,45 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     }
   }
 
-  // Monthly check
-  if (dwmValue === "monthly") {
-    startDate.setDate(startDate.getDate() - startDate.getDate())
-    labelList = monthsLabel(startDate, endDate);
 
+  if (dwmValue === "monthly") {
+    let monthTable = ["X", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    let monthSlice = 0
+    let yearSlice = 0
+
+    startDate.setDate(startDate.getDate() - startDate.getDate() + 2)
+
+    let currentStartEndMonth = startEndMonths(startDate)
+    let startMonthDate = currentStartEndMonth[0].toISOString().slice(0, 10);
+    let endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
+    console.log(startDate.toISOString())
+		
+    let newMonthDate = currentStartEndMonth[1]
+    
+		let totalMonths = monthsDiff(startDate, endDate)
     startDate = startDate.toISOString().slice(0, 10);
     endDate = endDate.toISOString().slice(0, 10);
-
-    // this is used in the second if statement below. It is for determining the end period of each month
-    // to help filter the dates into the proper months correctly
-    let endMonthDate = "";
-
-    // each i represents each index of the labelList (monthLabel).
-    // In other words, each i represents a month
-    for (let i = 0; i < labelList.length; i++) {
-      if (i === labelList.length - 1) {
-        endMonthDate = endDate;
-      } else {
-        endMonthDate = labelList[i + 1]
-      }
-
-      //accumulator for amount sum each month
-      let sum = 0
+		
+    
+    let sum = 0
+    for (let i = 0; i <= totalMonths; i++) {
+			
       depositType.forEach(eachDeposit => {
-        if ((eachDeposit.depositDate >= labelList[i]) && (eachDeposit.depositDate <= endMonthDate)) {
+        if ((eachDeposit.depositDate >= startMonthDate) && (eachDeposit.depositDate <= endMonthDate)) {
           sum += eachDeposit.amount;
         }
       })
       amountList.push(sum)
-
+      
+      labelList.push(startMonthDate.slice(0,7))
+      
+      newMonthDate.setDate(newMonthDate.getDate() + 1)
+			currentStartEndMonth = startEndMonths(newMonthDate)
+    	startMonthDate = currentStartEndMonth[0].toISOString().slice(0, 10);
+    	endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
+      newMonthDate = currentStartEndMonth[1]
+      
+      sum=0
     }
   }
 
