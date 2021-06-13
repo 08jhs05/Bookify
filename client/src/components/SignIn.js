@@ -55,12 +55,14 @@ export default function SignIn(props) {
     <section className={classes.container}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+          <img
+            className="logo"
+            src="/icons/coloredLogo.png"
+            alt="logo icon"
+          />
+        <div className="signin_title">
           Sign in
-        </Typography>
+        </div>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"

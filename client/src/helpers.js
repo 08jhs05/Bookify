@@ -181,8 +181,6 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     const res = Array.from(filteredDeposit.reduce(
       (m, {depositDate, amount}) => m.set(depositDate, (m.get(depositDate) || 0) + amount), new Map
     ), ([depositDate, amount]) => ({depositDate, amount}));
-    console.log(res);
-    
     res.forEach((eachDeposit)=>{
              labelList.push(eachDeposit.depositDate.slice(0, 10));
             amountList.push(eachDeposit.amount)

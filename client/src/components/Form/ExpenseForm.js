@@ -70,13 +70,13 @@ export default function ExpenseForm(props) {
   };
 
   return (
-    <div>
+    <div style={{width:'100%', display:'flex', justifyContent:'flex-end'}}>
       <Button
         variant="contained"
         color="primary"
         margin="dense"
         onClick={handleClickOpen}
-        style={{width:'120px', height:'40px', borderRadius:'15px'}}
+        style={{width:'110px', height:'40px', borderRadius:'15px'}}
       >
         New
         <AddIcon />

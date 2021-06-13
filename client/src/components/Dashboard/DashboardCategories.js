@@ -63,7 +63,7 @@ export default function DashboardCategories(props) {
       <div className="pie_container" style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"space-around"}}>
           <RadioGroup aria-label="Show categories of:" name="categories_radio" value={value} onChange={handleChange}>
             <div style={{display:"flex", alignItems:"center", justifyContent:"space-around", marginBottom:"20px"}}>
-            <FormControlLabel value="Incomes" control={<Radio />} label="Incomes" />
+            <FormControlLabel value="Incomes" control={<Radio />} label="Incomes"style={{marginRight:'40px'}} />
             <FormControlLabel value="Expenses" control={<Radio />} label="Expenses" />
             </div>
           </RadioGroup>

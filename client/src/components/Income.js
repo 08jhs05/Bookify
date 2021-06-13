@@ -95,7 +95,7 @@ export default function Income(props) {
         onChange={onChange}/>
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
         <div className="graph-wrapper">
-          <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
+          <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} type={'incomes'}/>
         </div>
         <div>
           <IncomeExpenseSummary data={state.data} daysAgo={daysAgo}/>

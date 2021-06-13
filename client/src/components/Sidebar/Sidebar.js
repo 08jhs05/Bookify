@@ -9,14 +9,15 @@ import { useLocation } from 'react-router-dom';
 
 export default function Sidebar() {
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <section className="side_bar">
-      <img
-        className="logo"
-        src="/icons/logo.png"
-        alt="logo icon"
-      />
+      <Link to="/">
+        <img
+          className="logo"
+          src="/icons/noBGLogo.png"
+          alt="logo icon"
+        />
+      </Link>
       <div className="sidebar__menu">
         <nav className={location.pathname === "/" ? "nav_item_selected" : "nav_item"}>
           <Link className={location.pathname === "/" ? "nav__link_selected" : "nav__link"} to="/"><HomeIcon style={{width:'40px', height:'32px'}}/></Link>

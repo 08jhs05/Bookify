@@ -43,22 +43,24 @@ export default function IncomeExpenseGraph(props) {
 
     // This is an example of creating data for the charts
     formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data);    
-
+  
     //incomesChartData = convertDateArrToObj(formatIncomesData[0], formatIncomesData[1])
+  }
+
+  const data ={
+    labels: formatDepositData[0],
+    datasets: [{
+      label: props.type === 'incomes' ?  'Total Incomes' : 'Total Expenses',
+      data: formatDepositData[1],
+      borderColor: props.type === 'incomes' ? '#303F9F' : '#E91E63'
+    }
+    ]
   }
 
   return (
     <section className="incomeExpenseGraph">
         <Line
-          data={{
-            labels: formatDepositData[0],
-            datasets: [{
-              label: 'Total Deposits',
-              data: formatDepositData[1],
-              borderColor: '#303F9F'
-            }
-            ]
-          }}
+          data={data}
           width={600}
           height={300}
           options={{

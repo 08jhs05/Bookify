@@ -102,7 +102,7 @@ export default function Scan() {
     <section className="not_sidebar scan">
       <IncExNavbar type={"Scan"} isScanPage={true}/>
       <div className="scan-component" >
-      <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', margin: '0 40px 40px 40px'}}>
+      <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', marginBottom: '40px', padding: '0 20px 0 20px'}}>
       <div className="webcam-scan">
         <Webcam
           audio={false}
@@ -116,7 +116,7 @@ export default function Scan() {
         <PhotoCamera />
       </Button>
       </Paper>
-      <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', margin: '0 40px 40px 40px'}}>
+      <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', marginBottom: '40px'}}>
         <h2> Expense Form</h2>
         <div className="scan-field">
           <TextField
@@ -172,7 +172,7 @@ export default function Scan() {
         </div>
 
         <div className="scan-button">
-          <Button onClick={formSubmit} color="primary">
+          <Button variant="contained" style={{width:'200px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>
             Submit
           </Button>
         </div>

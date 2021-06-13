@@ -16,6 +16,13 @@
   font-family: 'SFproRegular';
 }
 
+/* sign In elements */
+
+.signin_title {
+  font-size: 32px;
+  margin-top: 20px;
+}
+
 /* sidebar elements */
 
 .side_bar {
@@ -29,6 +36,8 @@
 .logo {
   width: 80px;
   height: 80px;
+  border-radius: 20px;
+  margin-top: 20px;
 }
 
 .sidebar__menu {
@@ -70,10 +79,6 @@
 
 /* dashboard elements */
 
-.dashboard_navbar_grid {
-  height: 15%;
-}
-
 .dashboard {
   background-color: whitesmoke;
 }
@@ -84,6 +89,7 @@
   justify-content: space-between;
   margin-left: 40px;
   margin-right: 40px;
+  height: 15vh;
 }
 
 .pie_div {
@@ -175,6 +181,7 @@
 .graph-wrapper {
   height: 100%;
   width: 30vw;
+  margin-right: 20px;
 }
 
 /* .summary-box {
