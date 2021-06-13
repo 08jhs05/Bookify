@@ -2,9 +2,12 @@ import { Pie } from 'react-chartjs-2'
 import { RGBPicker } from '../../helpers'
 
 import Paper from '@material-ui/core/Paper';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Divider } from '@material-ui/core';
+
+import React from 'react';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function DashboardCategories(props) {
 
@@ -48,32 +51,41 @@ export default function DashboardCategories(props) {
   };
   //=======================
 
+  const [value, setValue] = React.useState('Incomes');
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
-      <Paper className="paper_categories" elevation={2} style={{borderRadius:'20px',  border: '1px solid', borderColor: '#303F9F', display:"flex", flexDirection:'column', justifyContent:"space-between"}}>
+      <Paper className="paper_categories" elevation={2} style={{borderRadius:'20px'}}>
       <h1 style={{marginBottom: '20px', marginTop: 0, fontSize:'28px'}}>Categories</h1>
       <Divider style={{marginBottom: '24px', height: '2px'}}/>
-      <div style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
-        <div className={'regularFont'} style={{display:"flex", flexDirection:'column', alignItems:"center", justifyContent:"space-between"}}><KeyboardArrowUpIcon style={{width:'60px', height:'60px', color:'#303F9F'}}/>
-        INCOMES
-        </div>
+      <div className="pie_container" style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"space-around"}}>
+          <RadioGroup aria-label="Show categories of:" name="categories_radio" value={value} onChange={handleChange}>
+            <div style={{display:"flex", alignItems:"center", justifyContent:"space-around", marginBottom:"20px"}}>
+            <FormControlLabel value="Incomes" control={<Radio />} label="Incomes" />
+            <FormControlLabel value="Expenses" control={<Radio />} label="Expenses" />
+            </div>
+          </RadioGroup>
+      { value === 'Incomes' ? <div className="pie_div" style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
         <Pie   
           data={{labels: incomesLabels
           ,datasets: incomesDatasets}}        
-          width={240}
-          height={220}
-          options={{responsive: false,
+          width={300}
+          height={300}
+          options={{responsive: true,
             maintainAspectRatio: true}}
           />
-      </div>
-      <div style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
-        <div className={'regularFont'} style={{display:"flex", flexDirection:'column', alignItems:"center", justifyContent:"space-between"}}>EXPENSES<KeyboardArrowDownIcon style={{width:'60px', height:'60px', color:'#E91E63'}}/></div>
+      </div> : 
+      <div className="pie_div" style={{display:"flex", alignItems:"center", justifyContent:"space-around"}}>
         <Pie
         data={{labels: expensesLabels
           ,datasets: expensesDatasets}}        
-          width={240}
-          height={220}
-          options={{responsive: false, maintainAspectRatio: true }}
+          width={300}
+          height={300}
+          options={{responsive: true, maintainAspectRatio: true }}
           />
+        </div>}
       </div>
       </Paper>
   );

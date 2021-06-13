@@ -3,6 +3,8 @@ import { useState } from 'react';
 import ExpenseEditForm from "./Form/ExpenseEditForm";
 import IncomeEditForm from "./Form/IncomeEditForm";
 
+import Paper from '@material-ui/core/Paper';
+
 
 ////////////////
 import React from 'react';
@@ -14,6 +16,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 ///////////////
+
+import { formatCurrencyForFE } from '../helpers';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -34,8 +38,8 @@ export default function Datalist(props) {
   const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
   const classes = useStyles();
   return (
-    <React.Fragment>
-    <Table size="small">
+    <Paper className='datalist_scrollable' style={{overflow: 'auto', marginTop:'40px'}}>
+    <Table stickyHeader size="small">
       <TableHead>
         <TableRow>
           <TableCell>Date</TableCell>
@@ -50,7 +54,7 @@ export default function Datalist(props) {
         {Array.isArray(props.data) && props.data.map(elem =>  (
           <TableRow key={elem._id}>
             <TableCell>{elem.depositDate.slice(0, 10)}</TableCell>
-            <TableCell>{elem.amount}</TableCell>
+            <TableCell>{formatCurrencyForFE(elem.amount)}</TableCell>
             <TableCell>{elem.category.length > 1 ? `${elem.category[0]}-${elem.category[1]}` : elem.category}</TableCell>
             <TableCell>{elem.notes}</TableCell>
             <TableCell>{props.type === "expense" ? <ExpenseEditForm data={elem} reloadPage={props.reloadPage} /> : <IncomeEditForm data={elem} reloadPage={props.reloadPage} />}</TableCell>
@@ -81,12 +85,7 @@ export default function Datalist(props) {
             </DialogActions>
           </DialogContent>
         </Dialog>
-    <div className={classes.seeMore}>
-      <Link color="primary" href="#" onClick={preventDefault}>
-        See more orders
-      </Link>
-    </div>
-  </React.Fragment>
+  </Paper>
   );
 }
 

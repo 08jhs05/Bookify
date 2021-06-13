@@ -5,13 +5,11 @@ const https = require("https");
 
 
 const getDepositsAfterDate = async (req, res) => {
-    console.log("this console log reached")
     await Deposit.find({ depositDate: { $gt : new Date(req.query.queryDate) } }, (err, deposits) => {
       if (err) {
           return res.status(400).json({ success: false, error: err })
       }
       if (!deposits.length) {
-          console.log("is deposit length empty?")
           return res
               .status(404)
               .json({ success: false, error: `Deposit not found` })
@@ -51,7 +49,7 @@ const getAllReceipts = async (req, res) => {
 const submitNewExpense = async (req, res) => {
     const body = {
         ...req.body,
-        amount: formatCurrency(req.body.amount)
+        amount: formatCurrencyForDB(req.body.amount)
     };
 
     if (!body) {
@@ -88,7 +86,7 @@ const submitNewDeposit = async (req, res) => {
     
     const body = {
         ...req.body,
-        amount: formatCurrency(req.body.amount)
+        amount: formatCurrencyForDB(req.body.amount)
     };
 
     if (!body) {
@@ -224,7 +222,7 @@ const uploadToAPI = (res, filePath) => {
     req.end();
 };
 
-const formatCurrency = (value) => {
+const formatCurrencyForDB = (value) => {
     return value * 100;
 }
 module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, submitNewReceipt, deleteExpense, deleteDeposit, getAllReceipts, uploadToAPI };

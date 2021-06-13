@@ -2,19 +2,19 @@ import React, { Fragment, useState } from 'react';
 import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
+import { setCurrentDate } from '../../helpers';
 
 export default function IncomeEditForm(props) {
-  const date = new Date ();
-  date.setDate(date.getDate() + 3);
-  const currentDate = date.toISOString().substr(0,10);
+  const currentDate = setCurrentDate();
+
+  const { depositDate, amount, notes, _id } = props.data
 
   const [open, setOpen] = useState(false);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(props.data.category);
   const [formValue, setFormValue] = useState({
-    depositDate: props.data.depositDate.substr(0, 10),
-    amount: props.data.amount,
-    notes: props.data.notes,
-    category: props.data.category
+    depositDate: depositDate.substr(0, 10),
+    amount: amount / 100 ,
+    notes: notes,
   });
 
   const handleClickOpen = () => {
@@ -42,7 +42,7 @@ export default function IncomeEditForm(props) {
       category
     }
 
-    return await Promise.all([axios.put('/api/incomes', completeFormValues), axios.delete('/api/incomes', { params: { id: props.data._id } })])
+    return await Promise.all([axios.put('/api/incomes', completeFormValues), axios.delete('/api/incomes', { params: { id: _id } })])
     .then(() => {
       setFormValue({
         depositDate: "",
@@ -89,7 +89,7 @@ export default function IncomeEditForm(props) {
             multiple
             id="category"
             options={[]}
-            value={formValue.category}
+            value={category}
             freeSolo
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -105,7 +105,7 @@ export default function IncomeEditForm(props) {
                 label="Enter category"
               />
             )}
-            onChange={event => setCategory([...category, event.target.value])}
+            onChange={(event, newValue) => setCategory(newValue)}
           />
 
           <TextField

@@ -3,18 +3,18 @@ import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTi
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
 
+import { setCurrentDate } from "../../helpers"
+
 export default function ExpenseEditForm(props) {
-  const date = new Date ();
-  date.setDate(date.getDate() + 3);
-  const currentDate = date.toISOString().substr(0,10);
+  const { depositDate, amount, notes, _id } = props.data;
+  const currentDate = setCurrentDate();
 
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState(props.data.category);
   const [formValue, setFormValue] = useState({
-    depositDate: props.data.depositDate.substr(0, 10),
-    amount: props.data.amount,
-    notes: props.data.notes,
-    category: props.data.category
+    depositDate: depositDate.substr(0, 10),
+    amount: amount / 100,
+    notes: notes,
   });
 
   const handleClickOpen = () => {
@@ -42,7 +42,7 @@ export default function ExpenseEditForm(props) {
       category
     }
 
-    return await Promise.all([axios.put('/api/expenses', completeFormValues), axios.delete('/api/expenses', { params: { id: props.data._id } })])
+    return await Promise.all([axios.put('/api/expenses', completeFormValues), axios.delete('/api/expenses', { params: { id: _id } })])
     .then(() => {
       setFormValue({
         depositDate: "",
@@ -50,7 +50,6 @@ export default function ExpenseEditForm(props) {
         notes: "",
         category: ""
       })
-      // props.expenseSetState({...props.expenseState, reRender: !props.expenseState.reRender});
       setCategory([])
       handleClose()
       props.reloadPage();

@@ -6,9 +6,13 @@ import { daysDifference } from "../helpers";
 
 import ExpenseForm from "./Form/ExpenseForm";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
+
+import IncomeExpenseSummary from "./IncomeExpenseSummary";
 import ExpenseGraph from "./ExpenseGraph";
 import Datalist from "./Datalist";
 import { createPastDate } from "../helpers";
+import IncExNavbar from "./IncExNavbar";
+import Paper from '@material-ui/core/Paper';
 
 const options = [
   {
@@ -88,25 +92,27 @@ export default function Expense(props) {
 
   return (
     <div className="not_sidebar expense-form">
-      <Select
+      <IncExNavbar type="Expenses" 
         options={options}
-        onChange={onChange}
-        dropdownGap={5}
-        labelField={"label"}
-        valueField={"key"}
-        values={[options.find((opt) => opt.label === "Last 10 days")]}
-        multi={false}
-        style={{ width: "500px" }}
-      />
-      <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
-      <ExpenseForm reloadPage={() => setReload(!reload)} />
-      <Datalist
-        data={state.data}
-        editBtnOnClick={editBtnOnClick}
-        deleteBtnOnClick={deleteBtnOnClick}
-        reloadPage={() => setReload(!reload)}
-        type={"expense"}
-      />
+        onChange={onChange}/>
+      <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
+        <div className="graph-wrapper">
+          <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
+        </div>
+        <div>
+          <IncomeExpenseSummary data={state.data} daysAgo={daysAgo}/>
+        </div>
+      </Paper>
+      <div style={{margin:'0 40px 0 40px'}}>
+        <ExpenseForm reloadPage={() => setReload(!reload)} />
+        <Datalist
+          data={state.data}
+          editBtnOnClick={editBtnOnClick}
+          deleteBtnOnClick={deleteBtnOnClick}
+          reloadPage={() => setReload(!reload)}
+          type={"expense"}
+        />
+      </div>
     </div>
   );
 }

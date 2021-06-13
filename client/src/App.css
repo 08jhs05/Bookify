@@ -6,7 +6,7 @@
 }
 
 .not_sidebar {
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 20px 0 0 20px;
   height: 100vh;
   width: 100%;
@@ -86,6 +86,14 @@
   margin-right: 40px;
 }
 
+.pie_div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  max-width: 360px;
+}
+
 .dashboard_body {
   height: 85%;
   margin-top: 10px;
@@ -154,9 +162,19 @@
 /* incomes, expenses page */
 
 .incomeExpenseGraph {
+  height: 100%;
   width: 100%;
-  padding: 5rem;
+  padding: 0;
   background-color: #FFF;
+}
+
+.datalist_scrollable {
+  max-height: 25vh;
+}
+
+.graph-wrapper {
+  height: 100%;
+  width: 30vw;
 }
 
 /* .summary-box {
@@ -181,4 +199,39 @@
 .income-expense-direction {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SCAN COMPONENT */
+.scan-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.scan-title {
+  margin-left: 2em;
+  font-size: 25px;
+  width: 350px;
+}
+
+.scan-direction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.scan-field {
+  margin-top: 1em;
+  width: 80%;
+}
+
+.scan-button {
+  margin-top: 1em;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }

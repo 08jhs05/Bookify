@@ -236,15 +236,15 @@ const testDeposit = [
   { user_id: testUser, depositDate: "2021-06-11", amount: 75000, category: ["uber"], notes: "Weekly uber-eats deposit" },
   { user_id: testUser, depositDate: "2021-06-12", amount: 80000, category: ["ritual"], notes: "Weekly ritual deposit" },
 
-  { user_id: testUser, depositDate: "2021-06-16", amount: 80000, category: ["cash"], notes: "Weekly cash deposit" },
-  { user_id: testUser, depositDate: "2021-06-17", amount: 120000, category: ["credit"], notes: "Weekly credit deposit" },
-  { user_id: testUser, depositDate: "2021-06-18", amount: 66600, category: ["uber"], notes: "Weekly uber-eats deposit" },
-  { user_id: testUser, depositDate: "2021-06-19", amount: 82000, category: ["ritual"], notes: "Weekly ritual deposit" },
+  // { user_id: testUser, depositDate: "2021-06-16", amount: 80000, category: ["cash"], notes: "Weekly cash deposit" },
+  // { user_id: testUser, depositDate: "2021-06-17", amount: 120000, category: ["credit"], notes: "Weekly credit deposit" },
+  // { user_id: testUser, depositDate: "2021-06-18", amount: 66600, category: ["uber"], notes: "Weekly uber-eats deposit" },
+  // { user_id: testUser, depositDate: "2021-06-19", amount: 82000, category: ["ritual"], notes: "Weekly ritual deposit" },
 
-  { user_id: testUser, depositDate: "2021-06-23", amount: 89900, category: ["cash"], notes: "Weekly cash deposit" },
-  { user_id: testUser, depositDate: "2021-06-24", amount: 116600, category: ["credit"], notes: "Weekly credit deposit" },
-  { user_id: testUser, depositDate: "2021-06-25", amount: 67700, category: ["uber"], notes: "Weekly uber-eats deposit" },
-  { user_id: testUser, depositDate: "2021-06-26", amount: 96300, category: ["ritual"], notes: "Weekly ritual deposit" },
+  // { user_id: testUser, depositDate: "2021-06-23", amount: 89900, category: ["cash"], notes: "Weekly cash deposit" },
+  // { user_id: testUser, depositDate: "2021-06-24", amount: 116600, category: ["credit"], notes: "Weekly credit deposit" },
+  // { user_id: testUser, depositDate: "2021-06-25", amount: 67700, category: ["uber"], notes: "Weekly uber-eats deposit" },
+  // { user_id: testUser, depositDate: "2021-06-26", amount: 96300, category: ["ritual"], notes: "Weekly ritual deposit" },
 
 ];
 

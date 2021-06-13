@@ -12,11 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { useHistory } from 'react-router-dom';
 import { useContext, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'whitesmoke',
     borderRadius: '20px 0 0 20px',
     height: '100vh',
     width: '100%',
@@ -44,6 +45,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
 
   const classes = useStyles();
+  const history = useHistory();
+  const onClickFunc = function() {
+    if(!props.loginState) props.loginCallback();
+    history.push("/");
+  }
 
   return (
     <section className={classes.container}>
@@ -84,7 +90,7 @@ export default function SignIn(props) {
               variant="contained"
               color="primary"
               // className={classes.submit}
-              onClick={ props.logInCallback }
+              onClick={ onClickFunc }
             >
               Sign In
             </Button>

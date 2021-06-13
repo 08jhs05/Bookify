@@ -4,10 +4,10 @@ import AddIcon from '@material-ui/icons/Add';
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
 
+import { setCurrentDate } from '../../helpers'
+
 export default function ExpenseForm(props) {
-  const date = new Date ();
-  date.setDate(date.getDate() + 3);
-  const currentDate = date.toISOString().substr(0,10);
+  const currentDate = setCurrentDate();
 
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
@@ -61,7 +61,11 @@ export default function ExpenseForm(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" margin="dense" onClick={handleClickOpen}>
+      <Button variant="contained"
+        color="primary"
+        margin="dense"
+        onClick={handleClickOpen} 
+        style={{width:'120px', height:'40px', borderRadius:'15px'}}>
         New<AddIcon /> 
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

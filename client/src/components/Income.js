@@ -9,6 +9,8 @@ import Datalist from "./Datalist";
 import { createPastDate } from "../helpers";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
 import IncomeExpenseSummary from "./IncomeExpenseSummary";
+import IncExNavbar from "./IncExNavbar";
+import Paper from '@material-ui/core/Paper';
 
 const options = [
   {
@@ -86,39 +88,29 @@ export default function Income(props) {
     });
   };
 
-  console.log(daysAgo)
-
   return (
     <section className="not_sidebar income">
-      <Select
+      <IncExNavbar type="Incomes" 
         options={options}
-        onChange={onChange}
-        dropdownGap={5}
-        labelField={"label"}
-        valueField={"key"}
-        values={[options.find((opt) => opt.label === "Last 10 days")]}
-        multi={false}
-        style={{ width: "500px" }}
-      />
-      <div className="income-expense-direction">
-        <div>
+        onChange={onChange}/>
+      <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
+        <div className="graph-wrapper">
           <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
         </div>
         <div>
-          <IncomeExpenseSummary />
+          <IncomeExpenseSummary data={state.data} daysAgo={daysAgo}/>
         </div>
-
+      </Paper>
+      <div style={{margin:'0 40px 0 40px'}}>
+        <IncomeForm reloadPage={() => setReload(!reload)} />
+        <Datalist
+          data={state.data}
+          editBtnOnClick={editBtnOnClick}
+          deleteBtnOnClick={deleteBtnOnClick}
+          reloadPage={() => setReload(!reload)}
+          type={"income"}
+        />
       </div>
-      <IncomeForm reloadPage={() => setReload(!reload)} />
-
-      <Datalist
-        data={state.data}
-        editBtnOnClick={editBtnOnClick}
-        deleteBtnOnClick={deleteBtnOnClick}
-        reloadPage={() => setReload(!reload)}
-        type={"income"}
-      />
-
     </section>
   );
 }

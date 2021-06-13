@@ -1,5 +1,5 @@
 import React from 'react'
-import { getChartFromNow, convertDateArrToObj } from '../../helpers';
+import { getChartFromNow, convertDateArrToObj, formatCurrencyForFE } from '../../helpers';
 import Paper from '@material-ui/core/Paper';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -32,7 +32,7 @@ export default function Summary(props) {
 
     if (props.daysAgo <= 30) {
       dwmProps = "daily"
-    } else if (props.daysAgo < 100) {
+    } else if (props.daysAgo < 150) {
       dwmProps = "weekly"
     } else {
       dwmProps = "monthly"
@@ -68,7 +68,7 @@ export default function Summary(props) {
       }</div>
       <div className="summary-right">
         <div className="regularFont">{props.type}</div>
-        <div style={{fontSize:'24px'}}>${summaryData}</div>
+        <div style={{fontSize:'24px'}}>{formatCurrencyForFE(summaryData)}</div>
       </div>
     </Paper>
   );

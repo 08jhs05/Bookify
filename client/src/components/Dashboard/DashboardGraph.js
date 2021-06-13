@@ -22,7 +22,7 @@ export default function DashboardGraph(props) {
 
     if (props.daysAgo <= 30) {
       dwmProps = "daily"
-    } else if (props.daysAgo < 100){
+    } else if (props.daysAgo < 150){
       dwmProps = "weekly"
     } else {
       dwmProps = "monthly"
@@ -41,7 +41,7 @@ export default function DashboardGraph(props) {
   }
 
   return (
-      <Paper className="paper_graph" elevation={2} style={{borderRadius:'20px', border: '1px solid', borderColor: '#303F9F'}}>
+      <Paper className="paper_graph" elevation={2} style={{borderRadius:'20px'}}>
       <h1 style={{marginBottom: '20px', marginTop: 0, fontSize:'28px'}}>Trend</h1>
       <Divider style={{margin: 0, height: '2px'}}/>
       <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
@@ -51,13 +51,13 @@ export default function DashboardGraph(props) {
             datasets: [{
               label: 'Total Incomes',
               data: incomesChartData,
-              borderColor: 'rgba(54, 162, 235, 0.9)',
+              borderColor: '#303F9F',
               tension: 0.1
             },
             {
               label: 'Total Expenses',
               data: expensesChartData,
-              borderColor: 'rgba(255, 99, 132, 0.9)',
+              borderColor: '#E91E63',
               tension: 0.1
             }
             ]

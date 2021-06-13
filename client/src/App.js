@@ -15,9 +15,9 @@ import Receipts from './components/Receipts';
 
 function App() {
 
-  const [userLoggedin, setUserLoggedin] = useState(false);
-  const toggleLoggin = function (){
-    setUserLoggedin(!userLoggedin);
+  const [loggedIn, setLoggedin] = useState(false);
+  const callback = function() {
+    setLoggedin(!loggedIn)
   }
 
   return (
@@ -26,7 +26,7 @@ function App() {
         <Sidebar />
         <Switch>
           <Route exact path="/">
-            {userLoggedin ? <Dashboard logoutCallback={toggleLoggin}/> : <SignIn logInCallback={toggleLoggin}/>}
+            { loggedIn ? <Dashboard /> : <SignIn loginState={loggedIn} loginCallback={callback}/>}
           </Route>
             <Route path="/expenses">
               <Expense />
@@ -39,6 +39,9 @@ function App() {
             </Route>
             <Route path="/receipts">
               <Receipts />
+            </Route>
+            <Route path="/signin">
+              <SignIn loginState={loggedIn} loginCallback={callback}/>
             </Route>
         </Switch>
       </Router>

@@ -1,31 +1,31 @@
+// Import libraries and react functions
 import React, { useState } from "react";
-import {
-  Chip,
-  TextField,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import { Autocomplete } from "@material-ui/lab";
 import axios from "axios";
 
-export default function ExpenseForm(props) {
-  const date = new Date();
-  date.setDate(date.getDate() + 3);
-  const currentDate = date.toISOString().substr(0, 10);
+// Imports from Material UI
+import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import { Autocomplete } from "@material-ui/lab";
 
+// Imports helper functions
+import { setCurrentDate } from "../../helpers";
+
+export default function ExpenseForm(props) {
+  const { reloadPage } = props;
+  
+  const currentDate = setCurrentDate();
+
+  //useStates for form page open and close + form values.
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
   const [formValue, setFormValue] = useState({
     depositDate: "",
     amount: "",
     notes: "",
-    category: "",
   });
 
+  
+  // Closes and Opens form
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -33,6 +33,9 @@ export default function ExpenseForm(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+  //Handler functions for the form
 
   const handleChange = (event) => {
     const formValues = event.target.id;
@@ -61,7 +64,7 @@ export default function ExpenseForm(props) {
         });
         setCategory([]);
         handleClose();
-        props.reloadPage();
+        reloadPage();
       })
       .catch((err) => console.log("Error Triggered! \n", err));
   };
@@ -69,10 +72,11 @@ export default function ExpenseForm(props) {
   return (
     <div>
       <Button
-        variant="outlined"
+        variant="contained"
         color="primary"
         margin="dense"
         onClick={handleClickOpen}
+        style={{width:'120px', height:'40px', borderRadius:'15px'}}
       >
         New
         <AddIcon />

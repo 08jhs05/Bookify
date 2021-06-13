@@ -35,7 +35,7 @@ export default function IncomeExpenseGraph(props) {
 
     if (props.daysAgo <= 30) {
       dwmProps = "daily"
-    } else if (props.daysAgo < 100){
+    } else if (props.daysAgo < 150){
       dwmProps = "weekly"
     } else {
       dwmProps = "monthly"
@@ -49,23 +49,22 @@ export default function IncomeExpenseGraph(props) {
 
   return (
     <section className="incomeExpenseGraph">
-      <div>
         <Line
           data={{
             labels: formatDepositData[0],
             datasets: [{
               label: 'Total Deposits',
               data: formatDepositData[1],
-              borderColor: 'rgba(54, 162, 235, 0.9)'
+              borderColor: '#303F9F'
             }
             ]
           }}
-          width={400}
+          width={600}
           height={300}
           options={{
 
-            responsive: false,
-            maintainAspectRatio: true,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
               yAxes: [
                 {
@@ -83,7 +82,6 @@ export default function IncomeExpenseGraph(props) {
             }
           }}
         />
-      </div>
     </section>
   );
 
