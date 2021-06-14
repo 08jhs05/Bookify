@@ -37,8 +37,6 @@ export default function Dashboard(props) {
         ...state,
         data: { incomes: res[0].data, expenses: res[1].data },
       });
-      // console.log(res[0].data);
-      // console.log(res[1].data);
     });
   }, [state.queryDate]);
 

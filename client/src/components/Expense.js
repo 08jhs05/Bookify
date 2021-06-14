@@ -94,7 +94,8 @@ export default function Expense(props) {
     <div className="not_sidebar expense-form">
       <IncExNavbar type="Expenses" 
         options={options}
-        onChange={onChange}/>
+        onChange={onChange}
+        logoutCallback={props.logoutCallback} />
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
         <div className="graph-wrapper">
           <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />

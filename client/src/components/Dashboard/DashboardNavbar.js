@@ -5,8 +5,14 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../UserContext';
+import { useContext } from "react";
 
 export default function DashboardNavbar(props) {
+
+  const {userName, setUserName} = useContext(UserContext);
+  
+  console.log(userName);
 
   const options = [
     {key: 0, label: "Last 10 days", value: {type: "last", amount: 10, format: "D"}},
@@ -26,6 +32,8 @@ export default function DashboardNavbar(props) {
 
   const history = useHistory();
   const onClickFunc = function() {
+    setUserName(null);
+    props.logoutCallback();
     history.push("/signin");
   }
 
@@ -48,7 +56,7 @@ export default function DashboardNavbar(props) {
       </div>
       <div style={{display:"flex", alignItems:"center", width:"280px", justifyContent:"space-between"}}>
           <div className={'regularFont'} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-            <AccountCircleIcon style={{width:'40px', height:'40px'}}/>&nbsp;&nbsp;Username111
+            <AccountCircleIcon style={{width:'40px', height:'40px'}}/>&nbsp;&nbsp;{userName}
           </div>
         <Button variant="contained" style={{width:'100px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px'}} onClick={onClickFunc}>Logout</Button>
       </div>
