@@ -11,6 +11,7 @@ import IncomeExpenseGraph from "./IncomeExpenseGraph";
 import IncomeExpenseSummary from "./IncomeExpenseSummary";
 import IncExNavbar from "./IncExNavbar";
 import Paper from '@material-ui/core/Paper';
+import SearchField from "./SearchField";
 
 const options = [
   {
@@ -93,6 +94,7 @@ export default function Income(props) {
       <IncExNavbar type="Incomes" 
         options={options}
         onChange={onChange}/>
+        <SearchField />
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
         <div className="graph-wrapper">
           <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} type={'incomes'}/>
