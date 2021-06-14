@@ -2,14 +2,20 @@
 
 const testDeposit = require('./deposit_seeds')
 const testExpense = require('./expense_seeds')
+const testUser = require('./user_seeds');
+
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/accountDB', {useNewUrlParser: true, useUnifiedTopology: true, userFindAndModify: false});
+mongoose.connect('mongodb://localhost:27017/accountDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 
 // Database schemas - Will need to add more specifcs (required, make arrays only strings, etc)
 const userSchema = new mongoose.Schema({
   username: {
+    type: String
+  },
+
+  email: {
     type: String
   },
 
@@ -77,7 +83,7 @@ const Expense = mongoose.model("Expense", expenseSchema)
 const User = mongoose.model("User", userSchema)
 const Receipt = mongoose.model("Receipt", receiptSchema)
 
-// This deletes entire collection. Runs everytime node db.js is run
+// This deletes entire collection.
 
 const dbReset = async () => {
   await Deposit.deleteMany({}, function(err){
@@ -122,15 +128,25 @@ const dbReset = async () => {
     }
   });
 
-  return false;
+  await User.deleteMany({}, function(err){
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Past users has been Successfully Deleted!");
+      // Seeding the expenses collection
+      User.insertMany(testUser,
+        function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Successfully saved all the users");
+            }}
+      )
+    }
+  });
+  mongoose.connection.close();
 }
 
-
-// Creating the test user Saitama
-const testUser = new User({
-  username: "Saitama",
-  password: "asdf"
-})
 
 module.exports = { Deposit, Expense, User, Receipt, dbReset };
 

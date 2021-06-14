@@ -39,12 +39,24 @@ const getAllReceipts = async (req, res) => {
         }
         if (!receipt.length) {
             return res
-                .status(404)
-                .json({ success: false, error: `Receipt not found` })
+                .status(200)
+                .json([])
         }
         return res.status(200).json(receipt)
     }).catch(err => console.log(err))
 }
+
+const getAllUsers = async (req, res) => {
+    await User.find({}, {email: 1, password: 1, username: 1}, (err, users) => {
+        if (err) {
+            return res.status(400).json({success: false, error: err})
+        } 
+        if (!users.length) {
+            return res.status(400).json({ success: false, error: 'Users not found'})
+        }
+        return res.status(200).json(users)
+    }).catch(err => console.error(err));
+};
 
 const submitNewExpense = async (req, res) => {
     const body = {
@@ -225,4 +237,4 @@ const uploadToAPI = (res, filePath) => {
 const formatCurrencyForDB = (value) => {
     return value * 100;
 }
-module.exports = { getDepositsAfterDate, getExpensesAfterDate, submitNewExpense, submitNewDeposit, submitNewReceipt, deleteExpense, deleteDeposit, getAllReceipts, uploadToAPI };
+module.exports = { getDepositsAfterDate, getExpensesAfterDate, getAllUsers, submitNewExpense, submitNewDeposit, submitNewReceipt, deleteExpense, deleteDeposit, getAllReceipts, uploadToAPI };
