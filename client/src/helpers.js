@@ -119,7 +119,7 @@ const convertDateArrToObj = (xCor, yCor) => {
 //dayBefore will indicate how many days/months before we're checking
 //dwmValue will query on whether we're checking sum amounts by days or months
 //depositType will be either testDeposit or testExpense
-const getChartFromNow = (daysBefore, dwmValue, depositType) => {
+const getChartFromNow = (daysBefore, dwmValue, depositType, setEndDate = new Date()) => {
 
 
   depositType.sort(function(a, b) {
@@ -139,7 +139,8 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
   let filteredDeposit = [];
 
   //Creates new date objects with todays date
-  let endDate = new Date()
+  
+  let endDate = setEndDate
   let startDate = new Date()
 
   //Sets the start date based on how many days we have
@@ -217,7 +218,6 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     let currentStartEndMonth = startEndMonths(startDate)
     let startMonthDate = currentStartEndMonth[0].toISOString().slice(0, 10);
     let endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
-    console.log(startDate.toISOString())
 		
     let newMonthDate = currentStartEndMonth[1]
     

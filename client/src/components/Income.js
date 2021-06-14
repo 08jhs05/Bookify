@@ -12,6 +12,8 @@ import IncomeExpenseSummary from "./IncomeExpenseSummary";
 import IncExNavbar from "./IncExNavbar";
 import Paper from '@material-ui/core/Paper';
 
+import SearchField from './SearchField';
+
 const options = [
   {
     key: 0,
@@ -87,6 +89,8 @@ export default function Income(props) {
       setReload(!reload);
     });
   };
+  
+  const [temp, setTemp] = useState(new Date());
 
   return (
     <section className="not_sidebar income">
@@ -94,12 +98,13 @@ export default function Income(props) {
         options={options}
         onChange={onChange}
         logoutCallback={props.logoutCallback}/>
+      <SearchField searchFieldCallback={setState} setTemp={setTemp}/>
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
         <div className="graph-wrapper">
-          <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} type={'incomes'}/>
+          <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} type={'incomes'} endDate={temp}/>
         </div>
         <div>
-          <IncomeExpenseSummary data={state.data} daysAgo={daysAgo}/>
+          <IncomeExpenseSummary data={state.data} daysAgo={daysAgo} endDate={temp}/>
         </div>
       </Paper>
       <div style={{margin:'0 40px 0 40px'}}>

@@ -21,7 +21,7 @@ export default function IncomeExpenseGraph(props) {
     }
 
     // This is an example of creating data for the charts
-    formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data);    
+    formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data, props.endDate);    
     
     if (dwmProps==="monthly"){
       formatDepositData[0] = convertMonthLabel(formatDepositData[0])

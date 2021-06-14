@@ -8,7 +8,7 @@ require("dotenv").config();
 const usersRouter = require("./routes/users");
 const expensesRouter = require("./routes/expenses");
 const incomesRouter = require("./routes/incomes");
-const newRouter = require("./routes/new");
+const newRouter = require("./routes/getAllIncome");
 const receiptRoute = require("./routes/receipt");
 const processDataRoute = require("./routes/processData");
 

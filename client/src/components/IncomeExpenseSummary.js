@@ -36,7 +36,7 @@ export default function IncomeExpenseSummary(props) {
     }
 
     // This is an example of creating data for the charts
-    formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data);
+    formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data, props.endDate);
   
     let daysBefore = props.daysAgo
 
