@@ -1,4 +1,7 @@
+// Import react and react pre-built methods
 import React, { Fragment, useState } from 'react';
+
+// Import material-ui
 import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';

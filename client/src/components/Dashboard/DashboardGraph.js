@@ -1,12 +1,14 @@
-import { Bar, Line, Pie } from 'react-chartjs-2'
-import React from 'react'
-import { getChartFromNow, convertDateArrToObj, convertMonthLabel } from '../../helpers';
-import { Divider } from '@material-ui/core';
+// import external library
+import {Line } from 'react-chartjs-2'
 
-import Paper from '@material-ui/core/Paper';
+// Import helper functions
+import { getChartFromNow, convertDateArrToObj, convertMonthLabel } from '../../helpers';
+
+// Import Material-UI
+import { Divider, Paper } from '@material-ui/core';
 
 export default function DashboardGraph(props) {
-
+  const { data, daysAgo } = props;
 
   let incomesChartData = []
   let expensesChartData = []
@@ -15,28 +17,16 @@ export default function DashboardGraph(props) {
   let formatExpensesData = []
   let totalLabel = [];
 
-  if (props.data) {
-
-    //Just determining if we should take weekly or daily based on value received. May have to change a little
-    let dwmProps = "";
-
-    if (props.daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (props.daysAgo < 150){
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-
+  if (data) {
     // This is an example of creating data for the charts
-    formatIncomesData = getChartFromNow(props.daysAgo, dwmProps, props.data.incomes);
-    formatExpensesData = getChartFromNow(props.daysAgo, dwmProps, props.data.expenses);
+    formatIncomesData = getChartFromNow(daysAgo, data.incomes);
+    formatExpensesData = getChartFromNow(daysAgo, data.expenses);
     
     totalLabel = formatIncomesData[0].concat(formatExpensesData[0])
     totalLabel.sort((a,b) =>a.localeCompare(b))
     totalLabel = [...new Set(totalLabel)]
 
-    if (dwmProps==="monthly"){
+    if (daysAgo >= 150){
       formatIncomesData[0] = convertMonthLabel(formatIncomesData[0])
       formatExpensesData[0] = convertMonthLabel(formatExpensesData[0])
       totalLabel=totalLabel.slice(11)

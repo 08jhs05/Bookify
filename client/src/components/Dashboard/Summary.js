@@ -1,14 +1,19 @@
+// Import react and pre-built methods
 import React from 'react'
-import { getChartFromNow, convertDateArrToObj, formatCurrencyForFE } from '../../helpers';
+import { useState } from "react";
+import { useHistory } from 'react-router-dom';
+
+// Import Material-UI
 import Paper from '@material-ui/core/Paper';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { useState } from "react";
 
-import { useHistory } from 'react-router-dom';
+// import helper functions
+import { getChartFromNow, formatCurrencyForFE } from '../../helpers';
 
 export default function Summary(props) {
+  const {type, data, daysAgo} = props;
   let summaryData = "";
   let stateIcon = "";
 
@@ -24,29 +29,20 @@ export default function Summary(props) {
 
   const history = useHistory();
   const onClickFunc = function() {
-    history.push(props.type === "BALANCE" ? '' : `/${props.type.toLowerCase()}s`);
+    history.push(type === "BALANCE" ? '' : `/${type.toLowerCase()}s`);
   }
 
-  if (props.data) {
-    let dwmProps = "";
+  if (data) {
+    let formatIncomesData = getChartFromNow(daysAgo, data.incomes);
+    let formatExpensesData = getChartFromNow(daysAgo, data.expenses);
 
-    if (props.daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (props.daysAgo < 150) {
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-    let formatIncomesData = getChartFromNow(props.daysAgo, dwmProps, props.data.incomes);
-    let formatExpensesData = getChartFromNow(props.daysAgo, dwmProps, props.data.expenses);
-
-    if (props.type === "INCOME") {
+    if (type === "INCOME") {
       summaryData = formatIncomesData[2];
       stateIcon = "up";
-    } else if (props.type === "EXPENSE") {
+    } else if (type === "EXPENSE") {
       summaryData = formatExpensesData[2];
       stateIcon = "down";
-    } else if (props.type === "BALANCE") {
+    } else if (type === "BALANCE") {
       summaryData = formatIncomesData[2] - formatExpensesData[2];
       stateIcon = "balance";
     }
@@ -67,7 +63,7 @@ export default function Summary(props) {
         <ImportExportIcon style={{width:'60px', height:'60px'}}/> 
       }</div>
       <div className="summary-right">
-        <div className="regularFont">{props.type}</div>
+        <div className="regularFont">{type}</div>
         <div style={{fontSize:'24px'}}>{formatCurrencyForFE(summaryData)}</div>
       </div>
     </Paper>

@@ -199,9 +199,13 @@ const testExpense = [
     { user_id: testUser[0], depositDate: "2021-06-03", amount: 30000, category: ["supplies"], notes: "Weekly supplies" },
     { user_id: testUser[0], depositDate: "2021-06-03", amount: 150000, category: ["ingredients"], notes: "Weekly ingredients" },
 
-    { user_id: testUser[0], depositDate: "2021-06-10", amount: 500000, category: ["wages"], notes: "bi-weekly wages for employees" },
+    { user_id: testUser[0], depositDate: "2021-06-9", amount: 500000, category: ["wages"], notes: "bi-weekly wages for employees" },
     { user_id: testUser[0], depositDate: "2021-06-10", amount: 30000, category: ["supplies"], notes: "Weekly supplies" },
-    { user_id: testUser[0], depositDate: "2021-06-10", amount: 150000, category: ["ingredients"], notes: "Weekly ingredients" },
+    { user_id: testUser[0], depositDate: "2021-06-11", amount: 150000, category: ["ingredients"], notes: "Weekly ingredients" },
+    { user_id: testUser[0], depositDate: "2021-06-12", amount: 135000, category: ["repair"], notes: "Sink plumbing repair" },
+    { user_id: testUser[0], depositDate: "2021-06-14", amount: 20000, category: ["meeting"], notes: "Employee meeting lunch" },
+
+    { user_id: testUser[0], depositDate: "2021-06-16", amount: 30000, category: ["supplies", "PPE"], notes: "PPE supplies" },
 
     { user_id: testUser[0], depositDate: "2021-06-17", amount: 30000, category: ["supplies"], notes: "Weekly supplies" },
     { user_id: testUser[0], depositDate: "2021-06-17", amount: 150000, category: ["ingredients"], notes: "Weekly ingredients" },

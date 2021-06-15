@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 
 let daysAgo = 0;
 
-export default function Dashboard(props) {
+export default function Dashboard({logoutCallback}) {
   const newDate = new Date();
   newDate.setDate(newDate.getDate() - 10);
 
@@ -22,8 +22,6 @@ export default function Dashboard(props) {
   });
 
   useEffect(() => {
-    console.log("state changed");
-
     const today = new Date();
 
     daysAgo = daysDifference(state.queryDate, today);
@@ -33,17 +31,17 @@ export default function Dashboard(props) {
       axios.get("/api/expenses", { params: { queryDate: state.queryDate } }),
     ];
     Promise.all(promises).then((res) => {
-      setState({
-        ...state,
+      setState((prev) => ({
+        ...prev,
         data: { incomes: res[0].data, expenses: res[1].data },
-      });
+      }));
     });
   }, [state.queryDate]);
 
   return (
     <Grid container className="not_sidebar dashboard">
       <Grid item xs={12} className="dashboard_navbar_grid">
-        <DashboardNavbar state={state} setState={setState} logoutCallback={props.logoutCallback}/>
+        <DashboardNavbar state={state} setState={setState} logoutCallback={logoutCallback}/>
       </Grid>
       <Grid container item xs={12} className="dashboard_body">
         <Grid container item xs={9} className="dashboard_body_left">

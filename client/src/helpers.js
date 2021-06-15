@@ -11,7 +11,6 @@ function createPastDate(type, amount, format) {
     }
   } else {
     if (format === "D") {
-      //date = date.getDate()
     } else if (format === "M") {
       date.setDate(1);
     } else {
@@ -64,13 +63,6 @@ const weeksLabel = (d1, d2) => {
   return weekArr
 }
 
-// function yearsDiff(d1, d2) {
-//   let date1 = new Date(d1);
-//   let date2 = new Date(d2);
-//   let yearsDiff =  date2.getFullYear() - date1.getFullYear();
-//   return yearsDiff;
-// }
-
 const monthsLabel = (d1, d2) => {
 
   let numOfMonths = Math.round((d2 - d1) / (30 * 24 * 60 * 60 * 1000));
@@ -119,8 +111,17 @@ const convertDateArrToObj = (xCor, yCor) => {
 //dayBefore will indicate how many days/months before we're checking
 //dwmValue will query on whether we're checking sum amounts by days or months
 //depositType will be either testDeposit or testExpense
-const getChartFromNow = (daysBefore, dwmValue, depositType) => {
+const getChartFromNow = (daysBefore, depositType) => {
 
+  let dwmValue = "daily"
+  
+  if (daysBefore <= 30) {
+    dwmValue = "daily"
+  } else if (daysBefore < 150){
+    dwmValue = "weekly"
+  } else {
+    dwmValue = "monthly"
+  }
 
   depositType.sort(function(a, b) {
     var keyA = (a.depositDate),
@@ -161,7 +162,7 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     })
 
     const res = Array.from(filteredDeposit.reduce(
-      (m, {depositDate, amount}) => m.set(depositDate, (m.get(depositDate) || 0) + amount), new Map
+      (m, {depositDate, amount}) => m.set(depositDate, (m.get(depositDate) || 0) + amount), new Map()
     ), ([depositDate, amount]) => ({depositDate, amount}));
     res.forEach((eachDeposit)=>{
              labelList.push(eachDeposit.depositDate.slice(0, 10));
@@ -196,11 +197,20 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
 
       //accumulator for amount sum each week
       let sum = 0
-      depositType.forEach(eachDeposit => {
-        if ((eachDeposit.depositDate >= labelList[i]) && (eachDeposit.depositDate <= endWeekDate)) {
-          sum += eachDeposit.amount;
+
+      for (let i = 0; i < depositType; i++) {
+        if ((depositType[i].depositDate >= labelList[i]) && (depositType[i].depositDate <= endWeekDate)) {
+          sum += depositType[i].amount;
         }
-      })
+      }
+
+      //ForEach style of above for loop -> Creates error when using with react
+      // depositType.forEach(eachDeposit => {
+        // if ((eachDeposit.depositDate >= labelList[i]) && (eachDeposit.depositDate <= endWeekDate)) {
+        //   sum += eachDeposit.amount;
+        // }
+      // })
+
       amountList.push(sum)
 
     }
@@ -208,38 +218,35 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
 
 
   if (dwmValue === "monthly") {
-    // let monthSlice = 0
-    // let yearSlice = 0
-    // let totalString = "";
-
     startDate.setDate(startDate.getDate() - startDate.getDate() + 2)
 
     let currentStartEndMonth = startEndMonths(startDate)
     let startMonthDate = currentStartEndMonth[0].toISOString().slice(0, 10);
     let endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
-    console.log(startDate.toISOString())
 		
     let newMonthDate = currentStartEndMonth[1]
     
 		let totalMonths = monthsDiff(startDate, endDate)
     startDate = startDate.toISOString().slice(0, 10);
     endDate = endDate.toISOString().slice(0, 10);
-		
     
     let sum = 0
     for (let i = 0; i <= totalMonths; i++) {
 			
-      depositType.forEach(eachDeposit => {
-        if ((eachDeposit.depositDate >= startMonthDate) && (eachDeposit.depositDate <= endMonthDate)) {
-          sum += eachDeposit.amount;
+      for (let i = 0; i < depositType; i++) {
+        if ((depositType[i].depositDate >= startMonthDate) && (depositType[i].depositDate <= endMonthDate)) {
+          sum += depositType[i].amount;
         }
-      })
-      amountList.push(sum)
-      
-      // monthSlice = Number(startMonthDate.slice(5,7))
-      // yearSlice = Number(startMonthDate.slice(0,4))
-      // totalString = monthTable[monthSlice] + " " + yearSlice
-      // labelList.push(totalString)
+      }
+
+      // ForEach style of the above for loop -> Creates error when using with react
+      // depositType.forEach(eachDeposit => {
+      //   if ((eachDeposit.depositDate >= startMonthDate) && (eachDeposit.depositDate <= endMonthDate)) {
+      //     sum += eachDeposit.amount;
+      //   }
+      // })
+
+      amountList.push(sum);
 
       labelList.push(startMonthDate.slice(0,7))
       
@@ -249,10 +256,9 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     	endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
       newMonthDate = currentStartEndMonth[1]
       
-      sum=0
+      sum = 0
     }
   }
-
 
   // returns an array. 0-index is for x-axis, 1-index is for y-axis, and total just represents the array of 1-index (for summary)
   total = amountList.reduce((a, b) => a + b, 0);
@@ -290,6 +296,15 @@ const convertMonthLabel = (dateArray) => {
   return result
 }
 
+const dropDownOptions = [
+  {key: 0, label: "Last 10 days", value: {type: "last", amount: 10, format: "D"}},
+  {key: 1, label: "Last 30 days", value: {type: "last", amount: 30, format: "D"}},
+  {key: 2, label: "Current Month", value: {type: "this", format: "M"}},
+  {key: 3, label: "Last 3 Months", value: {type: "last", amount: 3, format: "M"}},
+  {key: 4, label: "Current Year", value: {type: "this", format: "Y"}},
+  {key: 5, label: "Everything", value: {type: "last", amount: 10, format: "M"}}
+];
+
 module.exports = {
   createPastDate,
   daysDifference,
@@ -300,5 +315,6 @@ module.exports = {
   convertDateArrToObj,
   formatCurrencyForFE,
   setCurrentDate,
-  convertMonthLabel
+  convertMonthLabel,
+  dropDownOptions
 }
