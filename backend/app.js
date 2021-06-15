@@ -1,6 +1,5 @@
 const createError = require("http-errors");
 const express = require("express");
-const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require("dotenv").config();
 
@@ -18,7 +17,6 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use(cors());
 
@@ -39,10 +37,9 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.sendStatus(err.status || 500);
+  // Logs the error message
   console.log("ERROR MESSAGE", err.message);
-  //res.render("error");
+  res.sendStatus(err.status || 500);
 });
 
 module.exports = app;
