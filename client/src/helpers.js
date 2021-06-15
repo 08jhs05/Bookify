@@ -217,7 +217,6 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
     let currentStartEndMonth = startEndMonths(startDate)
     let startMonthDate = currentStartEndMonth[0].toISOString().slice(0, 10);
     let endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
-    console.log(startDate.toISOString())
 		
     let newMonthDate = currentStartEndMonth[1]
     

@@ -70,12 +70,8 @@ export default function Receipts(props) {
     let isMounted = true;
     axios
       .get("/api/receipt/", { params: { starts: state.queryDate.starts, ends: state.queryDate.ends} })
-      .then((res) => {
-        setState({ ...state, receipts: res.data });
-        console.log(res.data)
-      }).catch((res) => {
-        setState({ ...state, receipts: [] });
-      });
+      .then((res) => setState({ ...state, receipts: res.data }))
+      .catch(() => setState({ ...state, receipts: [] }));
     return () => {
       isMounted = false;
     };

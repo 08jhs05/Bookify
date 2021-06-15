@@ -22,8 +22,6 @@ export default function Dashboard(props) {
   });
 
   useEffect(() => {
-    console.log("state changed");
-
     const today = new Date();
 
     daysAgo = daysDifference(state.queryDate, today);

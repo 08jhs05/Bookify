@@ -1,10 +1,12 @@
+// Import react and UserContext
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
 import Select from "react-dropdown-select";
+import { UserContext } from '../UserContext';
+
+// Import Material-UI
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
-import { useHistory } from 'react-router-dom';
-import { UserContext } from '../UserContext';
-import {useContext} from 'react';
 
 export default function IncExNavbar(props) {
   const {userName, setUserName} = useContext(UserContext); 

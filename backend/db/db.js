@@ -1,5 +1,4 @@
 // In order to reseed the database, simply run node db.js on this directory which will empty all collections and reseed after
-
 const testDeposit = require('./deposit_seeds')
 const testExpense = require('./expense_seeds')
 const testUser = require('./user_seeds');
@@ -14,11 +13,9 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String
   },
-
   email: {
     type: String
   },
-
   password: {
     type: String
   }

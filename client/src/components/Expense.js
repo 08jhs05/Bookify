@@ -1,17 +1,18 @@
+// Import react and axios
 import { useEffect, useState } from "react";
-import Select from "react-dropdown-select";
 import axios from "axios";
 
-import { daysDifference } from "../helpers";
-
+// Import different components
 import ExpenseForm from "./Form/ExpenseForm";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
-
 import IncomeExpenseSummary from "./IncomeExpenseSummary";
-import ExpenseGraph from "./ExpenseGraph";
 import Datalist from "./Datalist";
-import { createPastDate } from "../helpers";
 import IncExNavbar from "./IncExNavbar";
+
+// Import helper functions
+import { createPastDate, daysDifference } from "../helpers";
+
+//Import Material-UI
 import Paper from '@material-ui/core/Paper';
 
 const options = [
@@ -41,7 +42,7 @@ const options = [
 
 let daysAgo = 0;
 
-export default function Expense(props) {
+export default function Expense({logoutCallback}) {
   const newDate = new Date();
   newDate.setDate(newDate.getDate() - 10); // default date to query when user just loads this page
 
@@ -54,7 +55,7 @@ export default function Expense(props) {
 
   useEffect(() => {
     let isMounted = true;
-    /////////////
+  
     const today = new Date();
     daysAgo = daysDifference(state.queryDate, today);
 
@@ -80,14 +81,10 @@ export default function Expense(props) {
     });
   };
 
-  const editBtnOnClick = function () {
-    console.log("edit clicked");
-  };
-
   const deleteBtnOnClick = function (id) {
-    axios.delete("/api/expenses", { params: { id: id } }).then((res) => {
-      setReload(!reload);
-    });
+    axios.delete("/api/expenses", { params: { id: id } })
+    .then(() => setReload(!reload))
+    .catch((err) => console.error(err));
   };
 
   return (
@@ -95,7 +92,7 @@ export default function Expense(props) {
       <IncExNavbar type="Expenses" 
         options={options}
         onChange={onChange}
-        logoutCallback={props.logoutCallback} />
+        logoutCallback={logoutCallback} />
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
         <div className="graph-wrapper">
           <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} />
@@ -108,7 +105,6 @@ export default function Expense(props) {
         <ExpenseForm reloadPage={() => setReload(!reload)} />
         <Datalist
           data={state.data}
-          editBtnOnClick={editBtnOnClick}
           deleteBtnOnClick={deleteBtnOnClick}
           reloadPage={() => setReload(!reload)}
           type={"expense"}

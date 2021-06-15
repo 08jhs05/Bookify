@@ -12,8 +12,6 @@ export default function DashboardNavbar(props) {
 
   const {userName, setUserName} = useContext(UserContext);
   
-  console.log(userName);
-
   const options = [
     {key: 0, label: "Last 10 days", value: {type: "last", amount: 10, format: "D"}},
     {key: 1, label: "Last 30 days", value: {type: "last", amount: 30, format: "D"}},
