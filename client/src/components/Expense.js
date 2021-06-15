@@ -29,19 +29,14 @@ export default function Expense({logoutCallback}) {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
-  
     const today = new Date();
     daysAgo = daysDifference(state.queryDate, today);
 
     axios
       .get("/api/expenses", { params: { queryDate: state.queryDate } })
       .then((res) => {
-        setState({ ...state, data: res.data });
+        setState((prev) => ({ ...prev, data: res.data }));
       });
-    return () => {
-      isMounted = false;
-    };
   }, [state.queryDate, reload]);
 
   const onChange = function (value) {

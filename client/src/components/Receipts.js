@@ -64,14 +64,10 @@ export default function Receipts({logoutCallback}) {
   }
 
   useEffect(() => {
-    let isMounted = true;
     axios
       .get("/api/receipt/", { params: { starts: state.queryDate.starts, ends: state.queryDate.ends} })
-      .then((res) => setState({ ...state, receipts: res.data }))
-      .catch(() => setState({ ...state, receipts: [] }));
-    return () => {
-      isMounted = false;
-    };
+      .then((res) => setState((prev) => ({ ...prev, receipts: res.data })))
+      .catch(() => setState((prev) => ({ ...prev, receipts: [] })));
   }, [state.queryDate]);
 
   return (

@@ -10,7 +10,7 @@ import { Divider, Radio, RadioGroup, FormControlLabel, Paper } from '@material-u
 
 export default function DashboardCategories(props) {
   const {incomes, expenses} = props.data;
-  const rgbPicker = new RGBPicker;
+  const rgbPicker = new RGBPicker();
 
   //make props data usable for pie chart
   const incomesLabels = [];

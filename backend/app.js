@@ -1,18 +1,17 @@
-var createError = require("http-errors");
-var express = require("express");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 require("dotenv").config();
 
 const usersRouter = require("./routes/users");
 const expensesRouter = require("./routes/expenses");
 const incomesRouter = require("./routes/incomes");
-const newRouter = require("./routes/new");
 const receiptRoute = require("./routes/receipt");
 const processDataRoute = require("./routes/processData");
 
 const cors = require("cors");
-var app = express();
+const app = express();
 
 // view engine setup
 
@@ -26,7 +25,6 @@ app.use(cors());
 app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);
-app.use("/api/new", newRouter);
 app.use("/api/receipt", receiptRoute);
 app.use("/api/processData", processDataRoute);
 

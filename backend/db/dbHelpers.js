@@ -1,8 +1,5 @@
 const { Deposit, Expense, User, Receipt } = require('./db');
-const db = require('./db');
 const https = require("https");
-
-
 
 const getDepositsAfterDate = async (req, res) => {
     await Deposit.find({ depositDate: { $gt : new Date(req.query.queryDate) } }, (err, deposits) => {

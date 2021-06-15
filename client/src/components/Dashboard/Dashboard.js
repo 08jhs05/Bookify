@@ -31,10 +31,10 @@ export default function Dashboard({logoutCallback}) {
       axios.get("/api/expenses", { params: { queryDate: state.queryDate } }),
     ];
     Promise.all(promises).then((res) => {
-      setState({
-        ...state,
+      setState((prev) => ({
+        ...prev,
         data: { incomes: res[0].data, expenses: res[1].data },
-      });
+      }));
     });
   }, [state.queryDate]);
 

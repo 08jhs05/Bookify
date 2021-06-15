@@ -30,19 +30,14 @@ export default function Income({logoutCallback}) {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
-    /////////////
     const today = new Date();
     daysAgo = daysDifference(state.queryDate, today);
 
     axios
       .get("/api/incomes", { params: { queryDate: state.queryDate } })
       .then((res) => {
-        setState({ ...state, data: res.data });
+        setState((prev) => ({ ...prev, data: res.data }));
       });
-    return () => {
-      isMounted = false;
-    };
   }, [state.queryDate, reload]);
 
   const onChange = function (value) {

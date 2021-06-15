@@ -11,7 +11,6 @@ function createPastDate(type, amount, format) {
     }
   } else {
     if (format === "D") {
-      //date = date.getDate()
     } else if (format === "M") {
       date.setDate(1);
     } else {
@@ -63,13 +62,6 @@ const weeksLabel = (d1, d2) => {
 
   return weekArr
 }
-
-// function yearsDiff(d1, d2) {
-//   let date1 = new Date(d1);
-//   let date2 = new Date(d2);
-//   let yearsDiff =  date2.getFullYear() - date1.getFullYear();
-//   return yearsDiff;
-// }
 
 const monthsLabel = (d1, d2) => {
 
@@ -170,7 +162,7 @@ const getChartFromNow = (daysBefore, depositType) => {
     })
 
     const res = Array.from(filteredDeposit.reduce(
-      (m, {depositDate, amount}) => m.set(depositDate, (m.get(depositDate) || 0) + amount), new Map
+      (m, {depositDate, amount}) => m.set(depositDate, (m.get(depositDate) || 0) + amount), new Map()
     ), ([depositDate, amount]) => ({depositDate, amount}));
     res.forEach((eachDeposit)=>{
              labelList.push(eachDeposit.depositDate.slice(0, 10));
@@ -217,10 +209,6 @@ const getChartFromNow = (daysBefore, depositType) => {
 
 
   if (dwmValue === "monthly") {
-    // let monthSlice = 0
-    // let yearSlice = 0
-    // let totalString = "";
-
     startDate.setDate(startDate.getDate() - startDate.getDate() + 2)
 
     let currentStartEndMonth = startEndMonths(startDate)
@@ -232,7 +220,6 @@ const getChartFromNow = (daysBefore, depositType) => {
 		let totalMonths = monthsDiff(startDate, endDate)
     startDate = startDate.toISOString().slice(0, 10);
     endDate = endDate.toISOString().slice(0, 10);
-		
     
     let sum = 0
     for (let i = 0; i <= totalMonths; i++) {
@@ -243,11 +230,6 @@ const getChartFromNow = (daysBefore, depositType) => {
         }
       })
       amountList.push(sum)
-      
-      // monthSlice = Number(startMonthDate.slice(5,7))
-      // yearSlice = Number(startMonthDate.slice(0,4))
-      // totalString = monthTable[monthSlice] + " " + yearSlice
-      // labelList.push(totalString)
 
       labelList.push(startMonthDate.slice(0,7))
       
@@ -257,10 +239,9 @@ const getChartFromNow = (daysBefore, depositType) => {
     	endMonthDate = currentStartEndMonth[1].toISOString().slice(0, 10);
       newMonthDate = currentStartEndMonth[1]
       
-      sum=0
+      sum = 0
     }
   }
-
 
   // returns an array. 0-index is for x-axis, 1-index is for y-axis, and total just represents the array of 1-index (for summary)
   total = amountList.reduce((a, b) => a + b, 0);

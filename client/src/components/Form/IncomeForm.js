@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import { setCurrentDate } from '../../helpers'
 
-export default function ExpenseForm(reloadPage) {
+export default function ExpenseForm({reloadPage}) {
   const currentDate = setCurrentDate();
 
   const [open, setOpen] = useState(false);

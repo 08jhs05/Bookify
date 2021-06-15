@@ -44,7 +44,14 @@ export default function Scan({logoutCallback}) {
 
   useEffect(() => {
     if (imgSrc) {
-      apiCall(imgSrc)
+      axios
+      .post("/api/processData/", { data: imgSrc })
+      .then((res) => {
+        setShowStatus(false)
+        setControlSubmit(["contained", "#303F9F"])
+        return formatResponseData(JSON.parse(res.data)
+        )})
+      .catch((err) => console.error(err));
     }
   },[imgSrc])
 
@@ -61,17 +68,6 @@ export default function Scan({logoutCallback}) {
       amount: data.amount
     })
   } 
-
-  const apiCall = async () => {
-    await axios
-    .post("/api/processData/", { data: imgSrc })
-    .then((res) => {
-      setShowStatus(false)
-      setControlSubmit(["contained", "#303F9F"])
-      return formatResponseData(JSON.parse(res.data)
-      )})
-    .catch((err) => console.error(err));
-  };
 
   const handleDataChange = (value) => {
     setResponseData({

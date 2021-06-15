@@ -10,7 +10,7 @@ import { setCurrentDate } from '../../helpers';
 export default function IncomeEditForm(props) {
   const currentDate = setCurrentDate();
 
-  const { depositDate, amount, notes, _id, reloadPage } = props.data
+  const { depositDate, amount, notes, _id } = props.data
 
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState(props.data.category);
@@ -55,7 +55,7 @@ export default function IncomeEditForm(props) {
       })
       setCategory([])
       handleClose()
-      reloadPage()
+      props.reloadPage()
     })
     .catch(err => console.log("Error Triggered! \n", err));
 
