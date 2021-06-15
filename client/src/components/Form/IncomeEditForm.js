@@ -1,4 +1,7 @@
+// Import react and react pre-built methods
 import React, { Fragment, useState } from 'react';
+
+// Import material-ui
 import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import axios from 'axios';
@@ -7,7 +10,7 @@ import { setCurrentDate } from '../../helpers';
 export default function IncomeEditForm(props) {
   const currentDate = setCurrentDate();
 
-  const { depositDate, amount, notes, _id } = props.data
+  const { depositDate, amount, notes, _id, reloadPage } = props.data
 
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState(props.data.category);
@@ -52,7 +55,7 @@ export default function IncomeEditForm(props) {
       })
       setCategory([])
       handleClose()
-      props.reloadPage()
+      reloadPage()
     })
     .catch(err => console.log("Error Triggered! \n", err));
 

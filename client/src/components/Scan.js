@@ -6,7 +6,7 @@ import axios from 'axios';
 import Status from './Status';
 
 //Importing Material UI
-import { Chip, IconButton, TextField, Paper } from "@material-ui/core"
+import { Chip, TextField, Paper } from "@material-ui/core"
 import Button from '@material-ui/core/Button';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { Autocomplete } from "@material-ui/lab";
@@ -16,7 +16,7 @@ import IncExNavbar from "./IncExNavbar";
 //Import helper functions
 import { setCurrentDate } from "../helpers";
 
-export default function Scan(props) {
+export default function Scan({logoutCallback}) {
   const currentDate = setCurrentDate();
 
   //useState for setting dates and amount. Grabs the data from the api call
@@ -110,7 +110,7 @@ export default function Scan(props) {
   
   return (
     <section className="not_sidebar scan">
-      <IncExNavbar type={"Scan"} isScanPage={true} logoutCallback={props.logoutCallback}/>
+      <IncExNavbar type={"Scan"} isScanPage={true} logoutCallback={logoutCallback}/>
       <div className="scan-component" >
       <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', marginBottom: '40px', padding: '0 20px 0 20px'}}>
       <div className="webcam-scan">

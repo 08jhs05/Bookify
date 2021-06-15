@@ -1,5 +1,6 @@
-// Importting hooks and Libraries
-import { useState, useEffect, Fragment } from "react";
+// Importing hooks and Libraries
+import React from 'react';
+import { useState, useEffect } from "react";
 import axios from "axios";
 import IncExNavbar from "./IncExNavbar";
 import { Paper } from "@material-ui/core";
@@ -33,7 +34,6 @@ options.push(
 )
 
 for(let i = 2; i < 38; i++) {
-
   let newOption = {};
   newOption.key = i;
   newOption.queryDate = {}
@@ -53,7 +53,7 @@ for(let i = 2; i < 38; i++) {
   options.push(newOption);
 }
 
-export default function Receipts(props) {
+export default function Receipts({logoutCallback}) {
   const [state, setState] = useState({
     queryDate: options[0].queryDate,
     receipts: []
@@ -79,7 +79,7 @@ export default function Receipts(props) {
       <IncExNavbar type={"Receipts"}
         options={options}
         onChange={onChange}
-        logoutCallback={props.logoutCallback}/>
+        logoutCallback={logoutCallback}/>
       <Paper elevation={2} style={{borderRadius:'20px', margin:'0 40px 0 40px', height:'70vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
         <div className="carouselWrapper" style={{width: '60vw'}}>
         { state.receipts.length === 0 ? <div style={{fontSize:'48px', display:'flex', justifyContent:'center'}}>No receipts available!</div> : <Carousel
@@ -88,13 +88,13 @@ export default function Receipts(props) {
           animation={'slide'}
         >
         {state.receipts.map(receipt => (
-          <Fragment>
+          <React.Fragment>
             <div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
               <div style={{marginBottom:'20px'}}>Receipt ID #{receipt._id}</div>
               <img src={receipt.data} alt="captured-img" style={{marginBottom:'20px'}}/>
               <div className='regularFont' style={{marginBottom:'20px'}}>{receipt.dateCaptured && "Issued on"} {receipt.dateCaptured?.substr(0, 10)}</div>
             </div>
-          </Fragment>
+          </React.Fragment>
           ))}
         </Carousel> }
         </div>

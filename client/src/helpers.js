@@ -298,6 +298,15 @@ const convertMonthLabel = (dateArray) => {
   return result
 }
 
+const dropDownOptions = [
+  {key: 0, label: "Last 10 days", value: {type: "last", amount: 10, format: "D"}},
+  {key: 1, label: "Last 30 days", value: {type: "last", amount: 30, format: "D"}},
+  {key: 2, label: "Current Month", value: {type: "this", format: "M"}},
+  {key: 3, label: "Last 3 Months", value: {type: "last", amount: 3, format: "M"}},
+  {key: 4, label: "Current Year", value: {type: "this", format: "Y"}},
+  {key: 5, label: "Everything", value: {type: "last", amount: 10, format: "M"}}
+];
+
 module.exports = {
   createPastDate,
   daysDifference,
@@ -308,5 +317,6 @@ module.exports = {
   convertDateArrToObj,
   formatCurrencyForFE,
   setCurrentDate,
-  convertMonthLabel
+  convertMonthLabel,
+  dropDownOptions
 }

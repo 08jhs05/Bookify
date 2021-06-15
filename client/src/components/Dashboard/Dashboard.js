@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 
 let daysAgo = 0;
 
-export default function Dashboard(props) {
+export default function Dashboard({logoutCallback}) {
   const newDate = new Date();
   newDate.setDate(newDate.getDate() - 10);
 
@@ -41,7 +41,7 @@ export default function Dashboard(props) {
   return (
     <Grid container className="not_sidebar dashboard">
       <Grid item xs={12} className="dashboard_navbar_grid">
-        <DashboardNavbar state={state} setState={setState} logoutCallback={props.logoutCallback}/>
+        <DashboardNavbar state={state} setState={setState} logoutCallback={logoutCallback}/>
       </Grid>
       <Grid container item xs={12} className="dashboard_body">
         <Grid container item xs={9} className="dashboard_body_left">

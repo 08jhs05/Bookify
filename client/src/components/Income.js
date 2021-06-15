@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // Import helper functions
-import { daysDifference } from "../helpers";
+import { daysDifference, dropDownOptions, createPastDate } from "../helpers";
 
 // Import components
 import IncomeForm from "./Form/IncomeForm";
 import Datalist from "./Datalist";
-import { createPastDate } from "../helpers";
 import IncomeExpenseGraph from "./IncomeExpenseGraph";
 import IncomeExpenseSummary from "./IncomeExpenseSummary";
 import IncExNavbar from "./IncExNavbar";
@@ -16,30 +15,6 @@ import IncExNavbar from "./IncExNavbar";
 // Import Material-UI
 import Paper from '@material-ui/core/Paper';
 
-const options = [
-  {
-    key: 0,
-    label: "Last 10 days",
-    value: { type: "last", amount: 10, format: "D" },
-  },
-  {
-    key: 1,
-    label: "Last 30 days",
-    value: { type: "last", amount: 30, format: "D" },
-  },
-  { key: 2, label: "Current Month", value: { type: "this", format: "M" } },
-  {
-    key: 3,
-    label: "Last 3 Months",
-    value: { type: "last", amount: 3, format: "M" },
-  },
-  { key: 4, label: "Current Year", value: { type: "this", format: "Y" } },
-  {
-    key: 5,
-    label: "Everything",
-    value: { type: "last", amount: 10, format: "M" },
-  },
-];
 
 let daysAgo = 0;
 
@@ -91,7 +66,7 @@ export default function Income({logoutCallback}) {
   return (
     <section className="not_sidebar income">
       <IncExNavbar type="Incomes" 
-        options={options}
+        options={dropDownOptions}
         onChange={onChange}
         logoutCallback={logoutCallback}/>
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
