@@ -28,17 +28,8 @@ export default function Summary(props) {
   }
 
   if (props.data) {
-    let dwmProps = "";
-
-    if (props.daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (props.daysAgo < 150) {
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-    let formatIncomesData = getChartFromNow(props.daysAgo, dwmProps, props.data.incomes);
-    let formatExpensesData = getChartFromNow(props.daysAgo, dwmProps, props.data.expenses);
+    let formatIncomesData = getChartFromNow(props.daysAgo, props.data.incomes);
+    let formatExpensesData = getChartFromNow(props.daysAgo, props.data.expenses);
 
     if (props.type === "INCOME") {
       summaryData = formatIncomesData[2];

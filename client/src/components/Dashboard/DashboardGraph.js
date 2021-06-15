@@ -16,27 +16,15 @@ export default function DashboardGraph(props) {
   let totalLabel = [];
 
   if (props.data) {
-
-    //Just determining if we should take weekly or daily based on value received. May have to change a little
-    let dwmProps = "";
-
-    if (props.daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (props.daysAgo < 150){
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-
     // This is an example of creating data for the charts
-    formatIncomesData = getChartFromNow(props.daysAgo, dwmProps, props.data.incomes);
-    formatExpensesData = getChartFromNow(props.daysAgo, dwmProps, props.data.expenses);
+    formatIncomesData = getChartFromNow(props.daysAgo, props.data.incomes);
+    formatExpensesData = getChartFromNow(props.daysAgo, props.data.expenses);
     
     totalLabel = formatIncomesData[0].concat(formatExpensesData[0])
     totalLabel.sort((a,b) =>a.localeCompare(b))
     totalLabel = [...new Set(totalLabel)]
 
-    if (dwmProps==="monthly"){
+    if (props.daysAgo >= 150){
       formatIncomesData[0] = convertMonthLabel(formatIncomesData[0])
       formatExpensesData[0] = convertMonthLabel(formatExpensesData[0])
       totalLabel=totalLabel.slice(11)

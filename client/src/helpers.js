@@ -119,8 +119,17 @@ const convertDateArrToObj = (xCor, yCor) => {
 //dayBefore will indicate how many days/months before we're checking
 //dwmValue will query on whether we're checking sum amounts by days or months
 //depositType will be either testDeposit or testExpense
-const getChartFromNow = (daysBefore, dwmValue, depositType) => {
+const getChartFromNow = (daysBefore, depositType) => {
 
+  let dwmValue = "daily"
+  
+  if (daysBefore <= 30) {
+    dwmValue = "daily"
+  } else if (daysBefore < 150){
+    dwmValue = "weekly"
+  } else {
+    dwmValue = "monthly"
+  }
 
   depositType.sort(function(a, b) {
     var keyA = (a.depositDate),

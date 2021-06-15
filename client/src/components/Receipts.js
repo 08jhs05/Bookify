@@ -53,10 +53,7 @@ for(let i = 2; i < 38; i++) {
   options.push(newOption);
 }
 
-//================================================
-
 export default function Receipts(props) {
-
   const [state, setState] = useState({
     queryDate: options[0].queryDate,
     receipts: []

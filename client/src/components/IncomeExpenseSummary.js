@@ -23,18 +23,8 @@ export default function IncomeExpenseSummary(props) {
   let startDate = new Date()
 
   if (data) {
-    let dwmProps = "";
-
-    if (daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (daysAgo < 150){
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-
     // This is an example of creating data for the charts
-    formatDepositData = getChartFromNow(daysAgo, dwmProps, data);
+    formatDepositData = getChartFromNow(daysAgo, data);
   
     let daysBefore = daysAgo
     //Sets the start date based on how many days we have

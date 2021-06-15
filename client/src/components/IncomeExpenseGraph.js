@@ -12,21 +12,9 @@ export default function IncomeExpenseGraph(props) {
 
   if (data) {
 
-    //Just determining if we should take weekly or daily based on value received. May have to change a little
-    let dwmProps = "";
-
-    if (daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (daysAgo < 150){
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-
-    // This is an example of creating data for the charts
-    formatDepositData = getChartFromNow(daysAgo, dwmProps, data);    
+    formatDepositData = getChartFromNow(daysAgo, data);    
     
-    if (dwmProps==="monthly"){
+    if (daysAgo >= 150){
       formatDepositData[0] = convertMonthLabel(formatDepositData[0])
 
     }
