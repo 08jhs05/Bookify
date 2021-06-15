@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
 
-const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const expensesRouter = require("./routes/expenses");
 const incomesRouter = require("./routes/incomes");
 const newRouter = require("./routes/new");
@@ -21,11 +21,11 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-app.use("/api", indexRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/expenses", expensesRouter);
 app.use("/api/incomes", incomesRouter);
 app.use("/api/new", newRouter);

@@ -92,7 +92,8 @@ export default function Income(props) {
     <section className="not_sidebar income">
       <IncExNavbar type="Incomes" 
         options={options}
-        onChange={onChange}/>
+        onChange={onChange}
+        logoutCallback={props.logoutCallback}/>
       <Paper className="income-expense-direction" style={{height:'30vh', borderRadius:'20px', margin: '0 40px 40px 40px', padding:'20px'}}>
         <div className="graph-wrapper">
           <IncomeExpenseGraph data={state.data} daysAgo={daysAgo} type={'incomes'}/>

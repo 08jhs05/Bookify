@@ -15,6 +15,10 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import { useContext, useState } from "react";
 
+import { UserContext } from '../UserContext'
+
+import axios from 'axios';
+
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: 'whitesmoke',
@@ -46,7 +50,40 @@ export default function SignIn(props) {
 
   const classes = useStyles();
   const history = useHistory();
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: ""
+  })
+  const {userName, setUserName} = useContext(UserContext);
+
+  const [isError, setIsError] = useState(false);
+
+  const validateUser = (event) => {
+    event.preventDefault();
+    
+    axios.get('/api/users')
+    .then(res => {
+      for (const user of res.data) {
+        if ( user.email === formValues.email && user.password === formValues.password) {
+          setUserName(user.username);
+          onClickFunc();
+        }else{
+          setIsError("Could not find matching email or password. Please enter again");
+        }
+      }
+    })
+    .catch(err => console.error(err));
+  }
+
+  const handleChange  = (event) => {
+    const formValue = event.target.id;
+    setFormValues((prev) => ({
+      ...prev,
+      [formValue]: event.target.value
+    }))
+  }
   const onClickFunc = function() {
+
     if(!props.loginState) props.loginCallback();
     history.push("/");
   }
@@ -63,7 +100,8 @@ export default function SignIn(props) {
         <div className="signin_title">
           Sign in
         </div>
-        <form className={classes.form} noValidate>
+        <form className={classes.form}>
+          {isError && <div style={{color:'red'}}>{isError}</div>}
           <TextField
             variant="outlined"
             margin="normal"
@@ -73,6 +111,8 @@ export default function SignIn(props) {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={formValues.email}
+            onChange={handleChange}
             autoFocus
           />
           <TextField
@@ -84,15 +124,17 @@ export default function SignIn(props) {
             label="Password"
             type="password"
             id="password"
+            value={formValues.password}
+            onChange={handleChange}
             autoComplete="current-password"
           />
             <Button
-              // type="submit"
+              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               // className={classes.submit}
-              onClick={ onClickFunc }
+              onClick={ validateUser }
             >
               Sign In
             </Button>

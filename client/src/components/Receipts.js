@@ -53,12 +53,9 @@ for(let i = 2; i < 38; i++) {
   options.push(newOption);
 }
 
-console.log(options);
-
-
 //================================================
 
-export default function Receipts() {
+export default function Receipts(props) {
 
   const [state, setState] = useState({
     queryDate: options[0].queryDate,
@@ -88,7 +85,8 @@ export default function Receipts() {
     <section className="not_sidebar receipts">
       <IncExNavbar type={"Receipts"}
         options={options}
-        onChange={onChange}/>
+        onChange={onChange}
+        logoutCallback={props.logoutCallback}/>
       <Paper elevation={2} style={{borderRadius:'20px', margin:'0 40px 0 40px', height:'70vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
         <div className="carouselWrapper" style={{width: '60vw'}}>
         { state.receipts.length === 0 ? <div style={{fontSize:'48px', display:'flex', justifyContent:'center'}}>No receipts available!</div> : <Carousel

@@ -64,13 +64,12 @@ const weeksLabel = (d1, d2) => {
   return weekArr
 }
 
-function yearsDiff(d1, d2) {
-  let date1 = new Date(d1);
-  let date2 = new Date(d2);
-  let yearsDiff =  date2.getFullYear() - date1.getFullYear();
-  return yearsDiff;
-}
-
+// function yearsDiff(d1, d2) {
+//   let date1 = new Date(d1);
+//   let date2 = new Date(d2);
+//   let yearsDiff =  date2.getFullYear() - date1.getFullYear();
+//   return yearsDiff;
+// }
 
 const monthsLabel = (d1, d2) => {
 
@@ -209,9 +208,9 @@ const getChartFromNow = (daysBefore, dwmValue, depositType) => {
 
 
   if (dwmValue === "monthly") {
-    let monthSlice = 0
-    let yearSlice = 0
-    let totalString = "";
+    // let monthSlice = 0
+    // let yearSlice = 0
+    // let totalString = "";
 
     startDate.setDate(startDate.getDate() - startDate.getDate() + 2)
 
@@ -269,7 +268,6 @@ const formatCurrencyForFE = (value) => {
   });
 };
 
-//c
 const setCurrentDate = () => {
   const date = new Date();
   date.setDate(date.getDate());

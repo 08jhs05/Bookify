@@ -3,13 +3,19 @@ import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../UserContext';
+import {useContext} from 'react';
 
 export default function IncExNavbar(props) {
+  const {userName, setUserName} = useContext(UserContext); 
 
   const history = useHistory();
   const onClickFunc = function() {
+    setUserName(null);
+    props.logoutCallback();
     history.push("/signin");
   }
+
 
   return (
     <section className="dashboard_navbar">
@@ -30,7 +36,7 @@ export default function IncExNavbar(props) {
       </div>
       <div style={{display:"flex", alignItems:"center", width:"280px", justifyContent:"space-between"}}>
           <div className={'regularFont'} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-            <AccountCircleIcon style={{width:'40px', height:'40px'}}/>&nbsp;&nbsp;Username111
+            <AccountCircleIcon style={{width:'40px', height:'40px'}}/>&nbsp;&nbsp;{userName}
           </div>
         <Button variant="contained" style={{width:'100px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px'}} onClick={onClickFunc}>Logout</Button>
       </div>

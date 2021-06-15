@@ -16,7 +16,7 @@ import IncExNavbar from "./IncExNavbar";
 //Import helper functions
 import { setCurrentDate } from "../helpers";
 
-export default function Scan() {
+export default function Scan(props) {
   const currentDate = setCurrentDate();
 
   //useState for setting dates and amount. Grabs the data from the api call
@@ -110,7 +110,7 @@ export default function Scan() {
   
   return (
     <section className="not_sidebar scan">
-      <IncExNavbar type={"Scan"} isScanPage={true}/>
+      <IncExNavbar type={"Scan"} isScanPage={true} logoutCallback={props.logoutCallback}/>
       <div className="scan-component" >
       <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', marginBottom: '40px', padding: '0 20px 0 20px'}}>
       <div className="webcam-scan">
