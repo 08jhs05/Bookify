@@ -33,7 +33,7 @@ export default function Scan({logoutCallback}) {
   const webcamRef = useRef(null);
 
   const [showStatus, setShowStatus] = useState(false);
-  const [controlSubmit, setControlSubmit] = useState(["disabled", "grey"]);
+  const [controlSubmit, setControlSubmit] = useState("");
 
   //Captures the screenshot of the webcam and saves the image into base64 encoded data.
   const capture = () => {
@@ -48,7 +48,7 @@ export default function Scan({logoutCallback}) {
       .post("/api/processData/", { data: imgSrc })
       .then((res) => {
         setShowStatus(false)
-        setControlSubmit(["contained", "#303F9F"])
+        setControlSubmit("#303F9F")
         return formatResponseData(JSON.parse(res.data)
         )})
       .catch((err) => console.error(err));
@@ -179,9 +179,8 @@ export default function Scan({logoutCallback}) {
         </div>
 
         <div className="scan-button">
-          <Button variant={controlSubmit[0]} style={{width:'200px', height:'40px', backgroundColor:`${controlSubmit[1]}`, color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>
-            Submit
-          </Button>
+          {!controlSubmit ? <Button variant="contained" disabled style={{width:'200px', height:'40px', backgroundColor: "grey", color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>Submit</Button>
+            : <Button variant="contained" style={{width:'200px', height:'40px', backgroundColor:`${controlSubmit}`, color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>Submit</Button>}
         </div>
       </Paper>
       </div>

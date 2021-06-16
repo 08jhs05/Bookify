@@ -84,7 +84,7 @@ export default function Receipts({logoutCallback}) {
           animation={'slide'}
         >
         {state.receipts.map(receipt => (
-          <React.Fragment>
+          <React.Fragment key={receipt._id}>
             <div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
               <div style={{marginBottom:'20px'}}>Receipt ID #{receipt._id}</div>
               <img src={receipt.data} alt="captured-img" style={{marginBottom:'20px'}}/>

@@ -21,6 +21,10 @@ export default function Dashboard({logoutCallback}) {
     data: { incomes: [], expenses: [] }
   });
 
+  const reload = function(){
+    setState({...state});
+  }
+
   useEffect(() => {
     const today = new Date();
 
@@ -58,7 +62,7 @@ export default function Dashboard({logoutCallback}) {
           </Grid>
             <Grid container className="dashboard_data_section">
               <Grid item xs={6} className="dashboard_data_grid">
-                <DashboardCategories data={state.data} />
+                <DashboardCategories data={state.data} callback={reload}/>
               </Grid>
               <Grid item xs={6} className="dashboard_data_grid">
                 <DashboardGraph data={state.data} daysAgo={daysAgo} />

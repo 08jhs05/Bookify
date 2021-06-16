@@ -198,17 +198,17 @@ const getChartFromNow = (daysBefore, depositType) => {
       //accumulator for amount sum each week
       let sum = 0
 
-      for (let i = 0; i < depositType; i++) {
-        if ((depositType[i].depositDate >= labelList[i]) && (depositType[i].depositDate <= endWeekDate)) {
-          sum += depositType[i].amount;
+      for (let j = 0; j < depositType.length; j++) {
+        if ((depositType[j].depositDate >= labelList[i]) && (depositType[j].depositDate <= endWeekDate)) {
+          sum += depositType[j].amount;
         }
       }
 
       //ForEach style of above for loop -> Creates error when using with react
       // depositType.forEach(eachDeposit => {
-        // if ((eachDeposit.depositDate >= labelList[i]) && (eachDeposit.depositDate <= endWeekDate)) {
-        //   sum += eachDeposit.amount;
-        // }
+      //   if ((eachDeposit.depositDate >= labelList[i]) && (eachDeposit.depositDate <= endWeekDate)) {
+      //     sum += eachDeposit.amount;
+      //   }
       // })
 
       amountList.push(sum)
@@ -233,13 +233,13 @@ const getChartFromNow = (daysBefore, depositType) => {
     let sum = 0
     for (let i = 0; i <= totalMonths; i++) {
 			
-      for (let i = 0; i < depositType; i++) {
-        if ((depositType[i].depositDate >= startMonthDate) && (depositType[i].depositDate <= endMonthDate)) {
-          sum += depositType[i].amount;
+      for (let j = 0; j < depositType.length; j++) {
+        if ((depositType[j].depositDate >= startMonthDate) && (depositType[j].depositDate <= endMonthDate)) {
+          sum += depositType[j].amount;
         }
       }
 
-      // ForEach style of the above for loop -> Creates error when using with react
+      //ForEach style of the above for loop -> Creates error when using with react
       // depositType.forEach(eachDeposit => {
       //   if ((eachDeposit.depositDate >= startMonthDate) && (eachDeposit.depositDate <= endMonthDate)) {
       //     sum += eachDeposit.amount;

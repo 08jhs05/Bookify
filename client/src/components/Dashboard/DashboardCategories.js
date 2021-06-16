@@ -11,7 +11,6 @@ import { Divider, Radio, RadioGroup, FormControlLabel, Paper } from '@material-u
 export default function DashboardCategories(props) {
   const {incomes, expenses} = props.data;
   const rgbPicker = new RGBPicker();
-
   //make props data usable for pie chart
   const incomesLabels = [];
   const incomesDataIndex = {};
@@ -29,10 +28,10 @@ export default function DashboardCategories(props) {
     if(!incomesLabels.includes(income.category[0])) {
       incomesLabels.push(income.category[0]);
       incomesDataIndex[income.category[0]] = incomesDatasets[0].data.length;
-      incomesDatasets[0].data.push(income.amount);
+      incomesDatasets[0].data.push(income.amount/100);
       incomesDatasets[0].backgroundColor.push(rgbPicker.getnextColor())
     } else {
-      incomesDatasets[0].data[incomesDataIndex[income.category[0]]] = incomesDatasets[0].data[incomesDataIndex[income.category[0]]] + income.amount;
+      incomesDatasets[0].data[incomesDataIndex[income.category[0]]] = incomesDatasets[0].data[incomesDataIndex[income.category[0]]] + income.amount/100;
     }
   };
 
@@ -42,10 +41,10 @@ export default function DashboardCategories(props) {
     if(!expensesLabels.includes(categoryname)) {
       expensesLabels.push(categoryname);
       expensesDataIndex[categoryname] = expensesDatasets[0].data.length;
-      expensesDatasets[0].data.push(expense.amount);
+      expensesDatasets[0].data.push(expense.amount/100);
       expensesDatasets[0].backgroundColor.push(rgbPicker.getnextColor())
     } else {
-      expensesDatasets[0].data[expensesDataIndex[categoryname]] = expensesDatasets[0].data[expensesDataIndex[categoryname]] + expense.amount;
+      expensesDatasets[0].data[expensesDataIndex[categoryname]] = expensesDatasets[0].data[expensesDataIndex[categoryname]] + expense.amount/100;
     }
   };
 

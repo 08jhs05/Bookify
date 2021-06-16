@@ -15,6 +15,7 @@ export default function Datalist(props) {
   const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
   const { data, type, reloadPage, deleteBtnOnClick } = props;
 
+
   return (
     <Paper className='datalist_scrollable' style={{overflow: 'auto', marginTop:'40px'}}>
     <Table stickyHeader size="small">
@@ -29,7 +30,7 @@ export default function Datalist(props) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.length > 0 && Array.isArray(data) && data.map(elem =>  (
+        {data.length > 0 && Array.isArray(data) && data.reverse().map(elem =>  (
           <TableRow key={elem._id}>
             <TableCell>{elem.depositDate.slice(0, 10)}</TableCell>
             <TableCell>{formatCurrencyForFE(elem.amount)}</TableCell>

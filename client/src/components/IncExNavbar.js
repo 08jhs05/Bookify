@@ -38,7 +38,7 @@ export default function IncExNavbar(props) {
         /> }
       </div>
       <div style={{display:"flex", alignItems:"center", width:"280px", justifyContent:"space-between"}}>
-          <div className={'regularFont'} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+          <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:'22px' }}>
             <AccountCircleIcon style={{width:'40px', height:'40px'}}/>&nbsp;&nbsp;{userName}
           </div>
         <Button variant="contained" style={{width:'100px', height:'40px', backgroundColor:'#303F9F', color:'white', borderRadius:'15px'}} onClick={onClickFunc}>Logout</Button>

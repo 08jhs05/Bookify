@@ -28,22 +28,26 @@ function App() {
   return (
     <main className="App">
       <Router>
-      { loggedIn ? <Sidebar /> : <div></div> }
         <Switch>
           <UserContext.Provider value={providerValue}>
             <Route exact path="/">
+              { loggedIn ? <Sidebar /> : <div></div>}
               { loggedIn ? <Dashboard logoutCallback={callback}/> : <SignIn loginState={loggedIn} loginCallback={callback}/>}
             </Route>
               <Route path="/expenses">
+              <Sidebar />
                 <Expense logoutCallback={callback}/>
               </Route>
               <Route path="/incomes">
+              <Sidebar />
                 <Income logoutCallback={callback}/>
               </Route>
               <Route path="/scan">
+              <Sidebar />
                 <Scan logoutCallback={callback}/>
               </Route>
               <Route path="/receipts">
+              <Sidebar />
                 <Receipts logoutCallback={callback}/>
               </Route>
               <Route path="/signin">

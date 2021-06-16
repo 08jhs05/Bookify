@@ -2,7 +2,7 @@ const { Deposit, Expense, User, Receipt } = require('./db');
 const https = require("https");
 
 const getDepositsAfterDate = async (req, res) => {
-    await Deposit.find({ depositDate: { $gt : new Date(req.query.queryDate) } }, (err, deposits) => {
+    await Deposit.find({ depositDate: { $gt : new Date(req.query.queryDate) }}, (err, deposits) => {
       if (err) {
           return res.status(400).json({ success: false, error: err })
       }
