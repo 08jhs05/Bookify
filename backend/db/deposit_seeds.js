@@ -236,7 +236,8 @@ const testDeposit = [
   { user_id: testUser[0], depositDate: "2021-06-11", amount: 75000, category: ["uber"], notes: "Weekly uber-eats deposit" },
   { user_id: testUser[0], depositDate: "2021-06-12", amount: 80000, category: ["ritual"], notes: "Weekly ritual deposit" },
 
-  { user_id: testUser[0], depositDate: "2021-06-16", amount: 80000, category: ["cash"], notes: "Weekly cash deposit" },
+  { user_id: testUser[0], depositDate: "2021-06-16", amount: 80000, category: ["cash"], notes: "Weekly cash deposit" }
+  
   // { user_id: testUser[0], depositDate: "2021-06-17", amount: 120000, category: ["credit"], notes: "Weekly credit deposit" },
   // { user_id: testUser[0], depositDate: "2021-06-18", amount: 66600, category: ["uber"], notes: "Weekly uber-eats deposit" },
   // { user_id: testUser[0], depositDate: "2021-06-19", amount: 82000, category: ["ritual"], notes: "Weekly ritual deposit" },
