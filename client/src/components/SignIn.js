@@ -1,23 +1,12 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-
+// Import react pre-built functions and axios
+import { UserContext } from '../UserContext'
 import { useHistory } from 'react-router-dom';
 import { useContext, useState } from "react";
-
-import { UserContext } from '../UserContext'
-
 import axios from 'axios';
+
+// Import Material-UI
+import { Button, Link, Grid, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -56,7 +45,7 @@ export default function SignIn(props) {
     email: "",
     password: ""
   })
-  const {userName, setUserName} = useContext(UserContext);
+  const {setUserName} = useContext(UserContext);
 
   const [isError, setIsError] = useState(false);
 
@@ -95,8 +84,8 @@ export default function SignIn(props) {
       <div style={{display:'flex', alignItems:'center', justifyContent:'center', width: '100%', height: '90%'}}>
         <div style={{display:'flex', flexDirection:'column', alignItems:'center', marginRight:'120px', zIndex:'999'}}>
           <div style={{fontSize:'42px', color:'whitesmoke', display:'flex', flexDirection:'column', alignItems:'center', marginBottom:'10px'}}>
-            <div>Record your receipts,</div>
-            <div>smartly.</div>
+            <div>Bookkeeping made easy</div>
+            <div>with smart scan.</div>
           </div>
           <img
           src="/illustration.png"
@@ -108,7 +97,7 @@ export default function SignIn(props) {
               <img
                 style={{width:'90px', height:'90px'}}
                 src="/icons/noBGLogo.png"
-                alt="logo icon"
+                alt="signIn-logo"
               />
               <div style={{fontSize:'38px', color:'white', marginTop:'6px'}}>Bookify</div>
             </div>
@@ -129,7 +118,6 @@ export default function SignIn(props) {
               value={formValues.email}
               onChange={handleChange}
               autoFocus
-              back
             />
             <TextField
             style={{
@@ -175,7 +163,7 @@ export default function SignIn(props) {
       </div>
       <img
       src="/bg.png"
-      alt="background photo"
+      alt="background"
       style={{position:'fixed', bottom:'0'}}/>
     </section>
   );

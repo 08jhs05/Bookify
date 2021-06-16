@@ -1,18 +1,16 @@
+// Import react and external library
+import { useState } from 'react';
 import { Pie } from 'react-chartjs-2'
+
+// Import helper functions
 import { RGBPicker } from '../../helpers'
 
-import Paper from '@material-ui/core/Paper';
-import { Divider } from '@material-ui/core';
-
-import React from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+// Import Material-UI
+import { Divider, Radio, RadioGroup, FormControlLabel, Paper } from '@material-ui/core';
 
 export default function DashboardCategories(props) {
-
-  const rgbPicker = new RGBPicker;
-
+  const {incomes, expenses} = props.data;
+  const rgbPicker = new RGBPicker();
   //make props data usable for pie chart
   const incomesLabels = [];
   const incomesDataIndex = {};
@@ -26,32 +24,31 @@ export default function DashboardCategories(props) {
                               data:[],
                             backgroundColor: [] }];
 
-  for(const income of props.data.incomes) {
+  for(const income of incomes) {
     if(!incomesLabels.includes(income.category[0])) {
       incomesLabels.push(income.category[0]);
       incomesDataIndex[income.category[0]] = incomesDatasets[0].data.length;
-      incomesDatasets[0].data.push(income.amount);
+      incomesDatasets[0].data.push(income.amount/100);
       incomesDatasets[0].backgroundColor.push(rgbPicker.getnextColor())
     } else {
-      incomesDatasets[0].data[incomesDataIndex[income.category[0]]] = incomesDatasets[0].data[incomesDataIndex[income.category[0]]] + income.amount;
+      incomesDatasets[0].data[incomesDataIndex[income.category[0]]] = incomesDatasets[0].data[incomesDataIndex[income.category[0]]] + income.amount/100;
     }
   };
 
-  for(const expenses of props.data.expenses) {
-    let categoryname = expenses.category[0];
-    if(expenses.category.length > 1) categoryname = `${expenses.category[0]} - ${expenses.category[1]}`
+  for(const expense of expenses) {
+    let categoryname = expense.category[0];
+    if(expense.category.length > 1) categoryname = `${expense.category[0]} - ${expense.category[1]}`
     if(!expensesLabels.includes(categoryname)) {
       expensesLabels.push(categoryname);
       expensesDataIndex[categoryname] = expensesDatasets[0].data.length;
-      expensesDatasets[0].data.push(expenses.amount);
+      expensesDatasets[0].data.push(expense.amount/100);
       expensesDatasets[0].backgroundColor.push(rgbPicker.getnextColor())
     } else {
-      expensesDatasets[0].data[expensesDataIndex[categoryname]] = expensesDatasets[0].data[expensesDataIndex[categoryname]] + expenses.amount;
+      expensesDatasets[0].data[expensesDataIndex[categoryname]] = expensesDatasets[0].data[expensesDataIndex[categoryname]] + expense.amount/100;
     }
   };
-  //=======================
 
-  const [value, setValue] = React.useState('Incomes');
+  const [value, setValue] = useState('Incomes');
   const handleChange = (event) => {
     setValue(event.target.value);
   };

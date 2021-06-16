@@ -1,12 +1,16 @@
+// Import react and react pre-built methods
 import React, { useState } from 'react';
+
+// Import material-UI
 import { Chip, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import { Autocomplete } from "@material-ui/lab";
+
 import axios from 'axios';
 
 import { setCurrentDate } from '../../helpers'
 
-export default function ExpenseForm(props) {
+export default function ExpenseForm({reloadPage}) {
   const currentDate = setCurrentDate();
 
   const [open, setOpen] = useState(false);
@@ -53,7 +57,7 @@ export default function ExpenseForm(props) {
       })
       setCategory([])
       handleClose()
-      props.reloadPage()
+      reloadPage()
     })
     .catch(err => console.log("Error Triggered! \n", err));
 

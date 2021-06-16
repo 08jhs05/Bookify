@@ -1,14 +1,12 @@
-  
-import React from 'react';
-import Link from '@material-ui/core/Link';
+//Import React
+import React from "react";
+
+// Import Material-UI
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { getChartFromNow, convertDateArrToObj, formatCurrencyForFE } from '../helpers'
 
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+// Import helper functions
+import { getChartFromNow, formatCurrencyForFE } from '../helpers'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -18,31 +16,19 @@ const useStyles = makeStyles({
 
 export default function IncomeExpenseSummary(props) {
   const classes = useStyles();
-  
+  const {data, daysAgo, } = props;
   let formatDepositData = [0,0];
 
   let endDate = new Date()
   let startDate = new Date()
 
-  if (props.data) {
-    let dwmProps = "";
-
-    if (props.daysAgo <= 30) {
-      dwmProps = "daily"
-    } else if (props.daysAgo < 150){
-      dwmProps = "weekly"
-    } else {
-      dwmProps = "monthly"
-    }
-
+  if (data) {
     // This is an example of creating data for the charts
-    formatDepositData = getChartFromNow(props.daysAgo, dwmProps, props.data);
+    formatDepositData = getChartFromNow(daysAgo, data);
   
-    let daysBefore = props.daysAgo
-
-    
-      //Sets the start date based on how many days we have
-      startDate.setDate(endDate.getDate() - daysBefore)
+    let daysBefore = daysAgo
+    //Sets the start date based on how many days we have
+    startDate.setDate(endDate.getDate() - daysBefore)
   
   }
   

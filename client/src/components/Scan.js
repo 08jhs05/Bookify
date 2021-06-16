@@ -6,7 +6,7 @@ import axios from 'axios';
 import Status from './Status';
 
 //Importing Material UI
-import { Chip, IconButton, TextField, Paper } from "@material-ui/core"
+import { Chip, TextField, Paper } from "@material-ui/core"
 import Button from '@material-ui/core/Button';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { Autocomplete } from "@material-ui/lab";
@@ -16,7 +16,7 @@ import IncExNavbar from "./IncExNavbar";
 //Import helper functions
 import { setCurrentDate } from "../helpers";
 
-export default function Scan(props) {
+export default function Scan({logoutCallback}) {
   const currentDate = setCurrentDate();
 
   //useState for setting dates and amount. Grabs the data from the api call
@@ -33,7 +33,7 @@ export default function Scan(props) {
   const webcamRef = useRef(null);
 
   const [showStatus, setShowStatus] = useState(false);
-  const [controlSubmit, setControlSubmit] = useState(["disabled", "grey"]);
+  const [controlSubmit, setControlSubmit] = useState("");
 
   //Captures the screenshot of the webcam and saves the image into base64 encoded data.
   const capture = () => {
@@ -44,7 +44,14 @@ export default function Scan(props) {
 
   useEffect(() => {
     if (imgSrc) {
-      apiCall(imgSrc)
+      axios
+      .post("/api/processData/", { data: imgSrc })
+      .then((res) => {
+        setShowStatus(false)
+        setControlSubmit("#303F9F")
+        return formatResponseData(JSON.parse(res.data)
+        )})
+      .catch((err) => console.error(err));
     }
   },[imgSrc])
 
@@ -61,17 +68,6 @@ export default function Scan(props) {
       amount: data.amount
     })
   } 
-
-  const apiCall = async () => {
-    await axios
-    .post("/api/processData/", { data: imgSrc })
-    .then((res) => {
-      setShowStatus(false)
-      setControlSubmit(["contained", "#303F9F"])
-      return formatResponseData(JSON.parse(res.data)
-      )})
-    .catch((err) => console.error(err));
-  };
 
   const handleDataChange = (value) => {
     setResponseData({
@@ -110,7 +106,7 @@ export default function Scan(props) {
   
   return (
     <section className="not_sidebar scan">
-      <IncExNavbar type={"Scan"} isScanPage={true} logoutCallback={props.logoutCallback}/>
+      <IncExNavbar type={"Scan"} isScanPage={true} logoutCallback={logoutCallback}/>
       <div className="scan-component" >
       <Paper className="scan-direction" style={{borderRadius:'20px', width:'40%', marginBottom: '40px', padding: '0 20px 0 20px'}}>
       <div className="webcam-scan">
@@ -183,9 +179,8 @@ export default function Scan(props) {
         </div>
 
         <div className="scan-button">
-          <Button variant={controlSubmit[0]} style={{width:'200px', height:'40px', backgroundColor:`${controlSubmit[1]}`, color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>
-            Submit
-          </Button>
+          {!controlSubmit ? <Button variant="contained" disabled style={{width:'200px', height:'40px', backgroundColor: "grey", color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>Submit</Button>
+            : <Button variant="contained" style={{width:'200px', height:'40px', backgroundColor:`${controlSubmit}`, color:'white', borderRadius:'15px', marginTop:'20px'}} onClick={formSubmit}>Submit</Button>}
         </div>
       </Paper>
       </div>
