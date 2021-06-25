@@ -3,8 +3,8 @@
 A bookkeeping web application that allows users to scan expenses and input incomes to thoroughly analyze flows of the budget.
 
 ## Features
-- Browsing the app 
-!["Browsing the app"](https://github.com/08jhs05/Bookify/blob/main/docs/bookify_browser.gif "Web application browser")
+- Browsing the app (click picture below for video of demo)
+[!["Browsing the app"](https://github.com/08jhs05/Bookify/blob/main/docs/bookify_browser.gif "Web application browser")](https://www.youtube.com/watch?v=DpS8RdKg_Po)
 
 ## Dependencies
 

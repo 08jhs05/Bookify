@@ -48,12 +48,14 @@ export default function DashboardGraph(props) {
               label: 'Total Incomes',
               data: incomesChartData,
               borderColor: '#303F9F',
+              backgroundColor: '#303F9F',
               tension: 0.1
             },
             {
               label: 'Total Expenses',
               data: expensesChartData,
               borderColor: '#E91E63',
+              backgroundColor: '#E91E63',
               tension: 0.1
             }
             ]

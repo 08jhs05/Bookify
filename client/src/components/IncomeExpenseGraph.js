@@ -25,7 +25,8 @@ export default function IncomeExpenseGraph(props) {
     datasets: [{
       label: type === 'incomes' ?  'Total Incomes' : 'Total Expenses',
       data: formatDepositData[1].map(x => x/100),
-      borderColor: type === 'incomes' ? '#303F9F' : '#E91E63'
+      borderColor: type === 'incomes' ? '#303F9F' : '#E91E63',
+      backgroundColor: type === 'incomes' ? '#303F9F' : '#E91E63'
     }
     ]
   }
